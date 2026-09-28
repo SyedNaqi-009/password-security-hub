@@ -68,6 +68,49 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- Blog -->
+  <url>
+    <loc>https://passwordsecurityhub.com/blog/index.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://passwordsecurityhub.com/blog/posts/how-long-should-your-password-be-in-2026.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://passwordsecurityhub.com/blog/posts/passphrases-vs-passwords-which-is-more-secure.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://passwordsecurityhub.com/blog/posts/what-is-password-entropy-and-why-it-matters.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://passwordsecurityhub.com/blog/posts/the-worst-passwords-and-what-they-teach-us.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://passwordsecurityhub.com/blog/posts/how-zero-knowledge-architecture-protects-your-privacy.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://passwordsecurityhub.com/blog/posts/understanding-hashing-vs-encryption.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <!-- Content & Legal Pages -->
   <url>
     <loc>https://passwordsecurityhub.com/pages/about.html</loc>

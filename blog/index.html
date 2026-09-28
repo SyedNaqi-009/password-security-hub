@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybersecurity &amp; Password Safety Blog | Password Security Hub</title>
+  <meta name="description" content="Read expert cybersecurity guides, password best practices, entropy explanations, and digital privacy tutorials. Updated for 2026.">
+  <link rel="canonical" href="https://passwordsecurityhub.com/blog/index.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://passwordsecurityhub.com/blog/index.html">
+  <meta property="og:title" content="Cybersecurity &amp; Password Safety Blog | Password Security Hub">
+  <meta property="og:description" content="In-depth cybersecurity tutorials, password hygiene guides, and encryption analysis.">
+  <meta property="og:image" content="https://passwordsecurityhub.com/assets/images/og-image.png">
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/global.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/themes.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Password Security Hub Insights",
+    "url": "https://passwordsecurityhub.com/blog/index.html",
+    "description": "Expert insights into password generation, cryptography, and online privacy."
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/index.html" class="site-logo" aria-label="Password Security Hub Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+        <span>Password Security Hub</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <a href="/index.html" class="nav-link">Home</a>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown__trigger" aria-haspopup="true" aria-expanded="false">
+            <span>Tools</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="nav-dropdown__menu">
+            <a href="/pages/password-generator.html" class="nav-dropdown__item">🔑 Password Generator</a>
+            <a href="/pages/password-strength-checker.html" class="nav-dropdown__item">🛡️ Strength Checker</a>
+            <a href="/pages/passphrase-generator.html" class="nav-dropdown__item">🎲 Passphrase Generator</a>
+            <a href="/pages/pin-generator.html" class="nav-dropdown__item">🔢 PIN Generator</a>
+            <a href="/pages/username-generator.html" class="nav-dropdown__item">👤 Username Generator</a>
+            <a href="/pages/password-entropy-calculator.html" class="nav-dropdown__item">📊 Entropy Calculator</a>
+            <a href="/pages/password-policy-checker.html" class="nav-dropdown__item">📋 Policy Checker</a>
+            <a href="/pages/hash-generator.html" class="nav-dropdown__item">⚡ Hash Generator</a>
+            <a href="/pages/bulk-password-generator.html" class="nav-dropdown__item">📦 Bulk Generator</a>
+            <a href="/pages/security-code-generator.html" class="nav-dropdown__item">🔐 Security Codes</a>
+          </div>
+        </div>
+        <a href="/blog/index.html" class="nav-link active">Blog</a>
+        <a href="/pages/about.html" class="nav-link">About</a>
+        <a href="/pages/faq.html" class="nav-link">FAQ</a>
+        <a href="/pages/contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        </button>
+        <button id="hamburger" class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Drawer -->
+  <div id="mobile-nav-backdrop" class="mobile-nav__backdrop"></div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile Navigation">
+    <div class="mobile-nav-header">
+      <span class="mobile-nav-title">Menu</span>
+      <button class="close-mobile-nav" id="close-mobile-nav" aria-label="Close menu" type="button">✕</button>
+    </div>
+    <div class="mobile-nav__section">
+      <a href="/index.html" class="mobile-nav__link">🏠 Home</a>
+      <a href="/blog/index.html" class="mobile-nav__link">📰 Security Blog</a>
+    </div>
+    <div class="mobile-nav__section">
+      <div class="mobile-nav__title">Security Tools</div>
+      <a href="/pages/password-generator.html" class="mobile-nav__link">🔑 Password Generator</a>
+      <a href="/pages/password-strength-checker.html" class="mobile-nav__link">🛡️ Strength Checker</a>
+      <a href="/pages/passphrase-generator.html" class="mobile-nav__link">🎲 Passphrase Generator</a>
+      <a href="/pages/pin-generator.html" class="mobile-nav__link">🔢 PIN Generator</a>
+      <a href="/pages/username-generator.html" class="mobile-nav__link">👤 Username Generator</a>
+      <a href="/pages/password-entropy-calculator.html" class="mobile-nav__link">📊 Entropy Calculator</a>
+      <a href="/pages/password-policy-checker.html" class="mobile-nav__link">📋 Policy Checker</a>
+      <a href="/pages/hash-generator.html" class="mobile-nav__link">⚡ Hash Generator</a>
+      <a href="/pages/bulk-password-generator.html" class="mobile-nav__link">📦 Bulk Generator</a>
+      <a href="/pages/security-code-generator.html" class="mobile-nav__link">🔐 Security Codes</a>
+    </div>
+    <div class="mobile-nav__section">
+      <div class="mobile-nav__title">Information</div>
+      <a href="/pages/about.html" class="mobile-nav__link">About Us</a>
+      <a href="/pages/faq.html" class="mobile-nav__link">FAQ</a>
+      <a href="/pages/contact.html" class="mobile-nav__link">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container">
+      
+      <nav aria-label="Breadcrumb">
+        <ul class="breadcrumb">
+          <li><a href="/index.html">Home</a></li>
+          <li aria-current="page">Blog</li>
+        </ul>
+      </nav>
+
+      <!-- Blog Header -->
+      <div class="text-center mb-xl">
+        <span class="badge badge--info mb-xs">Cybersecurity Education</span>
+        <h1>Password Security &amp; Privacy Insights</h1>
+        <p style="max-width: 650px; margin: 0 auto;">
+          In-depth guides, practical defense strategies, encryption tutorials, and actionable password hygiene tips written for users and sysadmins.
+        </p>
+      </div>
+
+      <!-- Leaderboard Ad Slot Placeholder -->
+      <div class="ad-slot" style="min-height: 90px; margin-bottom: var(--space-xl);" aria-hidden="true">
+        <span>Advertisement Placeholder (728x90 Leaderboard)</span>
+      </div>
+
+      <!-- Articles Grid -->
+      <div class="grid grid--3 mb-2xl">
+        
+        <!-- Article 1 -->
+        <article class="card card--hover" style="display: flex; flex-direction: column; height: 100%;">
+          <div style="background-color: var(--accent-light); padding: var(--space-lg); border-radius: var(--radius-md) var(--radius-md) 0 0; text-align: center; font-size: 40px;">
+            🔐
+          </div>
+          <div style="padding: var(--space-md); flex: 1; display: flex; flex-direction: column;">
+            <span class="badge badge--info mb-xs" style="align-self: flex-start;">Best Practices</span>
+            <h2 style="font-size: 20px; margin: 6px 0;">
+              <a href="/blog/posts/how-long-should-your-password-be-in-2026.html" style="color: var(--text-primary);">
+                How Long Should Your Password Be in 2026?
+              </a>
+            </h2>
+            <p class="text-sm text-secondary" style="margin-bottom: var(--space-md); flex: 1;">
+              With modern cloud computing and GPU clusters cracking 8-character passwords in milliseconds, discover the recommended character length to stay secure.
+            </p>
+            <div class="flex justify-between items-center text-sm text-secondary pt-sm" style="border-top: 1px solid var(--border);">
+              <span>6 min read</span>
+              <a href="/blog/posts/how-long-should-your-password-be-in-2026.html" class="font-bold">Read Guide →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 2 -->
+        <article class="card card--hover" style="display: flex; flex-direction: column; height: 100%;">
+          <div style="background-color: var(--success-light); padding: var(--space-lg); border-radius: var(--radius-md) var(--radius-md) 0 0; text-align: center; font-size: 40px;">
+            🎲
+          </div>
+          <div style="padding: var(--space-md); flex: 1; display: flex; flex-direction: column;">
+            <span class="badge badge--success mb-xs" style="align-self: flex-start;">Passphrases</span>
+            <h2 style="font-size: 20px; margin: 6px 0;">
+              <a href="/blog/posts/passphrases-vs-passwords-which-is-more-secure.html" style="color: var(--text-primary);">
+                Passphrases vs. Passwords: Which Is More Secure?
+              </a>
+            </h2>
+            <p class="text-sm text-secondary" style="margin-bottom: var(--space-md); flex: 1;">
+              Explore the mathematics behind multi-word Diceware passphrases and why memorable words beat complex character strings on mobile devices.
+            </p>
+            <div class="flex justify-between items-center text-sm text-secondary pt-sm" style="border-top: 1px solid var(--border);">
+              <span>5 min read</span>
+              <a href="/blog/posts/passphrases-vs-passwords-which-is-more-secure.html" class="font-bold">Read Guide →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 3 -->
+        <article class="card card--hover" style="display: flex; flex-direction: column; height: 100%;">
+          <div style="background-color: var(--warning-light); padding: var(--space-lg); border-radius: var(--radius-md) var(--radius-md) 0 0; text-align: center; font-size: 40px;">
+            📊
+          </div>
+          <div style="padding: var(--space-md); flex: 1; display: flex; flex-direction: column;">
+            <span class="badge badge--warning mb-xs" style="align-self: flex-start;">Cryptography</span>
+            <h2 style="font-size: 20px; margin: 6px 0;">
+              <a href="/blog/posts/what-is-password-entropy-and-why-it-matters.html" style="color: var(--text-primary);">
+                What Is Password Entropy and Why Does It Matter?
+              </a>
+            </h2>
+            <p class="text-sm text-secondary" style="margin-bottom: var(--space-md); flex: 1;">
+              Learn the Shannon entropy formula, bit measurements, and why 100+ bits of entropy are required to withstand quantum and brute-force attacks.
+            </p>
+            <div class="flex justify-between items-center text-sm text-secondary pt-sm" style="border-top: 1px solid var(--border);">
+              <span>8 min read</span>
+              <a href="/blog/posts/what-is-password-entropy-and-why-it-matters.html" class="font-bold">Read Guide →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 4 -->
+        <article class="card card--hover" style="display: flex; flex-direction: column; height: 100%;">
+          <div style="background-color: var(--danger-light); padding: var(--space-lg); border-radius: var(--radius-md) var(--radius-md) 0 0; text-align: center; font-size: 40px;">
+            🚫
+          </div>
+          <div style="padding: var(--space-md); flex: 1; display: flex; flex-direction: column;">
+            <span class="badge badge--danger mb-xs" style="align-self: flex-start;">Threat Analysis</span>
+            <h2 style="font-size: 20px; margin: 6px 0;">
+              <a href="/blog/posts/the-worst-passwords-and-what-they-teach-us.html" style="color: var(--text-primary);">
+                The Most Common Passwords and What They Teach Us
+              </a>
+            </h2>
+            <p class="text-sm text-secondary" style="margin-bottom: var(--space-md); flex: 1;">
+              Analyzing millions of leaked passwords from recent breaches. Why "123456" and "password" still dominate and how attackers exploit predictability.
+            </p>
+            <div class="flex justify-between items-center text-sm text-secondary pt-sm" style="border-top: 1px solid var(--border);">
+              <span>7 min read</span>
+              <a href="/blog/posts/the-worst-passwords-and-what-they-teach-us.html" class="font-bold">Read Guide →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 5 -->
+        <article class="card card--hover" style="display: flex; flex-direction: column; height: 100%;">
+          <div style="background-color: var(--accent-light); padding: var(--space-lg); border-radius: var(--radius-md) var(--radius-md) 0 0; text-align: center; font-size: 40px;">
+            🛡️
+          </div>
+          <div style="padding: var(--space-md); flex: 1; display: flex; flex-direction: column;">
+            <span class="badge badge--info mb-xs" style="align-self: flex-start;">Data Privacy</span>
+            <h2 style="font-size: 20px; margin: 6px 0;">
+              <a href="/blog/posts/how-zero-knowledge-architecture-protects-your-privacy.html" style="color: var(--text-primary);">
+                What Is Zero-Knowledge Architecture in Security?
+              </a>
+            </h2>
+            <p class="text-sm text-secondary" style="margin-bottom: var(--space-md); flex: 1;">
+              How end-to-end encryption and client-side processing ensure that service providers cannot access your secrets, even under government subpoenas.
+            </p>
+            <div class="flex justify-between items-center text-sm text-secondary pt-sm" style="border-top: 1px solid var(--border);">
+              <span>6 min read</span>
+              <a href="/blog/posts/how-zero-knowledge-architecture-protects-your-privacy.html" class="font-bold">Read Guide →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 6 -->
+        <article class="card card--hover" style="display: flex; flex-direction: column; height: 100%;">
+          <div style="background-color: var(--success-light); padding: var(--space-lg); border-radius: var(--radius-md) var(--radius-md) 0 0; text-align: center; font-size: 40px;">
+            ⚡
+          </div>
+          <div style="padding: var(--space-md); flex: 1; display: flex; flex-direction: column;">
+            <span class="badge badge--success mb-xs" style="align-self: flex-start;">Tech Guides</span>
+            <h2 style="font-size: 20px; margin: 6px 0;">
+              <a href="/blog/posts/understanding-hashing-vs-encryption.html" style="color: var(--text-primary);">
+                The Difference Between Encryption and Hashing
+              </a>
+            </h2>
+            <p class="text-sm text-secondary" style="margin-bottom: var(--space-md); flex: 1;">
+              Clear, non-technical explanation comparing reversible cryptographic encryption (AES) with one-way deterministic hashing (SHA-256, bcrypt).
+            </p>
+            <div class="flex justify-between items-center text-sm text-secondary pt-sm" style="border-top: 1px solid var(--border);">
+              <span>5 min read</span>
+              <a href="/blog/posts/understanding-hashing-vs-encryption.html" class="font-bold">Read Guide →</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Password Security Hub. Cybersecurity educational guides.</p>
+      <div class="flex gap-md">
+        <a href="/pages/privacy-policy.html">Privacy</a>
+        <a href="/pages/terms-of-service.html">Terms</a>
+        <a href="/pages/contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/app.js" defer></script>
+</body>
+</html>
