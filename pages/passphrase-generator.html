@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passphrase Generator — Memorable & Secure | Password Security Hub</title>
+    <meta name="description" content="Generate highly secure, easy-to-remember passphrases using the EFF wordlist. Free, client-side, and entirely private passphrase generator.">
+    <link rel="canonical" href="https://example.com/pages/passphrase-generator.html">
+    <meta property="og:title" content="Passphrase Generator — Memorable & Secure">
+    <meta property="og:description" content="Generate highly secure, easy-to-remember passphrases using the EFF wordlist.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/themes.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "name": "Memorable Passphrase Generator",
+          "applicationCategory": "SecurityApplication",
+          "operatingSystem": "Any",
+          "description": "A tool to generate highly secure and memorable passphrases using the EFF wordlist."
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is a passphrase?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A passphrase is a sequence of words or other text used to control access to a computer system, program or data. It offers high security while being easier to remember than random characters."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <nav class="nav">
+                <a href="../index.html" class="logo">Password Security Hub</a>
+                <ul class="nav-links">
+                    <li><a href="password-generator.html">Password Generator</a></li>
+                    <li><a href="passphrase-generator.html" aria-current="page">Passphrase Generator</a></li>
+                    <li><a href="strength-checker.html">Strength Checker</a></li>
+                    <li><a href="pin-generator.html">PIN Generator</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container page-content">
+        <nav aria-label="Breadcrumb" class="breadcrumb">
+            <ol>
+                <li><a href="../index.html">Home</a></li>
+                <li aria-current="page">Passphrase Generator</li>
+            </ol>
+        </nav>
+
+        <h1>Memorable Passphrase Generator</h1>
+        
+        <div class="ad-slot top-ad">
+            <!-- Top Ad Slot -->
+        </div>
+
+        <div class="tool-card">
+            <div class="output-group">
+                <div id="passphrase-display" class="passphrase-display" aria-live="polite"></div>
+                <button id="copy-btn" class="btn btn-primary" aria-label="Copy passphrase to clipboard">Copy</button>
+            </div>
+            
+            <div class="strength-meter">
+                <div class="strength-bar-container">
+                    <div id="strength-bar" class="strength-bar" style="width: 0%"></div>
+                </div>
+                <div class="strength-stats">
+                    <span id="entropy-display">Entropy: 0 bits</span>
+                    <span id="crack-time">Crack time: 0s</span>
+                </div>
+            </div>
+
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label for="word-count">Word Count (<span id="word-count-val">4</span>)</label>
+                    <input type="range" id="word-count" min="3" max="10" value="4">
+                </div>
+                
+                <div class="control-group">
+                    <label for="separator">Separator</label>
+                    <select id="separator">
+                        <option value="-">Hyphen (-)</option>
+                        <option value=" ">Space ( )</option>
+                        <option value=".">Period (.)</option>
+                        <option value="_">Underscore (_)</option>
+                        <option value="custom">Custom...</option>
+                    </select>
+                    <input type="text" id="custom-separator" style="display: none;" maxlength="1" aria-label="Custom separator">
+                </div>
+
+                <div class="control-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="capitalize" checked> Capitalize first letter
+                    </label>
+                </div>
+                
+                <div class="control-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="append-number"> Append random number
+                    </label>
+                </div>
+            </div>
+            
+            <button id="generate-btn" class="btn btn-accent btn-large">Generate Passphrase</button>
+        </div>
+
+        <section class="content-section">
+            <h2>How to Use</h2>
+            <p>Select the number of words you want in your passphrase, choose a separator, and customize the capitalization or number inclusion. Click generate to instantly create a secure passphrase. The passphrase is created locally on your device for maximum privacy and security.</p>
+            
+            <h2>Why Use a Passphrase?</h2>
+            <p>Passphrases are typically longer than conventional passwords, which makes them much harder for attackers to crack (providing higher entropy). Because they are made of real words, they are significantly easier for humans to remember than random strings of characters.</p>
+            
+            <h2>Related Tools</h2>
+            <ul class="related-tools">
+                <li><a href="password-generator.html">Password Generator</a></li>
+                <li><a href="strength-checker.html">Strength Checker</a></li>
+                <li><a href="pin-generator.html">PIN Generator</a></li>
+            </ul>
+        </section>
+
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <details>
+                <summary>What is a passphrase?</summary>
+                <p>A passphrase is a sequence of words used to control access to a computer system, program, or data. It offers high security while being memorable.</p>
+            </details>
+            <details>
+                <summary>Is this passphrase generator secure?</summary>
+                <p>Yes. All generation happens locally in your browser using secure cryptographic functions (`crypto.getRandomValues()`). We do not track or store the passphrases generated.</p>
+            </details>
+        </section>
+        
+        <div class="ad-slot bottom-ad">
+            <!-- Bottom Ad Slot -->
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 Password Security Hub. All tools run entirely in your browser.</p>
+        </div>
+    </footer>
+    <script type="module" src="../assets/js/tools/passphrase-generator.js" defer></script>
+</body>
+</html>

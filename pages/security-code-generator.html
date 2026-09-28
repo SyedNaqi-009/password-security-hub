@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Code Generator — OTP, API Keys | Password Security Hub</title>
+    <meta name="description" content="Generate random security codes, OTPs, API keys, Hex keys, UUIDs, and Base64 tokens. Secure client-side processing.">
+    <link rel="canonical" href="https://example.com/pages/security-code-generator.html">
+    <meta property="og:title" content="Security Code Generator">
+    <meta property="og:description" content="Generate random security codes, OTPs, API keys, Hex keys, UUIDs, and Base64 tokens.">
+    <meta property="og:type" content="website">
+    
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/themes.css">
+    
+    <script type="module" src="../assets/js/app.js" defer></script>
+    <script type="module" src="../assets/js/tools/security-code-generator.js" defer></script>
+    
+    <style>
+        .code-type-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        .pill-btn {
+            padding: 8px 16px;
+            border-radius: 9999px;
+            border: 1px solid var(--border);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .pill-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        .code-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            background: var(--bg-tertiary);
+            padding: 16px;
+            border-radius: 8px;
+            word-break: break-all;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+        }
+        .code-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .code-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-secondary);
+            padding: 12px 16px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="../index.html" class="logo">Password Security Hub</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="password-generator.html">Password Generator</a></li>
+                    <li><a href="hash-generator.html">Hash Generator</a></li>
+                    <li><a href="bulk-password-generator.html">Bulk Generator</a></li>
+                    <li><a href="security-code-generator.html" class="active" aria-current="page">Security Codes</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <nav class="breadcrumb" aria-label="breadcrumb">
+            <ol>
+                <li><a href="../index.html">Home</a></li>
+                <li><span aria-current="page">Security Code Generator</span></li>
+            </ol>
+        </nav>
+
+        <section class="tool-section">
+            <h1 class="page-title">Random Security Code Generator</h1>
+            <p class="page-subtitle">Instantly generate cryptographically secure OTPs, API keys, and tokens.</p>
+            
+            <div class="tool-card">
+                <div class="code-type-selector" id="type-selector">
+                    <button class="pill-btn active" data-type="otp">Numeric OTP</button>
+                    <button class="pill-btn" data-type="alpha">Alphanumeric Token</button>
+                    <button class="pill-btn" data-type="hex">Hex Key</button>
+                    <button class="pill-btn" data-type="uuid">UUID v4</button>
+                    <button class="pill-btn" data-type="base64">Base64 Token</button>
+                </div>
+
+                <div class="config-panel">
+                    <div class="config-row" id="length-config">
+                        <div class="slider-group">
+                            <label for="length-slider">Length: <span id="length-display">6</span></label>
+                            <input type="range" id="length-slider" min="4" max="12" value="6">
+                        </div>
+                    </div>
+                    <div class="config-row">
+                        <div class="slider-group">
+                            <label for="quantity-slider">Quantity: <span id="quantity-display">1</span></label>
+                            <input type="range" id="quantity-slider" min="1" max="20" value="1">
+                        </div>
+                    </div>
+                    
+                    <button id="generate-btn" class="btn btn-primary btn-large w-100">Generate Codes</button>
+                </div>
+
+                <div class="output-panel">
+                    <div class="actions-toolbar" style="margin-bottom: 16px;">
+                        <button id="copy-all-btn" class="btn btn-secondary">Copy All</button>
+                        <button id="export-txt-btn" class="btn btn-secondary">Export TXT</button>
+                    </div>
+                    <div class="code-list" id="code-output-list" aria-live="polite">
+                        <!-- Codes will appear here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="grid-2-col">
+                <div>
+                    <h2>What are Security Codes used for?</h2>
+                    <ul>
+                        <li><strong>OTP (One-Time Passwords):</strong> Often used for Two-Factor Authentication (2FA) sent via SMS or email.</li>
+                        <li><strong>API Keys (Alphanumeric/Base64):</strong> Used by developers to authenticate software applications.</li>
+                        <li><strong>Hex Keys:</strong> Common for WEP/WPA encryption keys and system identifiers.</li>
+                        <li><strong>UUID v4:</strong> Universally Unique Identifiers are used extensively in databases to ensure record uniqueness.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h2>Secure & Client-Side</h2>
+                    <p>All codes generated on this page use the Web Crypto API, meaning they rely on high-quality randomness provided by your operating system. Because this is a client-side tool, your generated secrets are never exposed to a server, making them perfectly safe to use in production environments.</p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="ad-slot placeholder">Ad Space</div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2023 Password Security Hub. All tools run client-side for your privacy.</p>
+        </div>
+    </footer>
+</body>
+</html>

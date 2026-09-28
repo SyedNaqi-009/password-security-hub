@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Username Generator — Creative Ideas | Password Security Hub</title>
+    <meta name="description" content="Generate creative, random, or professional usernames tailored to your style. Perfect for gaming, forums, or social media.">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/themes.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav aria-label="Breadcrumb">
+            <ol class="breadcrumb">
+                <li><a href="../index.html">Home</a></li>
+                <li aria-current="page">Username Generator</li>
+            </ol>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Username Generator</h1>
+        
+        <section class="tool-card" aria-label="Username Generator Settings">
+            <form id="username-generator-form">
+                <div class="form-group">
+                    <label for="keyword">Keyword (Optional):</label>
+                    <input type="text" id="keyword" maxlength="20" placeholder="e.g. Wolf">
+                </div>
+
+                <fieldset>
+                    <legend>Style</legend>
+                    <div class="pill-group">
+                        <label class="pill"><input type="radio" name="style" value="Random" checked> Random</label>
+                        <label class="pill"><input type="radio" name="style" value="Gaming"> Gaming</label>
+                        <label class="pill"><input type="radio" name="style" value="Professional"> Professional</label>
+                        <label class="pill"><input type="radio" name="style" value="Funny"> Funny</label>
+                    </div>
+                </fieldset>
+
+                <div class="form-group">
+                    <label for="maxLength">Max Length: <span id="maxLengthVal">15</span></label>
+                    <input type="range" id="maxLength" min="6" max="20" value="15">
+                </div>
+
+                <fieldset>
+                    <legend>Options</legend>
+                    <label><input type="checkbox" id="includeNumbers" checked> Include numbers</label>
+                    <label><input type="checkbox" id="includeUnderscores"> Include underscores</label>
+                </fieldset>
+
+                <button type="submit" class="btn btn-primary" id="generate-btn">Generate</button>
+            </form>
+        </section>
+
+        <section class="output-section" aria-live="polite">
+            <h2>Generated Usernames</h2>
+            <div id="username-output-grid" class="username-grid"></div>
+            
+            <div class="actions" style="margin-top: 16px;">
+                <button id="generate-more-btn" class="btn btn-secondary">Generate More</button>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2>How to Use</h2>
+            <p>Enter an optional keyword, select your preferred style, and adjust the max length and options to generate a list of creative usernames. Click on any username to copy it or click the refresh icon to regenerate an individual one.</p>
+
+            <h2>Why Use This Tool</h2>
+            <p>Finding a unique username across platforms can be difficult. This tool helps brainstorm memorable names for gaming, professional use, or social media.</p>
+
+            <h2>Related Tools</h2>
+            <ul>
+                <li><a href="password-generator.html">Password Generator</a></li>
+            </ul>
+
+            <h2>FAQ</h2>
+            <dl>
+                <dt>Are these usernames available?</dt>
+                <dd>We do not check availability on specific platforms. You will need to try registering them on your platform of choice.</dd>
+            </dl>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Password Security Hub</p>
+    </footer>
+
+    <script type="module" src="../assets/js/tools/username-generator.js"></script>
+    <script type="module" src="../assets/js/app.js"></script>
+</body>
+</html>
