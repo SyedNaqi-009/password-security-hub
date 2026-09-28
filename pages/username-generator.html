@@ -1,94 +1,181 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Username Generator — Creative Ideas | Password Security Hub</title>
-    <meta name="description" content="Generate creative, random, or professional usernames tailored to your style. Perfect for gaming, forums, or social media.">
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/layout.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="../assets/css/themes.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Username Generator — Creative Ideas | Password Security Hub</title>
+  <meta name="description" content="Generate unique, creative usernames for gaming, social media, and professional branding. 100% free and private.">
+  <link rel="canonical" href="https://passwordsecurityhub.com/pages/username-generator.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://passwordsecurityhub.com/pages/username-generator.html">
+  <meta property="og:title" content="Username Generator — Creative Ideas">
+  <meta property="og:description" content="Generate catchy usernames instantly across multiple genres.">
+  <meta property="og:image" content="https://passwordsecurityhub.com/assets/images/og-image.png">
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/global.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/themes.css">
 </head>
 <body>
-    <header class="site-header">
-        <nav aria-label="Breadcrumb">
-            <ol class="breadcrumb">
-                <li><a href="../index.html">Home</a></li>
-                <li aria-current="page">Username Generator</li>
-            </ol>
-        </nav>
-    </header>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <main class="container">
-        <h1>Username Generator</h1>
-        
-        <section class="tool-card" aria-label="Username Generator Settings">
-            <form id="username-generator-form">
-                <div class="form-group">
-                    <label for="keyword">Keyword (Optional):</label>
-                    <input type="text" id="keyword" maxlength="20" placeholder="e.g. Wolf">
-                </div>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/index.html" class="site-logo" aria-label="Password Security Hub Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+        <span>Password Security Hub</span>
+      </a>
 
-                <fieldset>
-                    <legend>Style</legend>
-                    <div class="pill-group">
-                        <label class="pill"><input type="radio" name="style" value="Random" checked> Random</label>
-                        <label class="pill"><input type="radio" name="style" value="Gaming"> Gaming</label>
-                        <label class="pill"><input type="radio" name="style" value="Professional"> Professional</label>
-                        <label class="pill"><input type="radio" name="style" value="Funny"> Funny</label>
-                    </div>
-                </fieldset>
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown__trigger" aria-haspopup="true" aria-expanded="false">
+            <span>Tools</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="nav-dropdown__menu">
+            <a href="/pages/password-generator.html" class="nav-dropdown__item">🔑 Password Generator</a>
+            <a href="/pages/password-strength-checker.html" class="nav-dropdown__item">🛡️ Strength Checker</a>
+            <a href="/pages/passphrase-generator.html" class="nav-dropdown__item">🎲 Passphrase Generator</a>
+            <a href="/pages/pin-generator.html" class="nav-dropdown__item">🔢 PIN Generator</a>
+            <a href="/pages/username-generator.html" class="nav-dropdown__item">👤 Username Generator</a>
+            <a href="/pages/password-entropy-calculator.html" class="nav-dropdown__item">📊 Entropy Calculator</a>
+            <a href="/pages/password-policy-checker.html" class="nav-dropdown__item">📋 Policy Checker</a>
+            <a href="/pages/hash-generator.html" class="nav-dropdown__item">⚡ Hash Generator</a>
+            <a href="/pages/bulk-password-generator.html" class="nav-dropdown__item">📦 Bulk Generator</a>
+            <a href="/pages/security-code-generator.html" class="nav-dropdown__item">🔐 Security Codes</a>
+          </div>
+        </div>
+        <a href="/pages/about.html" class="nav-link">About</a>
+        <a href="/pages/faq.html" class="nav-link">FAQ</a>
+        <a href="/pages/contact.html" class="nav-link">Contact</a>
+      </nav>
 
-                <div class="form-group">
-                    <label for="maxLength">Max Length: <span id="maxLengthVal">15</span></label>
-                    <input type="range" id="maxLength" min="6" max="20" value="15">
-                </div>
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        </button>
+        <button id="hamburger" class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
 
-                <fieldset>
-                    <legend>Options</legend>
-                    <label><input type="checkbox" id="includeNumbers" checked> Include numbers</label>
-                    <label><input type="checkbox" id="includeUnderscores"> Include underscores</label>
-                </fieldset>
+  <!-- Mobile Nav Drawer -->
+  <div id="mobile-nav-backdrop" class="mobile-nav__backdrop"></div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile Navigation">
+    <div class="mobile-nav-header">
+      <span class="mobile-nav-title">Menu</span>
+      <button class="close-mobile-nav" id="close-mobile-nav" aria-label="Close menu" type="button">✕</button>
+    </div>
+    <div class="mobile-nav__section">
+      <div class="mobile-nav__title">Security Tools</div>
+      <a href="/pages/password-generator.html" class="mobile-nav__link">🔑 Password Generator</a>
+      <a href="/pages/password-strength-checker.html" class="mobile-nav__link">🛡️ Strength Checker</a>
+      <a href="/pages/passphrase-generator.html" class="mobile-nav__link">🎲 Passphrase Generator</a>
+      <a href="/pages/pin-generator.html" class="mobile-nav__link">🔢 PIN Generator</a>
+      <a href="/pages/username-generator.html" class="mobile-nav__link">👤 Username Generator</a>
+      <a href="/pages/password-entropy-calculator.html" class="mobile-nav__link">📊 Entropy Calculator</a>
+      <a href="/pages/password-policy-checker.html" class="mobile-nav__link">📋 Policy Checker</a>
+      <a href="/pages/hash-generator.html" class="mobile-nav__link">⚡ Hash Generator</a>
+      <a href="/pages/bulk-password-generator.html" class="mobile-nav__link">📦 Bulk Generator</a>
+      <a href="/pages/security-code-generator.html" class="mobile-nav__link">🔐 Security Codes</a>
+    </div>
+  </nav>
 
-                <button type="submit" class="btn btn-primary" id="generate-btn">Generate</button>
-            </form>
-        </section>
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container">
+      
+      <nav aria-label="Breadcrumb">
+        <ul class="breadcrumb">
+          <li><a href="/index.html">Home</a></li>
+          <li aria-current="page">Username Generator</li>
+        </ul>
+      </nav>
 
-        <section class="output-section" aria-live="polite">
-            <h2>Generated Usernames</h2>
-            <div id="username-output-grid" class="username-grid"></div>
-            
-            <div class="actions" style="margin-top: 16px;">
-                <button id="generate-more-btn" class="btn btn-secondary">Generate More</button>
+      <div class="tool-layout">
+        <div class="tool-card">
+          <div class="text-center mb-md">
+            <h1>Username Generator</h1>
+            <p>Create catchy, unique usernames for Discord, gaming, GitHub, and social media.</p>
+          </div>
+
+          <form id="username-form">
+            <!-- Keyword -->
+            <div class="input-group">
+              <label for="keyword-input">Seed Keyword (Optional):</label>
+              <input type="text" id="keyword-input" placeholder="e.g. shadow, neo, alex..." maxlength="20" class="input">
             </div>
-        </section>
 
-        <section class="info-section">
-            <h2>How to Use</h2>
-            <p>Enter an optional keyword, select your preferred style, and adjust the max length and options to generate a list of creative usernames. Click on any username to copy it or click the refresh icon to regenerate an individual one.</p>
+            <!-- Style Pills -->
+            <div class="input-group">
+              <label>Username Style:</label>
+              <div class="pill-group" id="style-pills">
+                <button type="button" class="pill-btn active" data-style="random">🎲 Random</button>
+                <button type="button" class="pill-btn" data-style="gaming">🎮 Gaming</button>
+                <button type="button" class="pill-btn" data-style="professional">💼 Professional</button>
+                <button type="button" class="pill-btn" data-style="funny">😄 Funny</button>
+              </div>
+            </div>
 
-            <h2>Why Use This Tool</h2>
-            <p>Finding a unique username across platforms can be difficult. This tool helps brainstorm memorable names for gaming, professional use, or social media.</p>
+            <!-- Options -->
+            <div class="checkbox-grid">
+              <label class="checkbox">
+                <input type="checkbox" id="include-numbers" checked>
+                <span>Include Numbers (e.g. SwiftWolf99)</span>
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" id="include-underscores">
+                <span>Use Underscores (e.g. Swift_Wolf)</span>
+              </label>
+            </div>
 
-            <h2>Related Tools</h2>
-            <ul>
-                <li><a href="password-generator.html">Password Generator</a></li>
-            </ul>
+            <button type="button" id="generate-usernames-btn" class="btn btn--primary btn--full btn--lg mt-md">
+              Generate 10 Usernames
+            </button>
+          </form>
 
-            <h2>FAQ</h2>
-            <dl>
-                <dt>Are these usernames available?</dt>
-                <dd>We do not check availability on specific platforms. You will need to try registering them on your platform of choice.</dd>
-            </dl>
-        </section>
-    </main>
+          <!-- Output Grid -->
+          <div class="mt-lg">
+            <h3 class="mb-sm">Generated Suggestions:</h3>
+            <div id="usernames-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-sm);"></div>
+            <button type="button" id="generate-more-btn" class="btn btn--secondary btn--full mt-md">
+              + Generate More Ideas
+            </button>
+          </div>
 
-    <footer class="site-footer">
-        <p>&copy; 2026 Password Security Hub</p>
-    </footer>
+        </div>
+      </div>
 
-    <script type="module" src="../assets/js/tools/username-generator.js"></script>
-    <script type="module" src="../assets/js/app.js"></script>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Password Security Hub. Creative credential generation.</p>
+      <div class="flex gap-md">
+        <a href="/pages/privacy-policy.html">Privacy</a>
+        <a href="/pages/terms-of-service.html">Terms</a>
+        <a href="/pages/contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/app.js" defer></script>
+  <script type="module" src="/assets/js/tools/username-generator.js" defer></script>
 </body>
 </html>

@@ -1,263 +1,211 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hash Generator — MD5, SHA-256, SHA-512 | Password Security Hub</title>
-    <meta name="description" content="Free online hash generator. Convert text or files to MD5, SHA-1, SHA-256, SHA-384, and SHA-512 hashes. Client-side processing for ultimate security.">
-    <link rel="canonical" href="https://example.com/pages/hash-generator.html">
-    <meta property="og:title" content="Hash Generator — MD5, SHA-256, SHA-512">
-    <meta property="og:description" content="Free online hash generator. Convert text or files to MD5, SHA-1, SHA-256, SHA-384, and SHA-512 hashes.">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Hash Generator — MD5, SHA-256, SHA-512">
-    <meta name="twitter:description" content="Free online hash generator. Convert text or files to MD5, SHA-1, SHA-256, SHA-384, and SHA-512 hashes.">
-    
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/layout.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="../assets/css/themes.css">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js" defer></script>
-    <script type="module" src="../assets/js/app.js" defer></script>
-    <script type="module" src="../assets/js/tools/hash-generator.js" defer></script>
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebApplication",
-          "name": "Hash Generator",
-          "url": "https://example.com/pages/hash-generator.html",
-          "description": "Generate MD5, SHA-1, SHA-256, SHA-384, and SHA-512 hashes from text or files.",
-          "applicationCategory": "SecurityApplication",
-          "operatingSystem": "All"
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "What is a hash function?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "A hash function is a mathematical algorithm that maps data of arbitrary size to a bit string of a fixed size (a hash)."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Is MD5 still secure?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "No, MD5 is considered cryptographically broken and is susceptible to collision attacks. It should not be used for security purposes."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "What is the difference between SHA-256 and SHA-512?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "SHA-256 outputs a 256-bit hash, while SHA-512 outputs a 512-bit hash. SHA-512 provides a higher level of security."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Can a hash be reversed?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "No, cryptographic hash functions are designed to be one-way functions, meaning you cannot reasonably deduce the original input from the hash."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Why do files have the same hash?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "If two files produce the same hash, they contain exactly the same data. This is useful for verifying file integrity."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Is my data sent to a server?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "No, all hashing is performed locally in your web browser using JavaScript. No data is sent to our servers."
-              }
-            }
-          ]
-        }
-      ]
-    }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hash Generator — MD5, SHA-256, SHA-512 | Password Security Hub</title>
+  <meta name="description" content="Generate cryptographic hashes online in real time. Supports MD5, SHA-1, SHA-256, SHA-384, SHA-512. Hash text and drag-and-drop files safely.">
+  <link rel="canonical" href="https://passwordsecurityhub.com/pages/hash-generator.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://passwordsecurityhub.com/pages/hash-generator.html">
+  <meta property="og:title" content="Hash Generator — MD5, SHA-256, SHA-512">
+  <meta property="og:description" content="Generate cryptographic hashes online in real time with 100% client-side Web Crypto.">
+  <meta property="og:image" content="https://passwordsecurityhub.com/assets/images/og-image.png">
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/global.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/themes.css">
 </head>
 <body>
-    <header class="site-header">
-        <div class="container">
-            <nav class="navbar">
-                <a href="../index.html" class="logo">Password Security Hub</a>
-                <button class="mobile-nav-toggle" aria-label="Toggle navigation">
-                    <span class="hamburger"></span>
-                </button>
-                <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="password-generator.html">Password Generator</a></li>
-                    <li><a href="hash-generator.html" class="active" aria-current="page">Hash Generator</a></li>
-                    <li><a href="bulk-password-generator.html">Bulk Generator</a></li>
-                    <li><a href="security-code-generator.html">Security Codes</a></li>
-                </ul>
-            </nav>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/index.html" class="site-logo" aria-label="Password Security Hub Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+        <span>Password Security Hub</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown__trigger" aria-haspopup="true" aria-expanded="false">
+            <span>Tools</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="nav-dropdown__menu">
+            <a href="/pages/password-generator.html" class="nav-dropdown__item">🔑 Password Generator</a>
+            <a href="/pages/password-strength-checker.html" class="nav-dropdown__item">🛡️ Strength Checker</a>
+            <a href="/pages/passphrase-generator.html" class="nav-dropdown__item">🎲 Passphrase Generator</a>
+            <a href="/pages/pin-generator.html" class="nav-dropdown__item">🔢 PIN Generator</a>
+            <a href="/pages/username-generator.html" class="nav-dropdown__item">👤 Username Generator</a>
+            <a href="/pages/password-entropy-calculator.html" class="nav-dropdown__item">📊 Entropy Calculator</a>
+            <a href="/pages/password-policy-checker.html" class="nav-dropdown__item">📋 Policy Checker</a>
+            <a href="/pages/hash-generator.html" class="nav-dropdown__item">⚡ Hash Generator</a>
+            <a href="/pages/bulk-password-generator.html" class="nav-dropdown__item">📦 Bulk Generator</a>
+            <a href="/pages/security-code-generator.html" class="nav-dropdown__item">🔐 Security Codes</a>
+          </div>
         </div>
-    </header>
+        <a href="/pages/about.html" class="nav-link">About</a>
+        <a href="/pages/faq.html" class="nav-link">FAQ</a>
+        <a href="/pages/contact.html" class="nav-link">Contact</a>
+      </nav>
 
-    <main class="container">
-        <nav class="breadcrumb" aria-label="breadcrumb">
-            <ol>
-                <li><a href="../index.html">Home</a></li>
-                <li><span aria-current="page">Hash Generator</span></li>
-            </ol>
-        </nav>
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        </button>
+        <button id="hamburger" class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
 
-        <section class="tool-section">
-            <h1 class="page-title">Online Hash Generator</h1>
-            <p class="page-subtitle">Instantly generate cryptographic hashes from text or files. 100% client-side processing.</p>
-            
-            <div class="tool-card">
-                <div class="input-group">
-                    <label for="text-input">Text to Hash</label>
-                    <textarea id="text-input" placeholder="Type or paste your text here..." rows="4"></textarea>
-                </div>
-                
-                <div class="file-drop-zone" id="file-drop-zone" tabindex="0" role="button" aria-label="File upload zone">
-                    <p>Drop a file here or click to select (Max 10MB)</p>
-                    <input type="file" id="file-input" class="visually-hidden" aria-label="Select file to hash">
-                </div>
+  <!-- Mobile Nav Drawer -->
+  <div id="mobile-nav-backdrop" class="mobile-nav__backdrop"></div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile Navigation">
+    <div class="mobile-nav-header">
+      <span class="mobile-nav-title">Menu</span>
+      <button class="close-mobile-nav" id="close-mobile-nav" aria-label="Close menu" type="button">✕</button>
+    </div>
+    <div class="mobile-nav__section">
+      <div class="mobile-nav__title">Security Tools</div>
+      <a href="/pages/password-generator.html" class="mobile-nav__link">🔑 Password Generator</a>
+      <a href="/pages/password-strength-checker.html" class="mobile-nav__link">🛡️ Strength Checker</a>
+      <a href="/pages/passphrase-generator.html" class="mobile-nav__link">🎲 Passphrase Generator</a>
+      <a href="/pages/pin-generator.html" class="mobile-nav__link">🔢 PIN Generator</a>
+      <a href="/pages/username-generator.html" class="mobile-nav__link">👤 Username Generator</a>
+      <a href="/pages/password-entropy-calculator.html" class="mobile-nav__link">📊 Entropy Calculator</a>
+      <a href="/pages/password-policy-checker.html" class="mobile-nav__link">📋 Policy Checker</a>
+      <a href="/pages/hash-generator.html" class="mobile-nav__link">⚡ Hash Generator</a>
+      <a href="/pages/bulk-password-generator.html" class="mobile-nav__link">📦 Bulk Generator</a>
+      <a href="/pages/security-code-generator.html" class="mobile-nav__link">🔐 Security Codes</a>
+    </div>
+  </nav>
 
-                <div class="config-panel">
-                    <div class="config-group">
-                        <label for="encoding-select">Encoding</label>
-                        <select id="encoding-select">
-                            <option value="utf-8">UTF-8</option>
-                            <option value="ascii">ASCII</option>
-                        </select>
-                    </div>
-                    <div class="config-group">
-                        <label for="case-toggle">Output Case</label>
-                        <select id="case-toggle">
-                            <option value="lowercase">Lowercase</option>
-                            <option value="uppercase">Uppercase</option>
-                        </select>
-                    </div>
-                </div>
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container">
+      
+      <nav aria-label="Breadcrumb">
+        <ul class="breadcrumb">
+          <li><a href="/index.html">Home</a></li>
+          <li aria-current="page">Online Hash Generator</li>
+        </ul>
+      </nav>
 
-                <div class="output-panel" aria-live="polite">
-                    <div class="hash-output" data-algo="md5">
-                        <label>MD5</label>
-                        <div class="output-group">
-                            <input type="text" class="hash-result" readonly aria-label="MD5 Hash">
-                            <button class="btn btn-icon copy-btn" aria-label="Copy MD5">Copy</button>
-                        </div>
-                    </div>
-                    <div class="hash-output" data-algo="sha1">
-                        <label>SHA-1</label>
-                        <div class="output-group">
-                            <input type="text" class="hash-result" readonly aria-label="SHA-1 Hash">
-                            <button class="btn btn-icon copy-btn" aria-label="Copy SHA-1">Copy</button>
-                        </div>
-                    </div>
-                    <div class="hash-output" data-algo="sha256">
-                        <label>SHA-256</label>
-                        <div class="output-group">
-                            <input type="text" class="hash-result" readonly aria-label="SHA-256 Hash">
-                            <button class="btn btn-icon copy-btn" aria-label="Copy SHA-256">Copy</button>
-                        </div>
-                    </div>
-                    <div class="hash-output" data-algo="sha384">
-                        <label>SHA-384</label>
-                        <div class="output-group">
-                            <input type="text" class="hash-result" readonly aria-label="SHA-384 Hash">
-                            <button class="btn btn-icon copy-btn" aria-label="Copy SHA-384">Copy</button>
-                        </div>
-                    </div>
-                    <div class="hash-output" data-algo="sha512">
-                        <label>SHA-512</label>
-                        <div class="output-group">
-                            <input type="text" class="hash-result" readonly aria-label="SHA-512 Hash">
-                            <button class="btn btn-icon copy-btn" aria-label="Copy SHA-512">Copy</button>
-                        </div>
-                    </div>
-                </div>
+      <div class="tool-layout">
+        <div class="tool-card">
+          <div class="text-center mb-md">
+            <h1>Online Cryptographic Hash Generator</h1>
+            <p>Compute MD5, SHA-1, SHA-256, SHA-384, and SHA-512 hashes instantly using Web Crypto.</p>
+          </div>
+
+          <!-- Text Input -->
+          <div class="input-group">
+            <label for="hash-text-input">Text Input (Real-time):</label>
+            <textarea id="hash-text-input" class="textarea" placeholder="Type or paste text to hash..."></textarea>
+          </div>
+
+          <!-- File Drop Zone -->
+          <div class="drop-zone" id="file-drop-zone">
+            <input type="file" id="file-input" style="display: none;">
+            <div class="drop-zone__icon">📁</div>
+            <div class="drop-zone__text">
+              <strong>Drag &amp; drop a file here</strong> or click to browse (up to 10 MB).
             </div>
-        </section>
+            <div id="file-name-display" class="text-sm font-bold text-accent mt-xs hidden"></div>
+          </div>
 
-        <section class="content-section">
-            <div class="grid-2-col">
-                <div>
-                    <h2>How to Use This Hash Generator</h2>
-                    <ol>
-                        <li><strong>Input Text:</strong> Type or paste your text into the text area. The hashes will calculate automatically in real-time.</li>
-                        <li><strong>Input File:</strong> Alternatively, drag and drop a file into the upload zone or click to select a file from your device.</li>
-                        <li><strong>Configure Options:</strong> Choose the text encoding (UTF-8 or ASCII) and your preferred output casing.</li>
-                        <li><strong>Copy Result:</strong> Click the "Copy" button next to the desired hash algorithm to save it to your clipboard.</li>
-                    </ol>
-                </div>
-                <div>
-                    <h2>Why Use Our Hash Generator?</h2>
-                    <p>Our tool runs completely in your browser. This means your text and files are never uploaded to any server, ensuring total privacy and security.</p>
-                    <p><strong>MD5 vs SHA:</strong> MD5 is fast but cryptographically broken (vulnerable to collisions). It's fine for simple checksums but not security. SHA-256 and SHA-512 are modern, secure algorithms recommended for passwords and critical data integrity.</p>
-                </div>
+          <!-- Options -->
+          <div class="flex justify-between items-center mb-md" style="flex-wrap: wrap; gap: 8px;">
+            <div class="flex items-center gap-sm">
+              <label class="font-bold text-sm">Output Format:</label>
+              <button type="button" class="btn btn--sm btn--secondary" id="case-toggle-btn">Uppercase / Lowercase</button>
             </div>
-        </section>
+            <button type="button" class="btn btn--sm btn--ghost" id="clear-hash-btn">Clear All</button>
+          </div>
 
-        <section class="faq-section">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-list">
-                <details class="faq-item">
-                    <summary>What is a hash function?</summary>
-                    <div class="faq-content">
-                        <p>A hash function is a mathematical algorithm that maps data of arbitrary size to a bit string of a fixed size (a hash).</p>
-                    </div>
-                </details>
-                <details class="faq-item">
-                    <summary>Is MD5 still secure?</summary>
-                    <div class="faq-content">
-                        <p>No, MD5 is considered cryptographically broken and is susceptible to collision attacks. It should not be used for security purposes.</p>
-                    </div>
-                </details>
-                <details class="faq-item">
-                    <summary>What is the difference between SHA-256 and SHA-512?</summary>
-                    <div class="faq-content">
-                        <p>SHA-256 outputs a 256-bit hash, while SHA-512 outputs a 512-bit hash. SHA-512 provides a higher level of security and can be faster on 64-bit systems.</p>
-                    </div>
-                </details>
-                <details class="faq-item">
-                    <summary>Can a hash be reversed?</summary>
-                    <div class="faq-content">
-                        <p>No, cryptographic hash functions are one-way functions. You cannot deduce the original input from the hash value.</p>
-                    </div>
-                </details>
-                <details class="faq-item">
-                    <summary>Why do files have the same hash?</summary>
-                    <div class="faq-content">
-                        <p>If two files produce the exact same hash, they contain exactly the same data. This is widely used for verifying file integrity after downloads.</p>
-                    </div>
-                </details>
-                <details class="faq-item">
-                    <summary>Is my data sent to a server?</summary>
-                    <div class="faq-content">
-                        <p>No, all hashing is performed locally in your web browser using JavaScript and the Web Crypto API. No data is sent to our servers.</p>
-                    </div>
-                </details>
+          <!-- Hash Results -->
+          <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+            <!-- MD5 -->
+            <div class="input-group">
+              <label class="flex justify-between">
+                <span>MD5 (128-bit)</span>
+                <button type="button" class="btn btn--sm btn--secondary copy-hash-btn" data-target="hash-md5">Copy</button>
+              </label>
+              <div id="hash-md5" class="password-display text-mono" style="font-size: 14px; padding: 10px 14px;">—</div>
             </div>
-        </section>
-        
-        <div class="ad-slot placeholder">Ad Space</div>
-    </main>
 
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2023 Password Security Hub. All tools run client-side for your privacy.</p>
+            <!-- SHA-1 -->
+            <div class="input-group">
+              <label class="flex justify-between">
+                <span>SHA-1 (160-bit)</span>
+                <button type="button" class="btn btn--sm btn--secondary copy-hash-btn" data-target="hash-sha1">Copy</button>
+              </label>
+              <div id="hash-sha1" class="password-display text-mono" style="font-size: 14px; padding: 10px 14px;">—</div>
+            </div>
+
+            <!-- SHA-256 -->
+            <div class="input-group">
+              <label class="flex justify-between">
+                <span>SHA-256 (256-bit — Industry Standard)</span>
+                <button type="button" class="btn btn--sm btn--secondary copy-hash-btn" data-target="hash-sha256">Copy</button>
+              </label>
+              <div id="hash-sha256" class="password-display text-mono" style="font-size: 14px; padding: 10px 14px; color: var(--accent);">—</div>
+            </div>
+
+            <!-- SHA-384 -->
+            <div class="input-group">
+              <label class="flex justify-between">
+                <span>SHA-384 (384-bit)</span>
+                <button type="button" class="btn btn--sm btn--secondary copy-hash-btn" data-target="hash-sha384">Copy</button>
+              </label>
+              <div id="hash-sha384" class="password-display text-mono" style="font-size: 13px; padding: 10px 14px;">—</div>
+            </div>
+
+            <!-- SHA-512 -->
+            <div class="input-group">
+              <label class="flex justify-between">
+                <span>SHA-512 (512-bit — Maximum Security)</span>
+                <button type="button" class="btn btn--sm btn--secondary copy-hash-btn" data-target="hash-sha512">Copy</button>
+              </label>
+              <div id="hash-sha512" class="password-display text-mono" style="font-size: 13px; padding: 10px 14px;">—</div>
+            </div>
+          </div>
+
         </div>
-    </footer>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Password Security Hub. Web Crypto hashing.</p>
+      <div class="flex gap-md">
+        <a href="/pages/privacy-policy.html">Privacy</a>
+        <a href="/pages/terms-of-service.html">Terms</a>
+        <a href="/pages/contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/lib/md5.min.js"></script>
+  <script src="/assets/js/app.js" defer></script>
+  <script type="module" src="/assets/js/tools/hash-generator.js" defer></script>
 </body>
 </html>

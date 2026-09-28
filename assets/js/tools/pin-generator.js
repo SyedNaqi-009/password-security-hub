@@ -1,93 +1,94 @@
+/**
+ * Password Security Hub — PIN Generator Tool
+ */
 import { generatePIN } from '../utils/crypto.js';
 import { copyToClipboard } from '../utils/clipboard.js';
-import { exportAsText } from '../utils/export.js';
+import { exportAsTXT } from '../utils/export.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('pin-generator-form');
-    const lengthRadios = document.querySelectorAll('input[name="pinLengthPreset"]');
-    const customLengthContainer = document.getElementById('custom-length-container');
-    const customLengthInput = document.getElementById('customLength');
-    const quantityInput = document.getElementById('pinQuantity');
-    const noSequentialCb = document.getElementById('noSequential');
-    const noRepeatedCb = document.getElementById('noRepeated');
-    const outputList = document.getElementById('pin-output-list');
-    const copyAllBtn = document.getElementById('copy-all-btn');
-    const exportTxtBtn = document.getElementById('export-txt-btn');
+  const pills = document.querySelectorAll('#pin-length-pills .pill-btn');
+  const customLengthGroup = document.getElementById('custom-pin-length-group');
+  const customLengthInput = document.getElementById('custom-pin-length');
+  const quantityInput = document.getElementById('pin-quantity');
+  const noSequentialChk = document.getElementById('no-sequential');
+  const noRepeatedChk = document.getElementById('no-repeated');
+  
+  const generateBtn = document.getElementById('generate-pin-btn');
+  const outputList = document.getElementById('pin-output-list');
+  const copyAllBtn = document.getElementById('copy-all-pins-btn');
+  const exportTxtBtn = document.getElementById('export-pins-txt-btn');
 
-    let currentPins = [];
+  let selectedLength = 4;
+  let generatedPINs = [];
 
-    // Handle radio changes for custom length display
-    lengthRadios.forEach(radio => {
-        radio.addEventListener('change', (e) => {
-            if (e.target.value === 'custom') {
-                customLengthContainer.style.display = 'block';
-            } else {
-                customLengthContainer.style.display = 'none';
-            }
-        });
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const val = pill.getAttribute('data-length');
+      if (val === 'custom') {
+        if (customLengthGroup) customLengthGroup.classList.remove('hidden');
+        selectedLength = parseInt(customLengthInput ? customLengthInput.value : 4, 10);
+      } else {
+        if (customLengthGroup) customLengthGroup.classList.add('hidden');
+        selectedLength = parseInt(val, 10);
+      }
+      generate();
     });
+  });
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        let length = 4;
-        const selectedPreset = document.querySelector('input[name="pinLengthPreset"]:checked').value;
-        if (selectedPreset === 'custom') {
-            length = parseInt(customLengthInput.value, 10);
-            if (length < 3) length = 3;
-            if (length > 12) length = 12;
-        } else {
-            length = parseInt(selectedPreset, 10);
-        }
-
-        let quantity = parseInt(quantityInput.value, 10);
-        if (quantity < 1) quantity = 1;
-        if (quantity > 20) quantity = 20;
-
-        const options = {
-            noSequential: noSequentialCb.checked,
-            noRepeated: noRepeatedCb.checked
-        };
-
-        currentPins = [];
-        for (let i = 0; i < quantity; i++) {
-            currentPins.push(generatePIN(length, options));
-        }
-
-        renderPins();
+  if (customLengthInput) {
+    customLengthInput.addEventListener('input', () => {
+      selectedLength = parseInt(customLengthInput.value, 10);
+      generate();
     });
+  }
 
-    function renderPins() {
-        outputList.innerHTML = '';
-        currentPins.forEach((pin, index) => {
-            const li = document.createElement('li');
-            li.className = 'pin-item';
-            
-            const pinText = document.createElement('span');
-            pinText.textContent = pin;
-            pinText.className = 'pin-text';
-            
-            const copyBtn = document.createElement('button');
-            copyBtn.textContent = 'Copy';
-            copyBtn.className = 'btn btn-small';
-            copyBtn.setAttribute('aria-label', `Copy PIN ${index + 1}`);
-            copyBtn.addEventListener('click', () => copyToClipboard(pin));
+  function generate() {
+    const qty = Math.max(1, Math.min(20, parseInt(quantityInput ? quantityInput.value : 1, 10)));
+    const len = Math.max(3, Math.min(16, selectedLength || 4));
+    const noSeq = noSequentialChk ? noSequentialChk.checked : true;
+    const noRep = noRepeatedChk ? noRepeatedChk.checked : true;
 
-            li.appendChild(pinText);
-            li.appendChild(copyBtn);
-            outputList.appendChild(li);
-        });
+    generatedPINs = [];
+    if (outputList) outputList.innerHTML = '';
+
+    for (let i = 0; i < qty; i++) {
+      const pin = generatePIN({ length: len, noSequential: noSeq, noRepeated: noRep });
+      generatedPINs.push(pin);
+
+      const item = document.createElement('div');
+      item.className = 'password-display';
+      item.style.fontSize = '20px';
+      item.style.letterSpacing = '0.15em';
+      item.style.padding = '10px 16px';
+      item.innerHTML = `<span>${pin}</span><button type="button" class="btn btn--sm btn--secondary" style="flex-shrink:0;">Copy</button>`;
+      item.querySelector('button').addEventListener('click', () => {
+        copyToClipboard(pin, 'PIN');
+      });
+      if (outputList) outputList.appendChild(item);
     }
+  }
 
+  if (generateBtn) {
+    generateBtn.addEventListener('click', generate);
+  }
+
+  if (copyAllBtn) {
     copyAllBtn.addEventListener('click', () => {
-        if (currentPins.length > 0) {
-            copyToClipboard(currentPins.join('\n'));
-        }
+      if (generatedPINs.length > 0) {
+        copyToClipboard(generatedPINs.join('\n'), 'All PINs');
+      }
     });
+  }
 
+  if (exportTxtBtn) {
     exportTxtBtn.addEventListener('click', () => {
-        if (currentPins.length > 0) {
-            exportAsText(currentPins.join('\n'), 'secure-pins.txt');
-        }
+      if (generatedPINs.length > 0) {
+        exportAsTXT(generatedPINs, 'pins.txt');
+      }
     });
+  }
+
+  generate();
 });

@@ -1,162 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Passphrase Generator — Memorable & Secure | Password Security Hub</title>
-    <meta name="description" content="Generate highly secure, easy-to-remember passphrases using the EFF wordlist. Free, client-side, and entirely private passphrase generator.">
-    <link rel="canonical" href="https://example.com/pages/passphrase-generator.html">
-    <meta property="og:title" content="Passphrase Generator — Memorable & Secure">
-    <meta property="og:description" content="Generate highly secure, easy-to-remember passphrases using the EFF wordlist.">
-    <meta property="og:type" content="website">
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="../assets/css/layout.css">
-    <link rel="stylesheet" href="../assets/css/themes.css">
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebApplication",
-          "name": "Memorable Passphrase Generator",
-          "applicationCategory": "SecurityApplication",
-          "operatingSystem": "Any",
-          "description": "A tool to generate highly secure and memorable passphrases using the EFF wordlist."
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "What is a passphrase?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "A passphrase is a sequence of words or other text used to control access to a computer system, program or data. It offers high security while being easier to remember than random characters."
-              }
-            }
-          ]
-        }
-      ]
-    }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Passphrase Generator — Memorable &amp; Secure | Password Security Hub</title>
+  <meta name="description" content="Generate memorable, cryptographically strong Diceware passphrases using the official 7,776 EFF wordlist. Free, private, and works offline.">
+  <link rel="canonical" href="https://passwordsecurityhub.com/pages/passphrase-generator.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://passwordsecurityhub.com/pages/passphrase-generator.html">
+  <meta property="og:title" content="Passphrase Generator — Memorable &amp; Secure">
+  <meta property="og:description" content="Generate memorable Diceware passphrases with custom separators and word counts. 100% client-side privacy.">
+  <meta property="og:image" content="https://passwordsecurityhub.com/assets/images/og-image.png">
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/global.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/themes.css">
 </head>
 <body>
-    <header class="site-header">
-        <div class="container">
-            <nav class="nav">
-                <a href="../index.html" class="logo">Password Security Hub</a>
-                <ul class="nav-links">
-                    <li><a href="password-generator.html">Password Generator</a></li>
-                    <li><a href="passphrase-generator.html" aria-current="page">Passphrase Generator</a></li>
-                    <li><a href="strength-checker.html">Strength Checker</a></li>
-                    <li><a href="pin-generator.html">PIN Generator</a></li>
-                </ul>
-            </nav>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/index.html" class="site-logo" aria-label="Password Security Hub Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+        <span>Password Security Hub</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown__trigger" aria-haspopup="true" aria-expanded="false">
+            <span>Tools</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="nav-dropdown__menu">
+            <a href="/pages/password-generator.html" class="nav-dropdown__item">🔑 Password Generator</a>
+            <a href="/pages/password-strength-checker.html" class="nav-dropdown__item">🛡️ Strength Checker</a>
+            <a href="/pages/passphrase-generator.html" class="nav-dropdown__item">🎲 Passphrase Generator</a>
+            <a href="/pages/pin-generator.html" class="nav-dropdown__item">🔢 PIN Generator</a>
+            <a href="/pages/username-generator.html" class="nav-dropdown__item">👤 Username Generator</a>
+            <a href="/pages/password-entropy-calculator.html" class="nav-dropdown__item">📊 Entropy Calculator</a>
+            <a href="/pages/password-policy-checker.html" class="nav-dropdown__item">📋 Policy Checker</a>
+            <a href="/pages/hash-generator.html" class="nav-dropdown__item">⚡ Hash Generator</a>
+            <a href="/pages/bulk-password-generator.html" class="nav-dropdown__item">📦 Bulk Generator</a>
+            <a href="/pages/security-code-generator.html" class="nav-dropdown__item">🔐 Security Codes</a>
+          </div>
         </div>
-    </header>
+        <a href="/pages/about.html" class="nav-link">About</a>
+        <a href="/pages/faq.html" class="nav-link">FAQ</a>
+        <a href="/pages/contact.html" class="nav-link">Contact</a>
+      </nav>
 
-    <main class="container page-content">
-        <nav aria-label="Breadcrumb" class="breadcrumb">
-            <ol>
-                <li><a href="../index.html">Home</a></li>
-                <li aria-current="page">Passphrase Generator</li>
-            </ol>
-        </nav>
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        </button>
+        <button id="hamburger" class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
 
-        <h1>Memorable Passphrase Generator</h1>
-        
-        <div class="ad-slot top-ad">
-            <!-- Top Ad Slot -->
-        </div>
+  <!-- Mobile Nav Drawer -->
+  <div id="mobile-nav-backdrop" class="mobile-nav__backdrop"></div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile Navigation">
+    <div class="mobile-nav-header">
+      <span class="mobile-nav-title">Menu</span>
+      <button class="close-mobile-nav" id="close-mobile-nav" aria-label="Close menu" type="button">✕</button>
+    </div>
+    <div class="mobile-nav__section">
+      <div class="mobile-nav__title">Security Tools</div>
+      <a href="/pages/password-generator.html" class="mobile-nav__link">🔑 Password Generator</a>
+      <a href="/pages/password-strength-checker.html" class="mobile-nav__link">🛡️ Strength Checker</a>
+      <a href="/pages/passphrase-generator.html" class="mobile-nav__link">🎲 Passphrase Generator</a>
+      <a href="/pages/pin-generator.html" class="mobile-nav__link">🔢 PIN Generator</a>
+      <a href="/pages/username-generator.html" class="mobile-nav__link">👤 Username Generator</a>
+      <a href="/pages/password-entropy-calculator.html" class="mobile-nav__link">📊 Entropy Calculator</a>
+      <a href="/pages/password-policy-checker.html" class="mobile-nav__link">📋 Policy Checker</a>
+      <a href="/pages/hash-generator.html" class="mobile-nav__link">⚡ Hash Generator</a>
+      <a href="/pages/bulk-password-generator.html" class="mobile-nav__link">📦 Bulk Generator</a>
+      <a href="/pages/security-code-generator.html" class="mobile-nav__link">🔐 Security Codes</a>
+    </div>
+  </nav>
 
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container">
+      
+      <nav aria-label="Breadcrumb">
+        <ul class="breadcrumb">
+          <li><a href="/index.html">Home</a></li>
+          <li aria-current="page">Passphrase Generator</li>
+        </ul>
+      </nav>
+
+      <div class="tool-layout">
         <div class="tool-card">
-            <div class="output-group">
-                <div id="passphrase-display" class="passphrase-display" aria-live="polite"></div>
-                <button id="copy-btn" class="btn btn-primary" aria-label="Copy passphrase to clipboard">Copy</button>
-            </div>
-            
-            <div class="strength-meter">
-                <div class="strength-bar-container">
-                    <div id="strength-bar" class="strength-bar" style="width: 0%"></div>
-                </div>
-                <div class="strength-stats">
-                    <span id="entropy-display">Entropy: 0 bits</span>
-                    <span id="crack-time">Crack time: 0s</span>
-                </div>
-            </div>
+          <div class="text-center mb-md">
+            <h1>Memorable Passphrase Generator</h1>
+            <p>Generate secure multi-word passphrases using the official Diceware / EFF wordlist.</p>
+          </div>
 
-            <div class="controls-grid">
-                <div class="control-group">
-                    <label for="word-count">Word Count (<span id="word-count-val">4</span>)</label>
-                    <input type="range" id="word-count" min="3" max="10" value="4">
-                </div>
-                
-                <div class="control-group">
-                    <label for="separator">Separator</label>
-                    <select id="separator">
-                        <option value="-">Hyphen (-)</option>
-                        <option value=" ">Space ( )</option>
-                        <option value=".">Period (.)</option>
-                        <option value="_">Underscore (_)</option>
-                        <option value="custom">Custom...</option>
-                    </select>
-                    <input type="text" id="custom-separator" style="display: none;" maxlength="1" aria-label="Custom separator">
-                </div>
-
-                <div class="control-group checkbox-group">
-                    <label>
-                        <input type="checkbox" id="capitalize" checked> Capitalize first letter
-                    </label>
-                </div>
-                
-                <div class="control-group checkbox-group">
-                    <label>
-                        <input type="checkbox" id="append-number"> Append random number
-                    </label>
-                </div>
+          <!-- Passphrase Display -->
+          <div class="password-box">
+            <div id="passphrase-output" class="password-display" aria-live="polite">Loading wordlist...</div>
+            <div class="password-display-actions">
+              <button type="button" id="copy-passphrase-btn" class="btn btn--primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                Copy Passphrase
+              </button>
+              <button type="button" id="regenerate-passphrase-btn" class="btn btn--secondary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+                Regenerate
+              </button>
             </div>
-            
-            <button id="generate-btn" class="btn btn-accent btn-large">Generate Passphrase</button>
+          </div>
+
+          <!-- Stats -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div id="passphrase-entropy" class="stat-card__value">51.7 bits</div>
+              <div class="stat-card__label">Entropy</div>
+            </div>
+            <div class="stat-card">
+              <div id="passphrase-words-stat" class="stat-card__value">4</div>
+              <div class="stat-card__label">Words</div>
+            </div>
+            <div class="stat-card">
+              <div id="passphrase-crack-time" class="stat-card__value" style="font-size: 15px;">Decades</div>
+              <div class="stat-card__label">Crack Time</div>
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid var(--border); margin: var(--space-lg) 0;">
+
+          <!-- Controls -->
+          <div class="slider-group">
+            <label for="word-count-slider">
+              <span>Word Count (3 - 10)</span>
+              <span id="word-count-val" class="slider-value">4</span>
+            </label>
+            <input type="range" id="word-count-slider" min="3" max="10" value="4" class="slider">
+          </div>
+
+          <div class="tool-controls__row mb-md">
+            <div class="input-group">
+              <label for="separator-select">Word Separator:</label>
+              <select id="separator-select" class="select">
+                <option value="-">Hyphen (-)</option>
+                <option value=" ">Space ( )</option>
+                <option value=".">Period (.)</option>
+                <option value="_">Underscore (_)</option>
+                <option value="custom">Custom Character...</option>
+              </select>
+            </div>
+            <div class="input-group hidden" id="custom-sep-group">
+              <label for="custom-sep-input">Custom Separator:</label>
+              <input type="text" id="custom-sep-input" maxlength="4" placeholder="e.g. +" class="input">
+            </div>
+          </div>
+
+          <div class="checkbox-grid">
+            <label class="checkbox">
+              <input type="checkbox" id="capitalize-words" checked>
+              <span>Capitalize First Letters (e.g. Correct-Horse)</span>
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" id="append-number">
+              <span>Append Random Number (e.g. -42)</span>
+            </label>
+          </div>
+
         </div>
 
-        <section class="content-section">
-            <h2>How to Use</h2>
-            <p>Select the number of words you want in your passphrase, choose a separator, and customize the capitalization or number inclusion. Click generate to instantly create a secure passphrase. The passphrase is created locally on your device for maximum privacy and security.</p>
-            
-            <h2>Why Use a Passphrase?</h2>
-            <p>Passphrases are typically longer than conventional passwords, which makes them much harder for attackers to crack (providing higher entropy). Because they are made of real words, they are significantly easier for humans to remember than random strings of characters.</p>
-            
-            <h2>Related Tools</h2>
-            <ul class="related-tools">
-                <li><a href="password-generator.html">Password Generator</a></li>
-                <li><a href="strength-checker.html">Strength Checker</a></li>
-                <li><a href="pin-generator.html">PIN Generator</a></li>
-            </ul>
-        </section>
-
-        <section class="faq-section">
-            <h2>Frequently Asked Questions</h2>
-            <details>
-                <summary>What is a passphrase?</summary>
-                <p>A passphrase is a sequence of words used to control access to a computer system, program, or data. It offers high security while being memorable.</p>
-            </details>
-            <details>
-                <summary>Is this passphrase generator secure?</summary>
-                <p>Yes. All generation happens locally in your browser using secure cryptographic functions (`crypto.getRandomValues()`). We do not track or store the passphrases generated.</p>
-            </details>
-        </section>
-        
-        <div class="ad-slot bottom-ad">
-            <!-- Bottom Ad Slot -->
+        <!-- SEO Copy -->
+        <div class="card" style="margin-top: var(--space-xl);">
+          <h2>Why Passphrases Beat Complex Passwords</h2>
+          <p>
+            The famous XKCD comic "Correct Horse Battery Staple" highlighted a fundamental security truth: long combinations of common words selected randomly from a large dictionary have far higher entropy than short, obfuscated strings like <code>Tr0ub4dor&amp;3</code>, while remaining vastly easier to remember and type on mobile touchscreens.
+          </p>
         </div>
-    </main>
+      </div>
 
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2026 Password Security Hub. All tools run entirely in your browser.</p>
-        </div>
-    </footer>
-    <script type="module" src="../assets/js/tools/passphrase-generator.js" defer></script>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Password Security Hub. Client-side Diceware generation.</p>
+      <div class="flex gap-md">
+        <a href="/pages/privacy-policy.html">Privacy</a>
+        <a href="/pages/terms-of-service.html">Terms</a>
+        <a href="/pages/contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/app.js" defer></script>
+  <script type="module" src="/assets/js/tools/passphrase-generator.js" defer></script>
 </body>
 </html>

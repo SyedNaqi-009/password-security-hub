@@ -1,432 +1,218 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frequently Asked Questions (FAQ) | Password Security Hub</title>
-    <meta name="description" content="Find answers to common questions about password generation, security, entropy, and how Password Security Hub protects your privacy.">
-    <link rel="canonical" href="https://passwordsecurityhub.com/pages/faq.html">
-    <meta property="og:title" content="Frequently Asked Questions (FAQ) | Password Security Hub">
-    <meta property="og:description" content="Find answers to common questions about password generation, security, entropy, and how Password Security Hub protects your privacy.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://passwordsecurityhub.com/pages/faq.html">
-    <meta name="twitter:card" content="summary_large_image">
-    
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="../assets/css/layout.css">
-    <link rel="stylesheet" href="../assets/css/themes.css">
-    <script defer src="../assets/js/utils/theme.js"></script>
-    <script defer src="../assets/js/app.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions (FAQ) | Password Security Hub</title>
+  <meta name="description" content="Find answers to all frequently asked questions regarding password generators, entropy, Diceware passphrases, and our client-side privacy architecture.">
+  <link rel="canonical" href="https://passwordsecurityhub.com/pages/faq.html">
 
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Is Password Security Hub really free?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes, all the tools provided on Password Security Hub are completely free to use. There are no hidden fees, subscriptions, or premium tiers."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "How do you make money?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "We rely on non-intrusive advertisements (like Google AdSense) and minimal donations to cover domain and hosting costs, allowing us to keep the service free for everyone."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Do you store passwords?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Absolutely not. All computations, generations, and strength evaluations happen locally within your browser using JavaScript. No passwords or security inputs ever leave your device or hit a server."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "How long should a password be?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "We strongly recommend a minimum of 16 characters for randomly generated passwords. For passphrases (words), a minimum of 4 random words (or 6+ for higher security) is recommended by industry standards."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What are ambiguous characters?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Ambiguous characters are letters and numbers that look similar visually, such as 'O' (uppercase letter O) and '0' (number zero), or 'l' (lowercase L) and 'I' (uppercase i). Excluding them makes passwords easier to read and manually type."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Are random passwords unbreakable?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "No password is 'unbreakable,' but a sufficiently long, completely random password would take current supercomputers trillions of years to guess, rendering it unbreakable for all practical purposes."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What is password entropy?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Password entropy is a measure of a password's unpredictability, measured in bits. A higher entropy means the password is harder to guess via brute-force or dictionary attacks. Generally, >80 bits is considered very strong."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "How is crack time calculated?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Crack time is estimated by calculating the total possible combinations (entropy) and dividing it by an assumed hashing speed (guesses per second). We use conservative estimates reflecting modern, powerful hardware capabilities."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What is NIST SP 800-63B?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "NIST SP 800-63B are digital identity guidelines provided by the National Institute of Standards and Technology. It outlines modern password best practices, such as removing arbitrary expiration rules, avoiding complex composition rules if length is prioritized, and screening against breached passwords."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "How can I verify the tool doesn't send passwords over the network?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "You can verify this by opening your browser's Developer Tools (F12), going to the 'Network' tab, and generating or testing a password. You will see that no requests are made to any server while using the tools."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Can this run offline?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes! Once you load the webpage, you can disconnect your internet, and the password generator and strength checker will continue to work perfectly, providing an air-gapped level of security."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What CSPRNG algorithm is used?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "We use the browser's native Web Crypto API, specifically the `crypto.getRandomValues()` method. This is a Cryptographically Secure Pseudorandom Number Generator (CSPRNG), which is significantly safer than standard pseudo-random functions like `Math.random()`."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Why use Web Crypto API?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "The Web Crypto API provides a built-in, highly vetted, and secure source of randomness directly in the browser environment, eliminating the need to rely on less secure math functions or external servers."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What is the difference between hashing and encryption?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Encryption is a two-way process; data is scrambled but can be reversed (decrypted) with the right key. Hashing is a one-way process; data is turned into a fixed-length string, and it cannot be reversed. Passwords should always be hashed, never just encrypted."
-                }
-            }
-        ]
-    }
-    </script>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
-    <style>
-        .faq-category {
-            margin-bottom: var(--spacing-xl);
+  <link rel="stylesheet" href="/assets/css/global.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/themes.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Password Security Hub really free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, 100% free with no hidden paywalls, subscriptions, or account requirements."
         }
-        .faq-category h2 {
-            border-bottom: 2px solid var(--border);
-            padding-bottom: var(--spacing-sm);
-            margin-bottom: var(--spacing-md);
-            color: var(--accent);
+      },
+      {
+        "@type": "Question",
+        "name": "Are passwords generated here sent over the internet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Never. All computations are performed strictly in your browser runtime using the Web Crypto API."
         }
-        .accordion {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-sm);
-        }
-        .accordion-item {
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background-color: var(--bg-primary);
-            overflow: hidden;
-        }
-        .accordion-header {
-            width: 100%;
-            text-align: left;
-            padding: var(--spacing-md);
-            background: none;
-            border: none;
-            font-weight: 600;
-            font-size: 1rem;
-            color: var(--text-primary);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .accordion-header:hover, .accordion-header:focus {
-            background-color: var(--bg-tertiary);
-        }
-        .accordion-icon {
-            transition: transform 0.3s ease;
-        }
-        .accordion-header[aria-expanded="true"] .accordion-icon {
-            transform: rotate(180deg);
-        }
-        .accordion-content {
-            padding: 0 var(--spacing-md);
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-            color: var(--text-secondary);
-        }
-        .accordion-header[aria-expanded="true"] + .accordion-content {
-            padding: var(--spacing-md);
-            max-height: 500px; /* arbitrary max height for transition */
-            border-top: 1px solid var(--border);
-        }
-    </style>
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
-    <header class="header">
-        <div class="container nav-container">
-            <a href="../index.html" class="logo">Password Security Hub</a>
-            <nav class="desktop-nav">
-                <a href="../index.html">Home</a>
-                <div class="dropdown">
-                    <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tools</button>
-                    <div class="dropdown-menu">
-                        <a href="password-generator.html">Password Generator</a>
-                        <a href="passphrase-generator.html">Passphrase Generator</a>
-                        <a href="password-strength-checker.html">Strength Checker</a>
-                    </div>
-                </div>
-                <a href="about.html">About</a>
-                <a href="faq.html" aria-current="page">FAQ</a>
-            </nav>
-            <div class="header-actions">
-                <button id="theme-toggle" aria-label="Toggle Theme">🌓</button>
-                <button id="mobile-menu-toggle" aria-label="Menu">☰</button>
-            </div>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/index.html" class="site-logo" aria-label="Password Security Hub Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+        <span>Password Security Hub</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown__trigger" aria-haspopup="true" aria-expanded="false">
+            <span>Tools</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="nav-dropdown__menu">
+            <a href="/pages/password-generator.html" class="nav-dropdown__item">🔑 Password Generator</a>
+            <a href="/pages/password-strength-checker.html" class="nav-dropdown__item">🛡️ Strength Checker</a>
+            <a href="/pages/passphrase-generator.html" class="nav-dropdown__item">🎲 Passphrase Generator</a>
+            <a href="/pages/pin-generator.html" class="nav-dropdown__item">🔢 PIN Generator</a>
+            <a href="/pages/username-generator.html" class="nav-dropdown__item">👤 Username Generator</a>
+            <a href="/pages/password-entropy-calculator.html" class="nav-dropdown__item">📊 Entropy Calculator</a>
+            <a href="/pages/password-policy-checker.html" class="nav-dropdown__item">📋 Policy Checker</a>
+            <a href="/pages/hash-generator.html" class="nav-dropdown__item">⚡ Hash Generator</a>
+            <a href="/pages/bulk-password-generator.html" class="nav-dropdown__item">📦 Bulk Generator</a>
+            <a href="/pages/security-code-generator.html" class="nav-dropdown__item">🔐 Security Codes</a>
+          </div>
         </div>
-        <nav class="mobile-nav" id="mobile-nav" aria-hidden="true">
-            <a href="../index.html">Home</a>
-            <a href="password-generator.html">Password Generator</a>
-            <a href="passphrase-generator.html">Passphrase Generator</a>
-            <a href="password-strength-checker.html">Strength Checker</a>
-            <a href="about.html">About</a>
-            <a href="faq.html" aria-current="page">FAQ</a>
-        </nav>
-    </header>
+        <a href="/pages/about.html" class="nav-link">About</a>
+        <a href="/pages/faq.html" class="nav-link active">FAQ</a>
+        <a href="/pages/contact.html" class="nav-link">Contact</a>
+      </nav>
 
-    <main class="container page-content">
-        <nav class="breadcrumbs" aria-label="Breadcrumb">
-            <ol>
-                <li><a href="../index.html">Home</a></li>
-                <li aria-current="page">FAQ</li>
-            </ol>
-        </nav>
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        </button>
+        <button id="hamburger" class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
 
+  <!-- Mobile Nav Drawer -->
+  <div id="mobile-nav-backdrop" class="mobile-nav__backdrop"></div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile Navigation">
+    <div class="mobile-nav-header">
+      <span class="mobile-nav-title">Menu</span>
+      <button class="close-mobile-nav" id="close-mobile-nav" aria-label="Close menu" type="button">✕</button>
+    </div>
+    <div class="mobile-nav__section">
+      <div class="mobile-nav__title">Security Tools</div>
+      <a href="/pages/password-generator.html" class="mobile-nav__link">🔑 Password Generator</a>
+      <a href="/pages/password-strength-checker.html" class="mobile-nav__link">🛡️ Strength Checker</a>
+      <a href="/pages/passphrase-generator.html" class="mobile-nav__link">🎲 Passphrase Generator</a>
+      <a href="/pages/pin-generator.html" class="mobile-nav__link">🔢 PIN Generator</a>
+      <a href="/pages/username-generator.html" class="mobile-nav__link">👤 Username Generator</a>
+      <a href="/pages/password-entropy-calculator.html" class="mobile-nav__link">📊 Entropy Calculator</a>
+      <a href="/pages/password-policy-checker.html" class="mobile-nav__link">📋 Policy Checker</a>
+      <a href="/pages/hash-generator.html" class="mobile-nav__link">⚡ Hash Generator</a>
+      <a href="/pages/bulk-password-generator.html" class="mobile-nav__link">📦 Bulk Generator</a>
+      <a href="/pages/security-code-generator.html" class="mobile-nav__link">🔐 Security Codes</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container faq-section">
+      
+      <nav aria-label="Breadcrumb">
+        <ul class="breadcrumb">
+          <li><a href="/index.html">Home</a></li>
+          <li aria-current="page">FAQ</li>
+        </ul>
+      </nav>
+
+      <div class="text-center mb-xl">
         <h1>Frequently Asked Questions</h1>
-        <p class="text-secondary" style="margin-bottom: var(--spacing-xl);">Everything you need to know about our tools, security practices, and how to manage your passwords effectively.</p>
+        <p>Find answers to common questions regarding password security, entropy, and privacy.</p>
+      </div>
 
-        <div class="faq-category">
-            <h2>1. General</h2>
-            <div class="accordion">
-                <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="faq1">
-                        Is Password Security Hub really free?
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content" id="faq1" aria-hidden="true">
-                        <p>Yes, all the tools provided on Password Security Hub are completely free to use. There are no hidden fees, subscriptions, or premium tiers.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="faq2">
-                        How do you make money?
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content" id="faq2" aria-hidden="true">
-                        <p>We rely on non-intrusive advertisements (like Google AdSense) and minimal donations to cover domain and hosting costs, allowing us to keep the service free for everyone.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="faq3">
-                        Do you store passwords?
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content" id="faq3" aria-hidden="true">
-                        <p>Absolutely not. All computations, generations, and strength evaluations happen locally within your browser using JavaScript. No passwords or security inputs ever leave your device or hit a server.</p>
-                    </div>
-                </div>
-            </div>
+      <!-- Section 1: General & Privacy -->
+      <h2 class="h2 mb-md">General &amp; Privacy</h2>
+      <div class="accordion mb-xl">
+        <div class="accordion__item">
+          <button class="accordion__trigger" type="button">
+            <span>Is Password Security Hub completely free?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="accordion__content">
+            Yes, 100% free with no accounts, no credit cards, and no usage limits.
+          </div>
         </div>
 
-        <div class="faq-category">
-            <h2>2. Password Generation</h2>
-            <div class="accordion">
-                <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="faq4">
-                        How long should a password be?
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content" id="faq4" aria-hidden="true">
-                        <p>We strongly recommend a minimum of 16 characters for randomly generated passwords. For passphrases (words), a minimum of 4 random words (or 6+ for higher security) is recommended by industry standards.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="faq5">
-                        What are ambiguous characters?
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content" id="faq5" aria-hidden="true">
-                        <p>Ambiguous characters are letters and numbers that look similar visually, such as 'O' (uppercase letter O) and '0' (number zero), or 'l' (lowercase L) and 'I' (uppercase i). Excluding them makes passwords easier to read and manually type.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="faq6">
-                        Are random passwords unbreakable?
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content" id="faq6" aria-hidden="true">
-                        <p>No password is 'unbreakable,' but a sufficiently long, completely random password would take current supercomputers trillions of years to guess, rendering it unbreakable for all practical purposes.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger" type="button">
+            <span>How can I be sure my passwords aren't stored or logged?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="accordion__content">
+            You can verify this by opening your browser's Developer Tools (press F12), going to the Network tab, and observing that no HTTP requests are sent when you generate, check, or copy passwords. Additionally, you can disconnect your internet completely and all tools continue functioning.
+          </div>
         </div>
 
-        <div class="faq-category">
-            <h2>3. Password Strength & Entropy</h2>
-            <div class="accordion">
-                <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="faq7">
-                        What is password entropy?
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content" id="faq7" aria-hidden="true">
-                        <p>Password entropy is a measure of a password's unpredictability, measured in bits. A higher entropy means the password is harder to guess via brute-force or dictionary attacks. Generally, >80 bits is considered very strong.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="faq8">
-                        How is crack time calculated?
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content" id="faq8" aria-hidden="true">
-                        <p>Crack time is estimated by calculating the total possible combinations (entropy) and dividing it by an assumed hashing speed (guesses per second). We use conservative estimates reflecting modern, powerful hardware capabilities.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="faq9">
-                        What is NIST SP 800-63B?
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content" id="faq9" aria-hidden="true">
-                        <p>NIST SP 800-63B are digital identity guidelines provided by the National Institute of Standards and Technology. It outlines modern password best practices, such as removing arbitrary expiration rules, avoiding complex composition rules if length is prioritized, and screening against breached passwords.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger" type="button">
+            <span>What algorithm is used to generate random passwords?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="accordion__content">
+            We use the browser's native Web Crypto API (<code>crypto.getRandomValues()</code>), which pulls entropy directly from your operating system's kernel CSPRNG (Cryptographically Secure Pseudo-Random Number Generator).
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Password Best Practices -->
+      <h2 class="h2 mb-md">Password Best Practices</h2>
+      <div class="accordion mb-xl">
+        <div class="accordion__item">
+          <button class="accordion__trigger" type="button">
+            <span>What makes a password strong in 2026?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="accordion__content">
+            Password strength is primarily determined by length and unpredictability (entropy). A 16+ character password that avoids dictionary words, common substitutions, and dates provides sufficient entropy to resist modern GPU cracking clusters.
+          </div>
         </div>
 
-        <div class="faq-category">
-            <h2>4. Privacy & Client-Side Security</h2>
-            <div class="accordion">
-                <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="faq10">
-                        How can I verify the tool doesn't send passwords over the network?
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content" id="faq10" aria-hidden="true">
-                        <p>You can verify this by opening your browser's Developer Tools (F12), going to the 'Network' tab, and generating or testing a password. You will see that no requests are made to any server while using the tools.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="faq11">
-                        Can this run offline?
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content" id="faq11" aria-hidden="true">
-                        <p>Yes! Once you load the webpage, you can disconnect your internet, and the password generator and strength checker will continue to work perfectly, providing an air-gapped level of security.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger" type="button">
+            <span>Should I change my passwords every 90 days?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="accordion__content">
+            No. The National Institute of Standards and Technology (NIST SP 800-63B) recommends against arbitrary periodic password expirations, as it encourages users to select predictable patterns. Passwords should only be changed if there is reason to believe they were compromised.
+          </div>
         </div>
 
-        <div class="faq-category">
-            <h2>5. Technical & Algorithms</h2>
-            <div class="accordion">
-                <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="faq12">
-                        What CSPRNG algorithm is used?
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content" id="faq12" aria-hidden="true">
-                        <p>We use the browser's native Web Crypto API, specifically the <code>crypto.getRandomValues()</code> method. This is a Cryptographically Secure Pseudorandom Number Generator (CSPRNG), which is significantly safer than standard pseudo-random functions like <code>Math.random()</code>.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="faq13">
-                        Why use Web Crypto API?
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content" id="faq13" aria-hidden="true">
-                        <p>The Web Crypto API provides a built-in, highly vetted, and secure source of randomness directly in the browser environment, eliminating the need to rely on less secure math functions or external servers.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="faq14">
-                        What is the difference between hashing and encryption?
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content" id="faq14" aria-hidden="true">
-                        <p>Encryption is a two-way process; data is scrambled but can be reversed (decrypted) with the right key. Hashing is a one-way process; data is turned into a fixed-length string, and it cannot be reversed. Passwords should always be hashed, never just encrypted.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger" type="button">
+            <span>What are Diceware passphrases?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="accordion__content">
+            Diceware is a method of generating passwords by selecting words at random from a wordlist (such as the Electronic Frontier Foundation's 7,776-word dictionary). Passphrases like <code>correct-horse-battery-staple</code> are memorable yet mathematically difficult to crack.
+          </div>
         </div>
-    </main>
+      </div>
 
-    <footer class="footer">
-        <div class="container footer-content">
-            <div class="footer-links">
-                <a href="about.html">About Us</a>
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="terms-of-service.html">Terms of Service</a>
-                <a href="contact.html">Contact</a>
-                <a href="faq.html">FAQ</a>
-            </div>
-            <p class="copyright">&copy; 2026 Password Security Hub. All rights reserved. 100% Client-Side Privacy.</p>
-        </div>
-    </footer>
+    </div>
+  </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const accordionHeaders = document.querySelectorAll('.accordion-header');
-            
-            accordionHeaders.forEach(header => {
-                header.addEventListener('click', () => {
-                    const expanded = header.getAttribute('aria-expanded') === 'true' || false;
-                    header.setAttribute('aria-expanded', !expanded);
-                    const contentId = header.getAttribute('aria-controls');
-                    const content = document.getElementById(contentId);
-                    if (content) {
-                        content.setAttribute('aria-hidden', expanded);
-                    }
-                });
-            });
-        });
-    </script>
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Password Security Hub. Frequently asked questions.</p>
+      <div class="flex gap-md">
+        <a href="/pages/privacy-policy.html">Privacy</a>
+        <a href="/pages/terms-of-service.html">Terms</a>
+        <a href="/pages/contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/app.js" defer></script>
 </body>
 </html>

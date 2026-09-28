@@ -1,287 +1,124 @@
 /**
- * Password Security Hub — Global Application Script
- * Theme toggle, mobile nav, keyboard shortcuts, accordion, dropdown
+ * Password Security Hub — Global App JavaScript
  */
-
 (function() {
   'use strict';
 
-  // ===== Theme Toggle =====
+  // ===== Theme Management =====
   function initTheme() {
-    const toggle = document.getElementById('theme-toggle');
-    if (!toggle) return;
-
+    const toggleBtns = document.querySelectorAll('#theme-toggle, #theme-toggle-btn, .theme-toggle');
     const savedTheme = localStorage.getItem('psh-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    if (savedTheme === 'dark') {
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
       document.documentElement.classList.add('dark');
-      document.documentElement.classList.remove('light');
-    } else if (savedTheme === 'light') {
-      document.documentElement.classList.add('light');
+    } else {
       document.documentElement.classList.remove('dark');
     }
-    // If no saved theme, rely on prefers-color-scheme in CSS
 
-    toggle.addEventListener('click', () => {
-      document.documentElement.classList.add('theme-transition');
-
-      const isDark = document.documentElement.classList.contains('dark') ||
-                     (!document.documentElement.classList.contains('light') && prefersDark);
-
-      if (isDark) {
-        document.documentElement.classList.remove('dark');
-        document.documentElement.classList.add('light');
-        localStorage.setItem('psh-theme', 'light');
-      } else {
-        document.documentElement.classList.add('dark');
-        document.documentElement.classList.remove('light');
-        localStorage.setItem('psh-theme', 'dark');
-      }
-
-      setTimeout(() => {
-        document.documentElement.classList.remove('theme-transition');
-      }, 300);
+    toggleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('psh-theme', isDark ? 'dark' : 'light');
+      });
     });
   }
 
-  // ===== Mobile Navigation =====
+  // ===== Mobile Drawer Navigation =====
   function initMobileNav() {
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobile-nav');
-    const backdrop = document.getElementById('mobile-nav-backdrop');
+    const hamburger = document.getElementById('hamburger') || document.getElementById('mobile-menu-btn') || document.querySelector('.hamburger');
+    const mobileNav = document.getElementById('mobile-nav') || document.querySelector('.mobile-nav');
+    const backdrop = document.getElementById('mobile-nav-backdrop') || document.querySelector('.mobile-nav__backdrop');
+    const closeBtn = document.getElementById('close-mobile-nav') || document.querySelector('.close-mobile-nav');
 
-    if (!hamburger || !mobileNav) return;
-
-    function openNav() {
-      hamburger.classList.add('active');
-      mobileNav.classList.add('open');
+    function openMenu() {
+      if (mobileNav) mobileNav.classList.add('open');
       if (backdrop) backdrop.classList.add('open');
-      document.body.classList.add('nav-open');
-      hamburger.setAttribute('aria-expanded', 'true');
+      if (hamburger) hamburger.classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
 
-    function closeNav() {
-      hamburger.classList.remove('active');
-      mobileNav.classList.remove('open');
+    function closeMenu() {
+      if (mobileNav) mobileNav.classList.remove('open');
       if (backdrop) backdrop.classList.remove('open');
-      document.body.classList.remove('nav-open');
-      hamburger.setAttribute('aria-expanded', 'false');
+      if (hamburger) hamburger.classList.remove('active');
+      document.body.style.overflow = '';
     }
 
-    hamburger.addEventListener('click', () => {
-      if (mobileNav.classList.contains('open')) {
-        closeNav();
-      } else {
-        openNav();
-      }
-    });
-
-    if (backdrop) {
-      backdrop.addEventListener('click', closeNav);
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        if (mobileNav && mobileNav.classList.contains('open')) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
     }
 
-    // Close on link click
-    mobileNav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', closeNav);
-    });
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (backdrop) backdrop.addEventListener('click', closeMenu);
 
-    // Close on Escape
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
-        closeNav();
-      }
+      if (e.key === 'Escape') closeMenu();
     });
   }
 
-  // ===== Desktop Dropdown =====
-  function initDropdown() {
-    const dropdowns = document.querySelectorAll('.nav-dropdown');
-
-    dropdowns.forEach(dropdown => {
-      const trigger = dropdown.querySelector('.nav-dropdown__trigger');
+  // ===== Dropdown Menus =====
+  function initDropdowns() {
+    document.querySelectorAll('.nav-dropdown, .dropdown').forEach(dropdown => {
+      const trigger = dropdown.querySelector('.nav-dropdown__trigger, .dropdown-trigger, a[href="#"]');
       if (!trigger) return;
 
       trigger.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
         const isOpen = dropdown.classList.contains('open');
-
-        // Close all dropdowns
-        dropdowns.forEach(d => d.classList.remove('open'));
-
-        if (!isOpen) {
-          dropdown.classList.add('open');
-        }
+        document.querySelectorAll('.nav-dropdown, .dropdown').forEach(d => d.classList.remove('open'));
+        if (!isOpen) dropdown.classList.add('open');
       });
     });
 
-    // Close on click outside
     document.addEventListener('click', () => {
-      dropdowns.forEach(d => d.classList.remove('open'));
-    });
-
-    // Close on Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        dropdowns.forEach(d => d.classList.remove('open'));
-      }
+      document.querySelectorAll('.nav-dropdown, .dropdown').forEach(d => d.classList.remove('open'));
     });
   }
 
-  // ===== Accordion =====
+  // ===== Accordions =====
   function initAccordions() {
-    document.querySelectorAll('.accordion__trigger').forEach(trigger => {
-      trigger.addEventListener('click', () => {
-        const content = trigger.nextElementSibling;
-        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.accordion__trigger, .accordion-header').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.accordion__item, .accordion-item') || btn.parentElement;
+        const content = item.querySelector('.accordion__content, .accordion-content') || btn.nextElementSibling;
+        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
 
-        // Close all in same accordion
-        const accordion = trigger.closest('.accordion');
-        if (accordion) {
-          accordion.querySelectorAll('.accordion__trigger').forEach(t => {
-            t.setAttribute('aria-expanded', 'false');
-            const c = t.nextElementSibling;
-            if (c) c.classList.remove('active');
-          });
-        }
-
-        if (!isExpanded) {
-          trigger.setAttribute('aria-expanded', 'true');
-          if (content) content.classList.add('active');
+        btn.setAttribute('aria-expanded', !isExpanded);
+        if (content) {
+          content.classList.toggle('active', !isExpanded);
         }
       });
     });
   }
 
-  // ===== Keyboard Shortcuts =====
-  function initKeyboardShortcuts() {
-    const shortcutsModal = document.getElementById('shortcuts-modal');
-
-    document.addEventListener('keydown', (e) => {
-      // Don't trigger if typing in an input
-      if (e.target.matches('input, textarea, select')) return;
-
-      // ? — Show shortcuts modal
-      if (e.key === '?' && !e.ctrlKey && !e.metaKey) {
-        e.preventDefault();
-        if (shortcutsModal) {
-          shortcutsModal.classList.toggle('active');
-        }
-        return;
-      }
-
-      // Ctrl/Cmd + G — Generate
-      if ((e.ctrlKey || e.metaKey) && e.key === 'g') {
-        e.preventDefault();
-        const generateBtn = document.querySelector('[data-action="generate"]') ||
-                           document.querySelector('.btn--primary');
-        if (generateBtn) generateBtn.click();
-        return;
-      }
-
-      // Ctrl/Cmd + Shift + D — Toggle dark mode
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'D') {
-        e.preventDefault();
-        const toggle = document.getElementById('theme-toggle');
-        if (toggle) toggle.click();
-        return;
-      }
-
-      // Escape — Close modals
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.modal-backdrop.active').forEach(m => {
-          m.classList.remove('active');
+  // ===== Service Worker Registration =====
+  function initServiceWorker() {
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => {
+          console.log('SW registration note:', err);
         });
-      }
-    });
-
-    // Close modal on backdrop click
-    document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
-      backdrop.addEventListener('click', (e) => {
-        if (e.target === backdrop) {
-          backdrop.classList.remove('active');
-        }
       });
-    });
-
-    // Close buttons
-    document.querySelectorAll('.modal__close').forEach(btn => {
-      btn.addEventListener('click', () => {
-        btn.closest('.modal-backdrop').classList.remove('active');
-      });
-    });
+    }
   }
 
-  // ===== Password Visibility Toggle =====
-  function initVisibilityToggles() {
-    document.querySelectorAll('[data-toggle-visibility]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const targetId = btn.getAttribute('data-toggle-visibility');
-        const target = document.getElementById(targetId);
-        if (!target) return;
-
-        if (target.type === 'password') {
-          target.type = 'text';
-          btn.setAttribute('aria-label', 'Hide password');
-          btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`;
-        } else {
-          target.type = 'password';
-          btn.setAttribute('aria-label', 'Show password');
-          btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
-        }
-      });
-    });
-
-    // For password display elements (not inputs)
-    document.querySelectorAll('[data-toggle-display]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const targetId = btn.getAttribute('data-toggle-display');
-        const target = document.getElementById(targetId);
-        if (!target) return;
-
-        target.classList.toggle('password-display__text--hidden');
-        const isHidden = target.classList.contains('password-display__text--hidden');
-        btn.setAttribute('aria-label', isHidden ? 'Show password' : 'Hide password');
-      });
-    });
-  }
-
-  // ===== Stepper Controls =====
-  function initSteppers() {
-    document.querySelectorAll('.stepper').forEach(stepper => {
-      const input = stepper.querySelector('.stepper__value');
-      const minBtn = stepper.querySelector('[data-stepper="minus"]');
-      const plusBtn = stepper.querySelector('[data-stepper="plus"]');
-
-      if (!input || !minBtn || !plusBtn) return;
-
-      const min = parseInt(input.getAttribute('min')) || 1;
-      const max = parseInt(input.getAttribute('max')) || 100;
-
-      function update(value) {
-        const clamped = Math.max(min, Math.min(max, value));
-        input.value = clamped;
-        input.dispatchEvent(new Event('change', { bubbles: true }));
-      }
-
-      minBtn.addEventListener('click', () => update(parseInt(input.value) - 1));
-      plusBtn.addEventListener('click', () => update(parseInt(input.value) + 1));
-      input.addEventListener('change', () => update(parseInt(input.value) || min));
-    });
-  }
-
-  // ===== Initialize Everything =====
+  // Initialize
   function init() {
     initTheme();
     initMobileNav();
-    initDropdown();
+    initDropdowns();
     initAccordions();
-    initKeyboardShortcuts();
-    initVisibilityToggles();
-    initSteppers();
+    initServiceWorker();
   }
 
-  // Run on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

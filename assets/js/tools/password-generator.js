@@ -1,223 +1,176 @@
+/**
+ * Password Security Hub — Password Generator Tool
+ */
 import { generatePassword, calculateEntropy } from '../utils/crypto.js';
 import { copyToClipboard } from '../utils/clipboard.js';
-import { loadZxcvbn, analyzePassword, updateStrengthBar, formatCrackTimes, getStrengthInfo } from '../utils/strength.js';
+import { loadZxcvbn, analyzePassword, updateStrengthBar, formatCrackTimes } from '../utils/strength.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // DOM Elements
-    const lengthSlider = document.getElementById('length-slider');
-    const lengthDisplay = document.getElementById('length-display');
-    const lengthWarning = document.getElementById('length-warning');
-    
-    const chkUpper = document.getElementById('chk-uppercase');
-    const chkLower = document.getElementById('chk-lowercase');
-    const chkNumbers = document.getElementById('chk-numbers');
-    const chkSymbols = document.getElementById('chk-symbols');
-    const chkExcludeAmbiguous = document.getElementById('chk-exclude-ambiguous');
-    const customExclude = document.getElementById('custom-exclude');
-    
-    const generateMultipleToggle = document.getElementById('generate-multiple-toggle');
-    const quantityContainer = document.getElementById('quantity-container');
-    const quantitySelector = document.getElementById('quantity-selector');
-    
-    const passwordOutput = document.getElementById('password-output');
-    const toggleVisibilityBtn = document.getElementById('toggle-visibility-btn');
-    const copyBtn = document.getElementById('copy-btn');
-    const regenerateBtn = document.getElementById('regenerate-btn');
-    const generatorForm = document.getElementById('generator-form');
-    
-    const strengthBar = document.getElementById('strength-bar');
-    const crackTimeDisplay = document.getElementById('crack-time');
-    const entropyDisplay = document.getElementById('entropy');
-    const strengthFeedback = document.getElementById('strength-feedback');
-    const multiplePasswordsContainer = document.getElementById('multiple-passwords-container');
+  const lengthSlider = document.getElementById('length-slider');
+  const lengthVal = document.getElementById('length-val') || document.getElementById('length-display');
+  
+  const chkUpper = document.getElementById('uppercase') || document.getElementById('chk-uppercase');
+  const chkLower = document.getElementById('lowercase') || document.getElementById('chk-lowercase');
+  const chkNumbers = document.getElementById('numbers') || document.getElementById('chk-numbers');
+  const chkSymbols = document.getElementById('symbols') || document.getElementById('chk-symbols');
+  const chkAmbiguous = document.getElementById('exclude-ambiguous') || document.getElementById('chk-exclude-ambiguous');
+  const excludeCharsInput = document.getElementById('exclude-chars') || document.getElementById('custom-exclude');
+  
+  const multipleToggle = document.getElementById('multiple-toggle') || document.getElementById('generate-multiple-toggle');
+  const multipleContainer = document.getElementById('multiple-container') || document.getElementById('multiple-passwords-container');
+  const multipleQuantity = document.getElementById('multiple-quantity') || document.getElementById('quantity-selector');
+  const multipleOutputList = document.getElementById('multiple-output-list');
+  
+  const passwordOutput = document.getElementById('password-output');
+  const copyBtn = document.getElementById('copy-btn');
+  const regenerateBtn = document.getElementById('regenerate-btn');
+  const toggleVisibilityBtn = document.getElementById('toggle-visibility-btn');
+  
+  const strengthBarContainer = document.getElementById('strength-bar-container') || document.getElementById('strength-bar');
+  const strengthText = document.getElementById('strength-text') || document.getElementById('strength-feedback');
+  const crackTimeDisplay = document.getElementById('crack-time-display') || document.getElementById('crack-time');
+  const entropyDisplay = document.getElementById('entropy-display') || document.getElementById('entropy');
+  const lengthStatDisplay = document.getElementById('length-stat-display');
 
-    let currentPassword = '';
-    let isPasswordVisible = true;
+  let currentPassword = '';
+  let isMasked = false;
 
-    // Initialize strength library
-    try {
-        await loadZxcvbn();
-    } catch(e) {
-        console.warn('Failed to load zxcvbn strength estimation library');
+  // Pre-load zxcvbn
+  try {
+    await loadZxcvbn();
+  } catch (e) {
+    console.warn('zxcvbn load warning:', e);
+  }
+
+  function getOptions() {
+    return {
+      length: parseInt(lengthSlider ? lengthSlider.value : 16, 10),
+      uppercase: chkUpper ? chkUpper.checked : true,
+      lowercase: chkLower ? chkLower.checked : true,
+      numbers: chkNumbers ? chkNumbers.checked : true,
+      symbols: chkSymbols ? chkSymbols.checked : true,
+      excludeAmbiguous: chkAmbiguous ? chkAmbiguous.checked : false,
+      excludeChars: excludeCharsInput ? excludeCharsInput.value : ''
+    };
+  }
+
+  async function generate() {
+    const opts = getOptions();
+
+    // Ensure at least one charset is selected
+    if (!opts.uppercase && !opts.lowercase && !opts.numbers && !opts.symbols) {
+      if (chkLower) chkLower.checked = true;
+      opts.lowercase = true;
     }
 
-    // Handlers
-    const updateLengthDisplay = () => {
-        const val = parseInt(lengthSlider.value, 10);
-        lengthDisplay.textContent = val;
-        if (val < 12) {
-            lengthWarning.classList.remove('hidden');
-        } else {
-            lengthWarning.classList.add('hidden');
+    try {
+      currentPassword = generatePassword(opts);
+      
+      if (passwordOutput) {
+        passwordOutput.textContent = isMasked ? '•'.repeat(currentPassword.length) : currentPassword;
+      }
+
+      // Entropy calculation
+      const entropy = calculateEntropy(currentPassword);
+      if (entropyDisplay) {
+        entropyDisplay.textContent = `${entropy} bits`;
+      }
+      if (lengthStatDisplay) {
+        lengthStatDisplay.textContent = opts.length;
+      }
+
+      // Strength analysis
+      const analysis = await analyzePassword(currentPassword);
+      if (strengthBarContainer) {
+        updateStrengthBar(strengthBarContainer, strengthText, analysis.score);
+      }
+      if (crackTimeDisplay) {
+        const times = formatCrackTimes(analysis.crackTimesDisplay);
+        crackTimeDisplay.textContent = `Crack time: ${times.offlineSlowHash}`;
+      }
+
+      // Generate Multiple if enabled
+      if (multipleToggle && multipleToggle.checked && multipleOutputList) {
+        const qty = parseInt(multipleQuantity ? multipleQuantity.value : 5, 10);
+        multipleOutputList.innerHTML = '';
+        for (let i = 0; i < qty; i++) {
+          const pwd = generatePassword(opts);
+          const item = document.createElement('div');
+          item.className = 'password-display';
+          item.style.fontSize = '15px';
+          item.style.padding = '8px 12px';
+          item.innerHTML = `<span style="word-break: break-all;">${pwd}</span><button type="button" class="btn btn--sm btn--secondary" style="flex-shrink:0;">Copy</button>`;
+          item.querySelector('button').addEventListener('click', () => {
+            copyToClipboard(pwd, 'Password');
+          });
+          multipleOutputList.appendChild(item);
         }
-    };
+      }
+    } catch (err) {
+      console.error('Password generation error:', err);
+    }
+  }
 
-    const validateCheckboxes = (changedEl) => {
-        const checkedCount = [chkUpper, chkLower, chkNumbers, chkSymbols].filter(el => el.checked).length;
-        if (checkedCount === 0) {
-            changedEl.checked = true; // prevent unchecking the last one
-        }
-    };
-
-    const getGenerationOptions = () => {
-        return {
-            length: parseInt(lengthSlider.value, 10),
-            uppercase: chkUpper.checked,
-            lowercase: chkLower.checked,
-            numbers: chkNumbers.checked,
-            symbols: chkSymbols.checked,
-            excludeAmbiguous: chkExcludeAmbiguous.checked,
-            customExclude: customExclude.value || ''
-        };
-    };
-
-    const handleGenerate = () => {
-        const options = getGenerationOptions();
-        const isMultiple = generateMultipleToggle.checked;
-        
-        if (isMultiple) {
-            const quantity = Math.min(Math.max(parseInt(quantitySelector.value, 10) || 5, 2), 10);
-            const passwords = [];
-            for (let i = 0; i < quantity; i++) {
-                passwords.push(generatePassword(options));
-            }
-            displayMultiplePasswords(passwords);
-            
-            // Analyze the first password for strength
-            currentPassword = passwords[0];
-        } else {
-            multiplePasswordsContainer.classList.add('hidden');
-            multiplePasswordsContainer.innerHTML = '';
-            currentPassword = generatePassword(options);
-        }
-        
-        updatePasswordDisplay();
-        analyzeCurrentPassword();
-    };
-
-    const displayMultiplePasswords = (passwords) => {
-        multiplePasswordsContainer.classList.remove('hidden');
-        multiplePasswordsContainer.innerHTML = '';
-        passwords.forEach(pwd => {
-            const row = document.createElement('div');
-            row.className = 'password-list-item';
-            row.style.display = 'flex';
-            row.style.justifyContent = 'space-between';
-            row.style.alignItems = 'center';
-            row.style.padding = '8px';
-            row.style.borderBottom = '1px solid var(--border)';
-            
-            const pwdText = document.createElement('span');
-            pwdText.style.fontFamily = 'var(--font-mono, "JetBrains Mono", monospace)';
-            pwdText.style.wordBreak = 'break-all';
-            pwdText.textContent = isPasswordVisible ? pwd : '•'.repeat(pwd.length);
-            
-            const copyItemBtn = document.createElement('button');
-            copyItemBtn.className = 'btn btn-sm btn-secondary';
-            copyItemBtn.textContent = 'Copy';
-            copyItemBtn.onclick = () => {
-                copyToClipboard(pwd);
-                copyItemBtn.textContent = 'Copied!';
-                setTimeout(() => copyItemBtn.textContent = 'Copy', 2000);
-            };
-            
-            row.appendChild(pwdText);
-            row.appendChild(copyItemBtn);
-            multiplePasswordsContainer.appendChild(row);
-        });
-    };
-
-    const updatePasswordDisplay = () => {
-        if (!currentPassword) return;
-        
-        passwordOutput.textContent = isPasswordVisible ? currentPassword : '•'.repeat(currentPassword.length);
-    };
-
-    const analyzeCurrentPassword = () => {
-        if (!currentPassword) return;
-        
-        const options = getGenerationOptions();
-        const poolSize = (options.uppercase ? 26 : 0) + (options.lowercase ? 26 : 0) + (options.numbers ? 10 : 0) + (options.symbols ? 32 : 0);
-        
-        let entropy = 0;
-        if (poolSize > 0) {
-            entropy = calculateEntropy(options.length, poolSize);
-        }
-        entropyDisplay.textContent = `Entropy: ${Math.round(entropy)} bits`;
-
-        const analysis = analyzePassword(currentPassword);
-        if (analysis) {
-            updateStrengthBar(strengthBar, analysis.score);
-            crackTimeDisplay.textContent = `Crack Time: ${formatCrackTimes(analysis.crack_times_display)}`;
-            const strengthInfo = getStrengthInfo(analysis.score);
-            strengthFeedback.textContent = strengthInfo.label;
-            strengthFeedback.style.color = `var(--${strengthInfo.colorClass.replace('text-', '')})`;
-            
-            if (analysis.feedback.warning) {
-                strengthFeedback.textContent += ` - ${analysis.feedback.warning}`;
-            }
-        } else {
-            const score = Math.min(4, Math.floor(entropy / 25));
-            updateStrengthBar(strengthBar, score);
-            crackTimeDisplay.textContent = 'Crack Time: Unknown';
-        }
-    };
-
-    // Event Listeners
-    lengthSlider.addEventListener('input', () => {
-        updateLengthDisplay();
-        handleGenerate();
+  // Event Listeners
+  if (lengthSlider) {
+    lengthSlider.addEventListener('input', (e) => {
+      if (lengthVal) lengthVal.textContent = e.target.value;
+      generate();
     });
+  }
 
-    [chkUpper, chkLower, chkNumbers, chkSymbols].forEach(chk => {
-        chk.addEventListener('change', (e) => {
-            validateCheckboxes(e.target);
-            handleGenerate();
-        });
-    });
-    
-    chkExcludeAmbiguous.addEventListener('change', handleGenerate);
-    customExclude.addEventListener('input', handleGenerate);
-
-    generateMultipleToggle.addEventListener('change', (e) => {
-        if (e.target.checked) {
-            quantityContainer.classList.remove('hidden');
-        } else {
-            quantityContainer.classList.add('hidden');
-            multiplePasswordsContainer.classList.add('hidden');
+  [chkUpper, chkLower, chkNumbers, chkSymbols, chkAmbiguous].forEach(el => {
+    if (el) {
+      el.addEventListener('change', () => {
+        // Prevent deselecting all
+        const anyChecked = [chkUpper, chkLower, chkNumbers, chkSymbols].some(c => c && c.checked);
+        if (!anyChecked && el) {
+          el.checked = true;
         }
-        handleGenerate();
-    });
-    
-    quantitySelector.addEventListener('input', handleGenerate);
+        generate();
+      });
+    }
+  });
 
-    generatorForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        handleGenerate();
-    });
-    
-    regenerateBtn.addEventListener('click', handleGenerate);
+  if (excludeCharsInput) {
+    excludeCharsInput.addEventListener('input', generate);
+  }
 
+  if (regenerateBtn) {
+    regenerateBtn.addEventListener('click', generate);
+  }
+
+  if (copyBtn) {
     copyBtn.addEventListener('click', () => {
-        if (currentPassword) {
-            copyToClipboard(currentPassword);
-            const originalText = copyBtn.textContent;
-            copyBtn.textContent = 'Copied!';
-            setTimeout(() => copyBtn.textContent = originalText, 2000);
-        }
+      if (currentPassword) {
+        copyToClipboard(currentPassword, 'Password');
+      }
     });
+  }
 
+  if (toggleVisibilityBtn) {
     toggleVisibilityBtn.addEventListener('click', () => {
-        isPasswordVisible = !isPasswordVisible;
-        toggleVisibilityBtn.textContent = isPasswordVisible ? 'Hide' : 'Show';
-        updatePasswordDisplay();
-        
-        if (generateMultipleToggle.checked && multiplePasswordsContainer.children.length > 0) {
-            handleGenerate();
-        }
+      isMasked = !isMasked;
+      toggleVisibilityBtn.setAttribute('aria-label', isMasked ? 'Show password' : 'Hide password');
+      if (passwordOutput) {
+        passwordOutput.textContent = isMasked ? '•'.repeat(currentPassword.length) : currentPassword;
+      }
     });
+  }
 
-    // Initial setup
-    updateLengthDisplay();
-    handleGenerate();
+  if (multipleToggle) {
+    multipleToggle.addEventListener('change', () => {
+      if (multipleContainer) {
+        multipleContainer.classList.toggle('hidden', !multipleToggle.checked);
+      }
+      generate();
+    });
+  }
+
+  if (multipleQuantity) {
+    multipleQuantity.addEventListener('input', generate);
+  }
+
+  // Initial generation
+  generate();
 });

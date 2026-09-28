@@ -1,157 +1,153 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | Password Security Hub</title>
-    <meta name="description" content="Read our privacy policy to understand our commitment to zero data collection, our client-side processing architecture, and your rights regarding personal information.">
-    <link rel="canonical" href="https://passwordsecurityhub.com/pages/privacy-policy.html">
-    <meta property="og:title" content="Privacy Policy | Password Security Hub">
-    <meta property="og:description" content="Read our privacy policy to understand our commitment to zero data collection, our client-side processing architecture, and your rights regarding personal information.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://passwordsecurityhub.com/pages/privacy-policy.html">
-    <meta name="twitter:card" content="summary_large_image">
-    
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="../assets/css/layout.css">
-    <link rel="stylesheet" href="../assets/css/themes.css">
-    <script defer src="../assets/js/utils/theme.js"></script>
-    <script defer src="../assets/js/app.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | Password Security Hub</title>
+  <meta name="description" content="Password Security Hub Privacy Policy. Learn about our strict 100% client-side data privacy guarantees and compliance with GDPR and CCPA.">
+  <link rel="canonical" href="https://passwordsecurityhub.com/pages/privacy-policy.html">
 
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://passwordsecurityhub.com/"
-            },
-            {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Privacy Policy",
-                "item": "https://passwordsecurityhub.com/pages/privacy-policy.html"
-            }
-        ]
-    }
-    </script>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/global.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/themes.css">
 </head>
 <body>
-    <header class="header">
-        <div class="container nav-container">
-            <a href="../index.html" class="logo">Password Security Hub</a>
-            <nav class="desktop-nav">
-                <a href="../index.html">Home</a>
-                <div class="dropdown">
-                    <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tools</button>
-                    <div class="dropdown-menu">
-                        <a href="password-generator.html">Password Generator</a>
-                        <a href="passphrase-generator.html">Passphrase Generator</a>
-                        <a href="password-strength-checker.html">Strength Checker</a>
-                    </div>
-                </div>
-                <a href="about.html">About</a>
-                <a href="faq.html">FAQ</a>
-            </nav>
-            <div class="header-actions">
-                <button id="theme-toggle" aria-label="Toggle Theme">🌓</button>
-                <button id="mobile-menu-toggle" aria-label="Menu">☰</button>
-            </div>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/index.html" class="site-logo" aria-label="Password Security Hub Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+        <span>Password Security Hub</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown__trigger" aria-haspopup="true" aria-expanded="false">
+            <span>Tools</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="nav-dropdown__menu">
+            <a href="/pages/password-generator.html" class="nav-dropdown__item">🔑 Password Generator</a>
+            <a href="/pages/password-strength-checker.html" class="nav-dropdown__item">🛡️ Strength Checker</a>
+            <a href="/pages/passphrase-generator.html" class="nav-dropdown__item">🎲 Passphrase Generator</a>
+            <a href="/pages/pin-generator.html" class="nav-dropdown__item">🔢 PIN Generator</a>
+            <a href="/pages/username-generator.html" class="nav-dropdown__item">👤 Username Generator</a>
+            <a href="/pages/password-entropy-calculator.html" class="nav-dropdown__item">📊 Entropy Calculator</a>
+            <a href="/pages/password-policy-checker.html" class="nav-dropdown__item">📋 Policy Checker</a>
+            <a href="/pages/hash-generator.html" class="nav-dropdown__item">⚡ Hash Generator</a>
+            <a href="/pages/bulk-password-generator.html" class="nav-dropdown__item">📦 Bulk Generator</a>
+            <a href="/pages/security-code-generator.html" class="nav-dropdown__item">🔐 Security Codes</a>
+          </div>
         </div>
-        <nav class="mobile-nav" id="mobile-nav" aria-hidden="true">
-            <a href="../index.html">Home</a>
-            <a href="password-generator.html">Password Generator</a>
-            <a href="passphrase-generator.html">Passphrase Generator</a>
-            <a href="password-strength-checker.html">Strength Checker</a>
-            <a href="about.html">About</a>
-            <a href="faq.html">FAQ</a>
-        </nav>
-    </header>
+        <a href="/pages/about.html" class="nav-link">About</a>
+        <a href="/pages/faq.html" class="nav-link">FAQ</a>
+        <a href="/pages/contact.html" class="nav-link">Contact</a>
+      </nav>
 
-    <main class="container page-content">
-        <nav class="breadcrumbs" aria-label="Breadcrumb">
-            <ol>
-                <li><a href="../index.html">Home</a></li>
-                <li aria-current="page">Privacy Policy</li>
-            </ol>
-        </nav>
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        </button>
+        <button id="hamburger" class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
 
-        <h1>Privacy Policy</h1>
-        <p class="text-secondary">Last Updated: September 28, 2026</p>
-        
-        <section class="card content-section">
-            <h2>Introduction & Core Commitment</h2>
-            <p>Welcome to Password Security Hub. Your privacy is not just a priority for us; it is the foundational principle of our platform. This Privacy Policy outlines our practices, explaining how our service works and assuring you of our zero data collection policy regarding your sensitive security information.</p>
-            <p><strong>Core Commitment:</strong> We do not, under any circumstances, collect, store, transmit, or monitor any passwords, passphrases, hashes, or security inputs you generate or evaluate using our tools.</p>
-        </section>
+  <!-- Mobile Nav Drawer -->
+  <div id="mobile-nav-backdrop" class="mobile-nav__backdrop"></div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile Navigation">
+    <div class="mobile-nav-header">
+      <span class="mobile-nav-title">Menu</span>
+      <button class="close-mobile-nav" id="close-mobile-nav" aria-label="Close menu" type="button">✕</button>
+    </div>
+    <div class="mobile-nav__section">
+      <div class="mobile-nav__title">Security Tools</div>
+      <a href="/pages/password-generator.html" class="mobile-nav__link">🔑 Password Generator</a>
+      <a href="/pages/password-strength-checker.html" class="mobile-nav__link">🛡️ Strength Checker</a>
+      <a href="/pages/passphrase-generator.html" class="mobile-nav__link">🎲 Passphrase Generator</a>
+      <a href="/pages/pin-generator.html" class="mobile-nav__link">🔢 PIN Generator</a>
+      <a href="/pages/username-generator.html" class="mobile-nav__link">👤 Username Generator</a>
+      <a href="/pages/password-entropy-calculator.html" class="mobile-nav__link">📊 Entropy Calculator</a>
+      <a href="/pages/password-policy-checker.html" class="mobile-nav__link">📋 Policy Checker</a>
+      <a href="/pages/hash-generator.html" class="mobile-nav__link">⚡ Hash Generator</a>
+      <a href="/pages/bulk-password-generator.html" class="mobile-nav__link">📦 Bulk Generator</a>
+      <a href="/pages/security-code-generator.html" class="mobile-nav__link">🔐 Security Codes</a>
+    </div>
+  </nav>
 
-        <section class="card content-section">
-            <h2>100% Client-Side Processing Architecture</h2>
-            <p>To guarantee the security of your data, Password Security Hub relies entirely on client-side processing. When you visit our site, the necessary scripts (HTML, CSS, JavaScript) are downloaded to your browser. All computational tasks, including random number generation and password entropy analysis, are performed locally on your device by your browser.</p>
-            <p>We utilize the browser's native <code>Web Crypto API</code> to ensure cryptographically secure operations without making any requests to a backend server. Once loaded, our core tools are fully functional offline.</p>
-        </section>
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container content-page">
+      
+      <nav aria-label="Breadcrumb">
+        <ul class="breadcrumb">
+          <li><a href="/index.html">Home</a></li>
+          <li aria-current="page">Privacy Policy</li>
+        </ul>
+      </nav>
 
-        <section class="card content-section">
-            <h2>Cookies and Analytics</h2>
-            <p>While we strictly avoid collecting sensitive inputs, our website may use standard web technologies like cookies to ensure functionality and understand general site usage.</p>
-            <ul>
-                <li><strong>Essential Cookies:</strong> Used to remember user preferences, such as your selected theme (light or dark mode).</li>
-                <li><strong>Google Analytics 4:</strong> We use GA4 to understand how users interact with our site (e.g., page views, session duration) to improve user experience. This data is aggregated and anonymized.</li>
-            </ul>
-        </section>
+      <h1>Privacy Policy</h1>
+      <p class="text-sm text-secondary mb-lg">Last Updated: September 28, 2026</p>
 
-        <section class="card content-section">
-            <h2>Advertising Policies</h2>
-            <p>To keep our tools free, we use third-party advertising networks, such as Google AdSense. These vendors may use cookies and web beacons to serve ads based on your prior visits to our website or other websites.</p>
-            <ul>
-                <li>Google's use of advertising cookies enables it and its partners to serve ads to you based on your visit to our sites and/or other sites on the Internet.</li>
-                <li>Users may opt out of personalized advertising by visiting <a href="https://myadcenter.google.com/" target="_blank" rel="noopener noreferrer">Google's Ads Settings</a>. Alternatively, you can opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">www.aboutads.info</a>.</li>
-            </ul>
-        </section>
+      <h2>1. Introduction &amp; Core Commitment</h2>
+      <p>
+        At <strong>Password Security Hub</strong> ("we", "our", or "us"), accessible from <code>https://passwordsecurityhub.com</code>, user privacy is our highest priority. This Privacy Policy document describes how information is handled when you visit our website.
+      </p>
 
-        <section class="card content-section">
-            <h2>Third-Party Services</h2>
-            <p>Our website may contain links to third-party services (e.g., password managers, security hardware). We are not responsible for the privacy practices of these external sites. We encourage you to read their respective privacy policies.</p>
-        </section>
+      <h2>2. Zero Collection of Password &amp; Credential Data</h2>
+      <p>
+        We do <strong>not</strong> collect, process, record, or transmit any passwords, passphrases, PINs, usernames, hashes, or security codes generated or checked on our platform. All calculations, random number generation, and cryptographic hashing take place 100% locally on your device within your browser using the client-side Web Crypto API.
+      </p>
 
-        <section class="card content-section">
-            <h2>Data Retention</h2>
-            <p>Because we do not collect any user security credentials or personal identifying information (aside from standard server logs like IP addresses for security and DDoS mitigation, kept for a maximum of 30 days), we have zero retention of your passwords or passphrases.</p>
-        </section>
+      <h2>3. Cookies and Web Beacons</h2>
+      <p>
+        Like most websites, we may utilize standard web cookies for basic site preferences (such as remembering your Dark Mode selection) and aggregate traffic analytics. These cookies contain no personally identifiable information.
+      </p>
 
-        <section class="card content-section">
-            <h2>User Rights (GDPR & CCPA)</h2>
-            <p>Under the General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA), users have rights regarding their personal data. Given our architecture, we hold no personal data directly linked to you, barring any aggregated analytics or cookie data collected by third parties.</p>
-            <p>If you wish to exercise your rights regarding cookies or analytics, you may use browser settings or the opt-out links provided above.</p>
-        </section>
+      <h2>4. Third-Party Advertising (Google AdSense)</h2>
+      <p>
+        Google is a third-party vendor on our site. It uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our site and other sites on the internet. However, visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy at <code>https://policies.google.com/technologies/ads</code>.
+      </p>
 
-        <section class="card content-section">
-            <h2>Children's Privacy</h2>
-            <p>Our website and services are intended for a general audience and are not directed at children under the age of 13. We comply with the Children's Online Privacy Protection Act (COPPA) and do not knowingly collect personal information from anyone under 13.</p>
-        </section>
+      <h2>5. GDPR and CCPA Rights</h2>
+      <p>
+        Under European GDPR and California CCPA privacy regulations, consumers have rights regarding their personal data. Because Password Security Hub does not collect personal identity or account information, there is no personal database to access, rectify, or delete.
+      </p>
 
-        <section class="card content-section">
-            <h2>Changes to This Policy & Contact Details</h2>
-            <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated revision date.</p>
-            <p>If you have any questions or concerns about this policy, please contact us at: <a href="mailto:support@passwordsecurityhub.com">support@passwordsecurityhub.com</a> or via our <a href="contact.html">Contact Page</a>.</p>
-        </section>
-    </main>
+      <h2>6. Contact Information</h2>
+      <p>
+        If you have questions regarding this Privacy Policy, please contact us at <code>privacy@passwordsecurityhub.com</code> or via our <a href="/pages/contact.html">Contact Form</a>.
+      </p>
 
-    <footer class="footer">
-        <div class="container footer-content">
-            <div class="footer-links">
-                <a href="about.html">About Us</a>
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="terms-of-service.html">Terms of Service</a>
-                <a href="contact.html">Contact</a>
-                <a href="faq.html">FAQ</a>
-            </div>
-            <p class="copyright">&copy; 2026 Password Security Hub. All rights reserved. 100% Client-Side Privacy.</p>
-        </div>
-    </footer>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Password Security Hub. All rights reserved.</p>
+      <div class="flex gap-md">
+        <a href="/pages/privacy-policy.html">Privacy</a>
+        <a href="/pages/terms-of-service.html">Terms</a>
+        <a href="/pages/contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/app.js" defer></script>
 </body>
 </html>

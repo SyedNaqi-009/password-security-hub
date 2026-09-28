@@ -1,136 +1,185 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random PIN Generator — Secure PINs | Password Security Hub</title>
-    <meta name="description" content="Generate secure, random PIN codes. Create multiple PINs with custom lengths and constraints like no sequential or repeated digits.">
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/layout.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="../assets/css/themes.css">
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebApplication",
-          "name": "Random PIN Generator",
-          "url": "https://example.com/pages/pin-generator.html",
-          "description": "Generate secure, random PIN codes with customizable lengths and security constraints.",
-          "applicationCategory": "SecurityApplication",
-          "operatingSystem": "All"
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "Is it safe to use this PIN generator?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes. All PIN generation happens locally in your browser using secure cryptographic functions. No data is sent to our servers."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Why avoid sequential or repeated digits?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Sequential (1234) and repeated (1111) digits are easily guessable and often used by attackers in brute-force attacks."
-              }
-            }
-          ]
-        }
-      ]
-    }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random PIN Generator — Secure PINs | Password Security Hub</title>
+  <meta name="description" content="Generate random numeric PINs for banking, ATM cards, devices, and 2FA backup codes. 100% private and client-side.">
+  <link rel="canonical" href="https://passwordsecurityhub.com/pages/pin-generator.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://passwordsecurityhub.com/pages/pin-generator.html">
+  <meta property="og:title" content="Random PIN Generator — Secure PINs">
+  <meta property="og:description" content="Generate secure random numeric PINs with custom lengths and anti-pattern filters.">
+  <meta property="og:image" content="https://passwordsecurityhub.com/assets/images/og-image.png">
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/global.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/themes.css">
 </head>
 <body>
-    <header class="site-header">
-        <nav aria-label="Breadcrumb">
-            <ol class="breadcrumb">
-                <li><a href="../index.html">Home</a></li>
-                <li aria-current="page">Random PIN Generator</li>
-            </ol>
-        </nav>
-    </header>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <main class="container">
-        <h1>Random PIN Generator</h1>
-        
-        <section class="tool-card" aria-label="PIN Generator Settings">
-            <form id="pin-generator-form">
-                <fieldset>
-                    <legend>PIN Length</legend>
-                    <div class="radio-group">
-                        <label><input type="radio" name="pinLengthPreset" value="4" checked> 4 digits</label>
-                        <label><input type="radio" name="pinLengthPreset" value="6"> 6 digits</label>
-                        <label><input type="radio" name="pinLengthPreset" value="8"> 8 digits</label>
-                        <label><input type="radio" name="pinLengthPreset" value="custom"> Custom</label>
-                    </div>
-                    
-                    <div class="custom-length-group" id="custom-length-container" style="display: none;">
-                        <label for="customLength">Custom Length (3-12):</label>
-                        <input type="number" id="customLength" min="3" max="12" value="10">
-                    </div>
-                </fieldset>
-                
-                <div class="form-group">
-                    <label for="pinQuantity">Quantity (1-20):</label>
-                    <input type="number" id="pinQuantity" min="1" max="20" value="5">
-                </div>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/index.html" class="site-logo" aria-label="Password Security Hub Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+        <span>Password Security Hub</span>
+      </a>
 
-                <fieldset>
-                    <legend>Constraints</legend>
-                    <label><input type="checkbox" id="noSequential" checked> No sequential digits (e.g., 1234)</label>
-                    <label><input type="checkbox" id="noRepeated" checked> No repeated digits (e.g., 1122)</label>
-                </fieldset>
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown__trigger" aria-haspopup="true" aria-expanded="false">
+            <span>Tools</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="nav-dropdown__menu">
+            <a href="/pages/password-generator.html" class="nav-dropdown__item">🔑 Password Generator</a>
+            <a href="/pages/password-strength-checker.html" class="nav-dropdown__item">🛡️ Strength Checker</a>
+            <a href="/pages/passphrase-generator.html" class="nav-dropdown__item">🎲 Passphrase Generator</a>
+            <a href="/pages/pin-generator.html" class="nav-dropdown__item">🔢 PIN Generator</a>
+            <a href="/pages/username-generator.html" class="nav-dropdown__item">👤 Username Generator</a>
+            <a href="/pages/password-entropy-calculator.html" class="nav-dropdown__item">📊 Entropy Calculator</a>
+            <a href="/pages/password-policy-checker.html" class="nav-dropdown__item">📋 Policy Checker</a>
+            <a href="/pages/hash-generator.html" class="nav-dropdown__item">⚡ Hash Generator</a>
+            <a href="/pages/bulk-password-generator.html" class="nav-dropdown__item">📦 Bulk Generator</a>
+            <a href="/pages/security-code-generator.html" class="nav-dropdown__item">🔐 Security Codes</a>
+          </div>
+        </div>
+        <a href="/pages/about.html" class="nav-link">About</a>
+        <a href="/pages/faq.html" class="nav-link">FAQ</a>
+        <a href="/pages/contact.html" class="nav-link">Contact</a>
+      </nav>
 
-                <button type="submit" class="btn btn-primary" id="generate-btn">Generate PINs</button>
-            </form>
-        </section>
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        </button>
+        <button id="hamburger" class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
 
-        <section class="output-section" aria-live="polite">
-            <h2>Generated PINs</h2>
-            <ol id="pin-output-list" class="pin-list"></ol>
-            
-            <div class="actions">
-                <button id="copy-all-btn" class="btn btn-secondary">Copy All</button>
-                <button id="export-txt-btn" class="btn btn-secondary">Export as TXT</button>
+  <!-- Mobile Nav Drawer -->
+  <div id="mobile-nav-backdrop" class="mobile-nav__backdrop"></div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile Navigation">
+    <div class="mobile-nav-header">
+      <span class="mobile-nav-title">Menu</span>
+      <button class="close-mobile-nav" id="close-mobile-nav" aria-label="Close menu" type="button">✕</button>
+    </div>
+    <div class="mobile-nav__section">
+      <div class="mobile-nav__title">Security Tools</div>
+      <a href="/pages/password-generator.html" class="mobile-nav__link">🔑 Password Generator</a>
+      <a href="/pages/password-strength-checker.html" class="mobile-nav__link">🛡️ Strength Checker</a>
+      <a href="/pages/passphrase-generator.html" class="mobile-nav__link">🎲 Passphrase Generator</a>
+      <a href="/pages/pin-generator.html" class="mobile-nav__link">🔢 PIN Generator</a>
+      <a href="/pages/username-generator.html" class="mobile-nav__link">👤 Username Generator</a>
+      <a href="/pages/password-entropy-calculator.html" class="mobile-nav__link">📊 Entropy Calculator</a>
+      <a href="/pages/password-policy-checker.html" class="mobile-nav__link">📋 Policy Checker</a>
+      <a href="/pages/hash-generator.html" class="mobile-nav__link">⚡ Hash Generator</a>
+      <a href="/pages/bulk-password-generator.html" class="mobile-nav__link">📦 Bulk Generator</a>
+      <a href="/pages/security-code-generator.html" class="mobile-nav__link">🔐 Security Codes</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container">
+      
+      <nav aria-label="Breadcrumb">
+        <ul class="breadcrumb">
+          <li><a href="/index.html">Home</a></li>
+          <li aria-current="page">PIN Generator</li>
+        </ul>
+      </nav>
+
+      <div class="tool-layout">
+        <div class="tool-card">
+          <div class="text-center mb-md">
+            <h1>Random PIN Generator</h1>
+            <p>Generate truly random numerical PINs with anti-repetition and sequential avoidance.</p>
+          </div>
+
+          <!-- Controls -->
+          <div class="input-group">
+            <label>PIN Length:</label>
+            <div class="pill-group" id="pin-length-pills">
+              <button type="button" class="pill-btn active" data-length="4">4 Digits (Standard)</button>
+              <button type="button" class="pill-btn" data-length="6">6 Digits (Modern)</button>
+              <button type="button" class="pill-btn" data-length="8">8 Digits (Bank)</button>
+              <button type="button" class="pill-btn" data-length="custom">Custom</button>
             </div>
-        </section>
+          </div>
 
-        <section class="info-section">
-            <h2>How to Use</h2>
-            <p>Select your desired PIN length or enter a custom length between 3 and 12 digits. Choose how many PINs you want to generate (up to 20). Toggle security constraints to avoid easily guessable patterns, then click Generate.</p>
+          <div class="input-group hidden" id="custom-pin-length-group">
+            <label for="custom-pin-length">Custom PIN Length (3 - 16):</label>
+            <input type="number" id="custom-pin-length" min="3" max="16" value="4" class="input">
+          </div>
 
-            <h2>Why Use This Tool</h2>
-            <p>Using a secure, random PIN generator ensures that your device or account locks are not easily guessable. Humans are naturally bad at choosing random numbers, often picking birthdays or simple sequences.</p>
+          <div class="tool-controls__row mb-md">
+            <div class="input-group">
+              <label for="pin-quantity">Quantity (1 - 20):</label>
+              <input type="number" id="pin-quantity" min="1" max="20" value="1" class="input">
+            </div>
+          </div>
 
-            <h2>Related Tools</h2>
-            <ul>
-                <li><a href="password-generator.html">Password Generator</a></li>
-                <li><a href="passphrase-generator.html">Passphrase Generator</a></li>
-            </ul>
+          <div class="checkbox-grid">
+            <label class="checkbox">
+              <input type="checkbox" id="no-sequential" checked>
+              <span>No Sequential Digits (e.g. 1234, 4321)</span>
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" id="no-repeated" checked>
+              <span>No Repeated Digits (e.g. 1111, 8888)</span>
+            </label>
+          </div>
 
-            <h2>FAQ</h2>
-            <dl>
-                <dt>Is it safe to use this PIN generator?</dt>
-                <dd>Yes. All PIN generation happens locally in your browser using secure cryptographic functions. No data is sent to our servers.</dd>
-                
-                <dt>Why avoid sequential or repeated digits?</dt>
-                <dd>Sequential (1234) and repeated (1111) digits are easily guessable and often used by attackers in brute-force attacks.</dd>
-            </dl>
-        </section>
-    </main>
+          <button type="button" id="generate-pin-btn" class="btn btn--primary btn--full btn--lg mt-md">
+            Generate PIN(s)
+          </button>
 
-    <footer class="site-footer">
-        <p>&copy; 2026 Password Security Hub</p>
-    </footer>
+          <!-- Output Box -->
+          <div id="pin-output-container" class="mt-lg">
+            <label class="font-bold mb-xs" style="display: block;">Generated PIN(s):</label>
+            <div id="pin-output-list" style="display: flex; flex-direction: column; gap: var(--space-sm);"></div>
+            <div class="flex gap-sm mt-md" id="pin-bulk-actions">
+              <button type="button" id="copy-all-pins-btn" class="btn btn--secondary">Copy All</button>
+              <button type="button" id="export-pins-txt-btn" class="btn btn--ghost">Export TXT</button>
+            </div>
+          </div>
 
-    <script type="module" src="../assets/js/tools/pin-generator.js"></script>
-    <script type="module" src="../assets/js/app.js"></script>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Password Security Hub. Client-side random generation.</p>
+      <div class="flex gap-md">
+        <a href="/pages/privacy-policy.html">Privacy</a>
+        <a href="/pages/terms-of-service.html">Terms</a>
+        <a href="/pages/contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/app.js" defer></script>
+  <script type="module" src="/assets/js/tools/pin-generator.js" defer></script>
 </body>
 </html>

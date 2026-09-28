@@ -1,136 +1,126 @@
+/**
+ * Password Security Hub — Username Generator Tool
+ */
 import { getSecureRandomInt } from '../utils/crypto.js';
 import { copyToClipboard } from '../utils/clipboard.js';
 
 let adjectivesData = [];
 let nounsData = [];
 
-const gamingAdjectives = ["Shadow", "Dark", "Storm", "Blaze", "Void", "Iron", "Ghost", "Frost", "Neon", "Cyber"];
-const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const FALLBACK_ADJECTIVES = ["Swift", "Brave", "Clever", "Silent", "Shadow", "Neon", "Cyber", "Atomic", "Mighty", "Cosmic", "Lunar", "Solar", "Vivid", "Epic", "Apex"];
+const FALLBACK_NOUNS = ["Falcon", "Tiger", "Dragon", "Phoenix", "Wolf", "Panther", "Viper", "Hawk", "Eagle", "Knight", "Hunter", "Matrix", "Cipher", "Titan", "Specter"];
+const GAMING_PREFIXES = ["Shadow", "Dark", "Storm", "Blaze", "Void", "Iron", "Ghost", "Frost", "Neon", "Cyber", "Fatal", "Reaper", "Vortex", "Rogue", "Hyper"];
+const FUNNY_ANIMALS = ["Panda", "Otter", "Llama", "Sloth", "Penguin", "Badger", "Hamster", "Duck", "Walrus", "Wombat", "Koala"];
+
+async function loadWordData() {
+  try {
+    const [adjRes, nounRes] = await Promise.all([
+      fetch('../assets/data/adjectives.json'),
+      fetch('../assets/data/nouns.json')
+    ]);
+    if (adjRes.ok) adjectivesData = await adjRes.json();
+    if (nounRes.ok) nounsData = await nounRes.json();
+  } catch (e) {
+    adjectivesData = FALLBACK_ADJECTIVES;
+    nounsData = FALLBACK_NOUNS;
+  }
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        const [adjRes, nounRes] = await Promise.all([
-            fetch('../assets/data/adjectives.json'),
-            fetch('../assets/data/nouns.json')
-        ]);
-        if (adjRes.ok) adjectivesData = await adjRes.json();
-        if (nounRes.ok) nounsData = await nounRes.json();
-    } catch (error) {
-        console.error("Failed to load word lists", error);
-        // Fallback data
-        adjectivesData = ["Swift", "Brave", "Clever", "Happy", "Lucky"];
-        nounsData = ["Fox", "Bear", "Lion", "Wolf", "Owl"];
+  const keywordInput = document.getElementById('keyword-input');
+  const stylePills = document.querySelectorAll('#style-pills .pill-btn');
+  const numbersChk = document.getElementById('include-numbers');
+  const underscoresChk = document.getElementById('include-underscores');
+  
+  const generateBtn = document.getElementById('generate-usernames-btn');
+  const generateMoreBtn = document.getElementById('generate-more-btn');
+  const grid = document.getElementById('usernames-grid');
+
+  let currentStyle = 'random';
+
+  await loadWordData();
+
+  stylePills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      stylePills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      currentStyle = pill.getAttribute('data-style');
+      if (grid) grid.innerHTML = '';
+      generateBatch(10);
+    });
+  });
+
+  function createUsername() {
+    const kw = (keywordInput ? keywordInput.value.trim() : '').replace(/[^a-zA-Z0-9]/g, '');
+    const incNum = numbersChk ? numbersChk.checked : true;
+    const incUnder = underscoresChk ? underscoresChk.checked : false;
+    const sep = incUnder ? '_' : '';
+
+    const adjs = adjectivesData.length ? adjectivesData : FALLBACK_ADJECTIVES;
+    const nouns = nounsData.length ? nounsData : FALLBACK_NOUNS;
+
+    let base = '';
+
+    if (currentStyle === 'gaming') {
+      const prefix = GAMING_PREFIXES[getSecureRandomInt(GAMING_PREFIXES.length)];
+      const noun = kw || nouns[getSecureRandomInt(nouns.length)];
+      base = `${prefix}${sep}${noun}`;
+    } else if (currentStyle === 'professional') {
+      const adj = adjs[getSecureRandomInt(adjs.length)];
+      const noun = kw || nouns[getSecureRandomInt(nouns.length)];
+      base = `${adj.charAt(0).toUpperCase()}${sep}${noun}`;
+    } else if (currentStyle === 'funny') {
+      const animal = FUNNY_ANIMALS[getSecureRandomInt(FUNNY_ANIMALS.length)];
+      const adj = adjs[getSecureRandomInt(adjs.length)];
+      base = `${adj}${sep}${kw || animal}`;
+    } else {
+      // Random
+      const adj = adjs[getSecureRandomInt(adjs.length)];
+      const noun = kw || nouns[getSecureRandomInt(nouns.length)];
+      base = `${adj}${sep}${noun}`;
     }
 
-    const form = document.getElementById('username-generator-form');
-    const maxLengthInput = document.getElementById('maxLength');
-    const maxLengthVal = document.getElementById('maxLengthVal');
-    const outputGrid = document.getElementById('username-output-grid');
-    const generateMoreBtn = document.getElementById('generate-more-btn');
+    if (incNum) {
+      base += `${sep}${getSecureRandomInt(100)}`;
+    }
 
-    maxLengthInput.addEventListener('input', (e) => {
-        maxLengthVal.textContent = e.target.value;
+    return base;
+  }
+
+  function generateBatch(count = 10) {
+    if (!grid) return;
+    for (let i = 0; i < count; i++) {
+      const name = createUsername();
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.padding = '12px 16px';
+      card.style.display = 'flex';
+      card.style.alignItems = 'center';
+      card.style.justifyContent = 'space-between';
+      card.style.gap = '8px';
+      card.innerHTML = `
+        <span class="font-bold text-mono" style="font-size: 15px; word-break: break-all;">${name}</span>
+        <button type="button" class="btn btn--sm btn--secondary" style="flex-shrink:0;">Copy</button>
+      `;
+      card.querySelector('button').addEventListener('click', () => {
+        copyToClipboard(name, 'Username');
+      });
+      grid.appendChild(card);
+    }
+  }
+
+  if (generateBtn) {
+    generateBtn.addEventListener('click', () => {
+      if (grid) grid.innerHTML = '';
+      generateBatch(10);
     });
+  }
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        outputGrid.innerHTML = '';
-        generateBatch(10);
-    });
-
+  if (generateMoreBtn) {
     generateMoreBtn.addEventListener('click', () => {
-        generateBatch(10);
+      generateBatch(10);
     });
+  }
 
-    function generateBatch(count) {
-        for (let i = 0; i < count; i++) {
-            const username = generateUsername();
-            renderUsernameCard(username);
-        }
-    }
-
-    function renderUsernameCard(username) {
-        const card = document.createElement('div');
-        card.className = 'username-card';
-        
-        const nameSpan = document.createElement('span');
-        nameSpan.textContent = username;
-        nameSpan.className = 'username-text';
-
-        const actions = document.createElement('div');
-        actions.className = 'username-actions';
-
-        const copyBtn = document.createElement('button');
-        copyBtn.textContent = 'Copy';
-        copyBtn.className = 'btn btn-small';
-        copyBtn.addEventListener('click', () => copyToClipboard(nameSpan.textContent));
-
-        const regenBtn = document.createElement('button');
-        regenBtn.textContent = '↻';
-        regenBtn.className = 'btn btn-small btn-icon';
-        regenBtn.setAttribute('aria-label', 'Regenerate this username');
-        regenBtn.addEventListener('click', () => {
-            nameSpan.textContent = generateUsername();
-        });
-
-        actions.appendChild(regenBtn);
-        actions.appendChild(copyBtn);
-        card.appendChild(nameSpan);
-        card.appendChild(actions);
-        outputGrid.appendChild(card);
-    }
-
-    function getRandomItem(arr) {
-        if (!arr || arr.length === 0) return "";
-        return arr[getSecureRandomInt(0, arr.length - 1)];
-    }
-
-    function generateUsername() {
-        const keyword = document.getElementById('keyword').value.trim();
-        const style = document.querySelector('input[name="style"]:checked').value;
-        const maxLength = parseInt(document.getElementById('maxLength').value, 10);
-        const includeNumbers = document.getElementById('includeNumbers').checked;
-        const includeUnderscores = document.getElementById('includeUnderscores').checked;
-        
-        let username = "";
-        
-        if (style === "Random") {
-            const adj = getRandomItem(adjectivesData);
-            const noun = keyword || getRandomItem(nounsData);
-            username = adj + noun;
-            if (includeNumbers) {
-                username += getSecureRandomInt(10, 999).toString();
-            }
-        } else if (style === "Gaming") {
-            const adj = getRandomItem(gamingAdjectives);
-            const noun = keyword || getRandomItem(nounsData);
-            username = adj + noun;
-            if (includeNumbers) {
-                username += getSecureRandomInt(1, 99).toString();
-            }
-        } else if (style === "Professional") {
-            const initial = alphabet[getSecureRandomInt(0, 25)];
-            const base = keyword || getRandomItem(nounsData);
-            username = initial + (includeUnderscores ? "_" : "") + base;
-            if (includeNumbers) {
-                username += getSecureRandomInt(1, 99).toString();
-            }
-        } else if (style === "Funny") {
-            let adj = getRandomItem(adjectivesData);
-            const noun = keyword || getRandomItem(nounsData); // Real implementation would match letters for alliteration
-            username = adj + noun;
-        }
-
-        if (includeUnderscores && style !== "Professional") {
-            // Insert an underscore somewhere in the middle
-            const pos = Math.max(1, Math.floor(username.length / 2));
-            username = username.slice(0, pos) + "_" + username.slice(pos);
-        }
-
-        if (username.length > maxLength) {
-            username = username.slice(0, maxLength);
-        }
-
-        return username;
-    }
+  generateBatch(10);
 });

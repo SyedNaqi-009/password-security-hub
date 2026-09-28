@@ -1,150 +1,165 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us — Privacy-First Security Tools | Password Security Hub</title>
-    <meta name="description" content="Learn about Password Security Hub's mission to provide completely free, private, client-side password and security tools to empower users worldwide.">
-    <link rel="canonical" href="https://passwordsecurityhub.com/pages/about.html">
-    <meta property="og:title" content="About Us — Privacy-First Security Tools | Password Security Hub">
-    <meta property="og:description" content="Learn about Password Security Hub's mission to provide completely free, private, client-side password and security tools to empower users worldwide.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://passwordsecurityhub.com/pages/about.html">
-    <meta name="twitter:card" content="summary_large_image">
-    
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="../assets/css/layout.css">
-    <link rel="stylesheet" href="../assets/css/themes.css">
-    <script defer src="../assets/js/utils/theme.js"></script>
-    <script defer src="../assets/js/app.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Privacy-First Security Tools | Password Security Hub</title>
+  <meta name="description" content="Learn about Password Security Hub: our mission, our 100% client-side security architecture, and our commitment to zero data collection.">
+  <link rel="canonical" href="https://passwordsecurityhub.com/pages/about.html">
 
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "Organization",
-                "name": "Password Security Hub",
-                "url": "https://passwordsecurityhub.com",
-                "logo": "https://passwordsecurityhub.com/assets/img/logo.png",
-                "contactPoint": {
-                    "@type": "ContactPoint",
-                    "contactType": "customer support",
-                    "email": "support@passwordsecurityhub.com",
-                    "url": "https://passwordsecurityhub.com/pages/contact.html"
-                }
-            },
-            {
-                "@type": "BreadcrumbList",
-                "itemListElement": [
-                    {
-                        "@type": "ListItem",
-                        "position": 1,
-                        "name": "Home",
-                        "item": "https://passwordsecurityhub.com/"
-                    },
-                    {
-                        "@type": "ListItem",
-                        "position": 2,
-                        "name": "About Us",
-                        "item": "https://passwordsecurityhub.com/pages/about.html"
-                    }
-                ]
-            }
-        ]
-    }
-    </script>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/global.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/themes.css">
 </head>
 <body>
-    <header class="header">
-        <div class="container nav-container">
-            <a href="../index.html" class="logo">Password Security Hub</a>
-            <nav class="desktop-nav">
-                <a href="../index.html">Home</a>
-                <div class="dropdown">
-                    <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tools</button>
-                    <div class="dropdown-menu">
-                        <a href="password-generator.html">Password Generator</a>
-                        <a href="passphrase-generator.html">Passphrase Generator</a>
-                        <a href="password-strength-checker.html">Strength Checker</a>
-                    </div>
-                </div>
-                <a href="about.html" aria-current="page">About</a>
-                <a href="faq.html">FAQ</a>
-            </nav>
-            <div class="header-actions">
-                <button id="theme-toggle" aria-label="Toggle Theme">🌓</button>
-                <button id="mobile-menu-toggle" aria-label="Menu">☰</button>
-            </div>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/index.html" class="site-logo" aria-label="Password Security Hub Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+        <span>Password Security Hub</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown__trigger" aria-haspopup="true" aria-expanded="false">
+            <span>Tools</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="nav-dropdown__menu">
+            <a href="/pages/password-generator.html" class="nav-dropdown__item">🔑 Password Generator</a>
+            <a href="/pages/password-strength-checker.html" class="nav-dropdown__item">🛡️ Strength Checker</a>
+            <a href="/pages/passphrase-generator.html" class="nav-dropdown__item">🎲 Passphrase Generator</a>
+            <a href="/pages/pin-generator.html" class="nav-dropdown__item">🔢 PIN Generator</a>
+            <a href="/pages/username-generator.html" class="nav-dropdown__item">👤 Username Generator</a>
+            <a href="/pages/password-entropy-calculator.html" class="nav-dropdown__item">📊 Entropy Calculator</a>
+            <a href="/pages/password-policy-checker.html" class="nav-dropdown__item">📋 Policy Checker</a>
+            <a href="/pages/hash-generator.html" class="nav-dropdown__item">⚡ Hash Generator</a>
+            <a href="/pages/bulk-password-generator.html" class="nav-dropdown__item">📦 Bulk Generator</a>
+            <a href="/pages/security-code-generator.html" class="nav-dropdown__item">🔐 Security Codes</a>
+          </div>
         </div>
-        <nav class="mobile-nav" id="mobile-nav" aria-hidden="true">
-            <a href="../index.html">Home</a>
-            <a href="password-generator.html">Password Generator</a>
-            <a href="passphrase-generator.html">Passphrase Generator</a>
-            <a href="password-strength-checker.html">Strength Checker</a>
-            <a href="about.html" aria-current="page">About</a>
-            <a href="faq.html">FAQ</a>
-        </nav>
-    </header>
+        <a href="/pages/about.html" class="nav-link active">About</a>
+        <a href="/pages/faq.html" class="nav-link">FAQ</a>
+        <a href="/pages/contact.html" class="nav-link">Contact</a>
+      </nav>
 
-    <main class="container page-content">
-        <nav class="breadcrumbs" aria-label="Breadcrumb">
-            <ol>
-                <li><a href="../index.html">Home</a></li>
-                <li aria-current="page">About Us</li>
-            </ol>
-        </nav>
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        </button>
+        <button id="hamburger" class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
 
-        <h1>About Us</h1>
-        <section class="card content-section">
-            <h2>Our Mission</h2>
-            <p>At Password Security Hub, our mission is to empower internet users globally with completely free, highly secure, and privacy-first tools. In an era of constant data breaches and digital threats, strong credential management is no longer optional—it's essential. We provide tools that help you safeguard your online identity without compromising your privacy.</p>
-        </section>
+  <!-- Mobile Nav Drawer -->
+  <div id="mobile-nav-backdrop" class="mobile-nav__backdrop"></div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile Navigation">
+    <div class="mobile-nav-header">
+      <span class="mobile-nav-title">Menu</span>
+      <button class="close-mobile-nav" id="close-mobile-nav" aria-label="Close menu" type="button">✕</button>
+    </div>
+    <div class="mobile-nav__section">
+      <div class="mobile-nav__title">Security Tools</div>
+      <a href="/pages/password-generator.html" class="mobile-nav__link">🔑 Password Generator</a>
+      <a href="/pages/password-strength-checker.html" class="mobile-nav__link">🛡️ Strength Checker</a>
+      <a href="/pages/passphrase-generator.html" class="mobile-nav__link">🎲 Passphrase Generator</a>
+      <a href="/pages/pin-generator.html" class="mobile-nav__link">🔢 PIN Generator</a>
+      <a href="/pages/username-generator.html" class="mobile-nav__link">👤 Username Generator</a>
+      <a href="/pages/password-entropy-calculator.html" class="mobile-nav__link">📊 Entropy Calculator</a>
+      <a href="/pages/password-policy-checker.html" class="mobile-nav__link">📋 Policy Checker</a>
+      <a href="/pages/hash-generator.html" class="mobile-nav__link">⚡ Hash Generator</a>
+      <a href="/pages/bulk-password-generator.html" class="mobile-nav__link">📦 Bulk Generator</a>
+      <a href="/pages/security-code-generator.html" class="mobile-nav__link">🔐 Security Codes</a>
+    </div>
+  </nav>
 
-        <section class="card content-section">
-            <h2>How It Works: 100% Client-Side Processing</h2>
-            <p>Security without trust means nothing. That's why all our tools operate exclusively within your web browser. <strong>Your data never leaves your device.</strong></p>
-            <p>Our architecture utilizes the <code>Web Crypto API</code>—specifically <code>crypto.getRandomValues()</code>—to generate cryptographically secure random numbers entirely client-side. We do not rely on a backend server to generate your passwords, evaluate password strength, or process your inputs. Once the page is loaded, it can function entirely offline.</p>
-        </section>
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container content-page">
+      
+      <nav aria-label="Breadcrumb">
+        <ul class="breadcrumb">
+          <li><a href="/index.html">Home</a></li>
+          <li aria-current="page">About Us</li>
+        </ul>
+      </nav>
 
-        <section class="card content-section">
-            <h2>Why Trust Us</h2>
-            <p>Trust is earned through transparency and technical rigor. Here is our commitment to you:</p>
-            <ul>
-                <li><strong>Zero Telemetry on Passwords:</strong> We do not log, track, or record the passwords you generate or test.</li>
-                <li><strong>Open-Source Principles:</strong> Our client-side code is completely transparent. You can inspect it via your browser's Developer Tools to verify our claims.</li>
-                <li><strong>Zero Accounts Required:</strong> We believe essential security tools should be frictionless. You will never be asked to sign up, provide an email, or create an account to use our core features.</li>
-            </ul>
-        </section>
+      <h1 class="mb-md">About Password Security Hub</h1>
+      <p class="text-secondary" style="font-size: 18px; margin-bottom: var(--space-xl);">
+        Empowering internet users worldwide with free, accessible, and strictly client-side privacy tools.
+      </p>
 
-        <section class="card content-section">
-            <h2>Recommended Security Stack</h2>
-            <p>While generating strong passwords is the first step, how you manage and protect them is equally important. We strongly recommend adopting the following practices:</p>
-            <ul>
-                <li><strong>Password Managers:</strong> Stop memorizing passwords. Use a reputable password manager (like Bitwarden, 1Password, or KeePass) to store your unique credentials securely.</li>
-                <li><strong>Two-Factor Authentication (2FA):</strong> Enable 2FA on every account that supports it. Prefer authenticator apps (TOTP) over SMS-based 2FA.</li>
-                <li><strong>Hardware Security Keys:</strong> For critical accounts (email, banking), consider investing in hardware keys like YubiKey or Google Titan for the strongest form of 2FA.</li>
-            </ul>
-        </section>
-        
-        <section class="card content-section">
-            <h2>Contact Us</h2>
-            <p>We are constantly looking to improve our tools and add new features. If you have questions, feedback, or suggestions, we'd love to hear from you. Visit our <a href="contact.html">Contact Page</a> to get in touch.</p>
-        </section>
-    </main>
+      <h2>Our Core Mission</h2>
+      <p>
+        In an era dominated by continuous corporate data breaches, credential stuffing, and invasive cloud trackers, digital privacy is no longer a luxury—it is an essential requirement. <strong>Password Security Hub</strong> was founded with a straightforward ethos: provide top-tier, enterprise-grade password generation and evaluation tools without ever asking users to sacrifice their privacy or trust remote servers with their passwords.
+      </p>
 
-    <footer class="footer">
-        <div class="container footer-content">
-            <div class="footer-links">
-                <a href="about.html">About Us</a>
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="terms-of-service.html">Terms of Service</a>
-                <a href="contact.html">Contact</a>
-                <a href="faq.html">FAQ</a>
-            </div>
-            <p class="copyright">&copy; 2026 Password Security Hub. All rights reserved. 100% Client-Side Privacy.</p>
-        </div>
-    </footer>
+      <h2>100% Client-Side Architecture</h2>
+      <p>
+        Every single tool on this website—from our 128-character random password generator to our SHA-512 file hasher—runs entirely in your local browser runtime. We utilize the W3C standard <strong>Web Crypto API</strong> (specifically <code>crypto.getRandomValues()</code> and <code>crypto.subtle.digest()</code>), ensuring that generation processes are backed by your operating system's kernel-level cryptographically secure pseudo-random number generator (CSPRNG).
+      </p>
+
+      <div class="card card--elevated my-lg p-lg" style="background-color: var(--bg-tertiary); margin: var(--space-lg) 0;">
+        <h3 style="margin-top: 0;">Our Privacy Guarantee:</h3>
+        <ul style="padding-left: 20px; margin: 8px 0;">
+          <li>Zero server-side password processing or transmission</li>
+          <li>Zero tracking or storage of generated credentials</li>
+          <li>Zero accounts, signups, or personal information required</li>
+          <li>Full offline capability via Progressive Web App (PWA) caching</li>
+        </ul>
+      </div>
+
+      <h2>Why True Randomness Matters</h2>
+      <p>
+        Common software implementations often rely on <code>Math.random()</code>, which is non-cryptographic and predictable by automated threat actors. Password Security Hub strictly prohibits pseudo-random fallbacks, guaranteeing that every character, word, or byte produced meets modern defense-in-depth standards.
+      </p>
+
+      <h2>Recommended Security Best Practices</h2>
+      <p>
+        While our tools generate uncrackable credentials, we also advocate for holistic defense strategies:
+      </p>
+      <ol style="padding-left: 20px; margin-bottom: var(--space-lg);">
+        <li><strong>Use a Dedicated Password Manager:</strong> Store your generated passwords in reputable, open-source managers like Bitwarden or KeePassXC.</li>
+        <li><strong>Enable Multi-Factor Authentication (MFA):</strong> Whenever possible, use FIDO2/WebAuthn hardware security keys (like YubiKey) or TOTP authenticator apps.</li>
+        <li><strong>Never Reuse Passwords:</strong> Ensure every online account uses a unique, 16+ character password.</li>
+      </ol>
+
+      <h2>Contact &amp; Open Feedback</h2>
+      <p>
+        Have suggestions, feedback, or need to report an issue? Visit our <a href="/pages/contact.html">Contact Page</a> or reach out to our team at <code>support@passwordsecurityhub.com</code>.
+      </p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Password Security Hub. Built for open privacy.</p>
+      <div class="flex gap-md">
+        <a href="/pages/privacy-policy.html">Privacy</a>
+        <a href="/pages/terms-of-service.html">Terms</a>
+        <a href="/pages/contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/app.js" defer></script>
 </body>
 </html>

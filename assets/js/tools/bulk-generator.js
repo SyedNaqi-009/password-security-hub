@@ -1,226 +1,122 @@
-// tools/bulk-generator.js
-
-// Standalone functions instead of importing from non-existent utils if not set up yet
-// We'll implement secure generation here to ensure it works
-
-const UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
-const NUMBERS = "0123456789";
-const SYMBOLS = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
-const AMBIGUOUS = "Il1O0";
-
-function getSecureRandomInt(max) {
-    const randomBuffer = new Uint32Array(1);
-    crypto.getRandomValues(randomBuffer);
-    return randomBuffer[0] % max;
-}
-
-function generateSinglePassword(length, options) {
-    let charset = "";
-    if (options.uppercase) charset += UPPERCASE;
-    if (options.lowercase) charset += LOWERCASE;
-    if (options.numbers) charset += NUMBERS;
-    if (options.symbols) charset += SYMBOLS;
-    
-    if (charset === "") charset = LOWERCASE; // fallback
-
-    if (options.excludeAmbiguous) {
-        for (let i = 0; i < AMBIGUOUS.length; i++) {
-            charset = charset.split(AMBIGUOUS[i]).join('');
-        }
-    }
-    
-    if (options.excludeChars) {
-        for (let i = 0; i < options.excludeChars.length; i++) {
-            charset = charset.split(options.excludeChars[i]).join('');
-        }
-    }
-
-    if (charset === "") charset = "abcdef"; // absolute fallback if they excluded everything
-
-    let password = "";
-    for (let i = 0; i < length; i++) {
-        password += charset[getSecureRandomInt(charset.length)];
-    }
-    return password;
-}
-
-function calculateStrength(password) {
-    let score = 0;
-    if (password.length > 8) score += 1;
-    if (password.length > 12) score += 1;
-    if (password.length >= 16) score += 1;
-    
-    if (/[A-Z]/.test(password)) score += 1;
-    if (/[a-z]/.test(password)) score += 1;
-    if (/[0-9]/.test(password)) score += 1;
-    if (/[^A-Za-z0-9]/.test(password)) score += 1;
-    
-    if (score < 3) return { label: 'Weak', class: 'badge-danger' };
-    if (score < 5) return { label: 'Fair', class: 'badge-warning' };
-    if (score < 7) return { label: 'Good', class: 'badge-success' };
-    return { label: 'Strong', class: 'badge-success' };
-}
-
-async function copyToClipboard(text) {
-    try {
-        await navigator.clipboard.writeText(text);
-        return true;
-    } catch (err) {
-        console.error('Failed to copy text: ', err);
-        return false;
-    }
-}
-
-function exportAsTXT(data, filename) {
-    const blob = new Blob([data], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
-}
-
-function exportAsCSV(dataMatrix, filename) {
-    const csvContent = dataMatrix.map(e => e.join(",")).join("\n");
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
-}
+/**
+ * Password Security Hub — Bulk Password Generator Tool
+ */
+import { generatePassword, calculateEntropy } from '../utils/crypto.js';
+import { copyToClipboard } from '../utils/clipboard.js';
+import { exportAsTXT, exportAsCSV } from '../utils/export.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const lengthSlider = document.getElementById('length-slider');
-    const lengthDisplay = document.getElementById('length-display');
-    const quantitySlider = document.getElementById('quantity-slider');
-    const quantityDisplay = document.getElementById('quantity-display');
-    
-    const chkUpper = document.getElementById('chk-uppercase');
-    const chkLower = document.getElementById('chk-lowercase');
-    const chkNum = document.getElementById('chk-numbers');
-    const chkSym = document.getElementById('chk-symbols');
-    const chkExcAmb = document.getElementById('chk-exclude-ambiguous');
-    const excChars = document.getElementById('exclude-chars');
-    
-    const generateBtn = document.getElementById('generate-btn');
-    const tableBody = document.querySelector('#password-table tbody');
-    
-    const toggleRevealBtn = document.getElementById('toggle-reveal-btn');
-    const copyAllBtn = document.getElementById('copy-all-btn');
-    const exportTxtBtn = document.getElementById('export-txt-btn');
-    const exportCsvBtn = document.getElementById('export-csv-btn');
+  const quantitySlider = document.getElementById('bulk-quantity');
+  const quantityVal = document.getElementById('quantity-val');
+  const lengthSlider = document.getElementById('bulk-length');
+  const lengthVal = document.getElementById('length-val');
+  
+  const chkUpper = document.getElementById('bulk-upper');
+  const chkLower = document.getElementById('bulk-lower');
+  const chkNumbers = document.getElementById('bulk-numbers');
+  const chkSymbols = document.getElementById('bulk-symbols');
+  const chkAmbiguous = document.getElementById('bulk-exclude-ambiguous');
+  
+  const generateBtn = document.getElementById('generate-bulk-btn');
+  const tableBody = document.getElementById('bulk-table-body');
+  const copyAllBtn = document.getElementById('copy-all-bulk-btn');
+  const exportTxtBtn = document.getElementById('export-bulk-txt-btn');
+  const exportCsvBtn = document.getElementById('export-bulk-csv-btn');
+  const toggleMaskBtn = document.getElementById('toggle-mask-btn');
 
-    let currentPasswords = [];
-    let allRevealed = false;
+  let generatedList = [];
+  let isMasked = false;
 
-    lengthSlider.addEventListener('input', (e) => lengthDisplay.textContent = e.target.value);
-    quantitySlider.addEventListener('input', (e) => quantityDisplay.textContent = e.target.value);
-
-    generateBtn.addEventListener('click', () => {
-        const length = parseInt(lengthSlider.value, 10);
-        const qty = parseInt(quantitySlider.value, 10);
-        
-        const options = {
-            uppercase: chkUpper.checked,
-            lowercase: chkLower.checked,
-            numbers: chkNum.checked,
-            symbols: chkSym.checked,
-            excludeAmbiguous: chkExcAmb.checked,
-            excludeChars: excChars.value
-        };
-
-        currentPasswords = [];
-        tableBody.innerHTML = '';
-        allRevealed = false;
-        toggleRevealBtn.textContent = 'Reveal All';
-
-        // Use DocumentFragment for performance
-        const fragment = document.createDocumentFragment();
-
-        for (let i = 0; i < qty; i++) {
-            const pwd = generateSinglePassword(length, options);
-            const strength = calculateStrength(pwd);
-            currentPasswords.push({ pwd, strength: strength.label });
-
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${i + 1}</td>
-                <td>
-                    <div class="pwd-cell">
-                        <span class="pwd-text blurred" data-index="${i}">${pwd}</span>
-                    </div>
-                </td>
-                <td><span class="badge ${strength.class}">${strength.label}</span></td>
-                <td>
-                    <button class="btn btn-icon copy-single" data-index="${i}">Copy</button>
-                </td>
-            `;
-            fragment.appendChild(tr);
-        }
-        
-        tableBody.appendChild(fragment);
-        
-        // Add listeners for individual blurred text toggle
-        document.querySelectorAll('.pwd-text').forEach(el => {
-            el.addEventListener('click', (e) => {
-                e.target.classList.toggle('blurred');
-            });
-        });
-
-        // Copy single
-        document.querySelectorAll('.copy-single').forEach(btn => {
-            btn.addEventListener('click', async (e) => {
-                const idx = e.target.getAttribute('data-index');
-                const success = await copyToClipboard(currentPasswords[idx].pwd);
-                if (success) {
-                    const orig = e.target.textContent;
-                    e.target.textContent = 'Copied!';
-                    setTimeout(() => e.target.textContent = orig, 1500);
-                }
-            });
-        });
+  if (quantitySlider && quantityVal) {
+    quantitySlider.addEventListener('input', (e) => {
+      quantityVal.textContent = e.target.value;
     });
+  }
 
-    toggleRevealBtn.addEventListener('click', () => {
-        allRevealed = !allRevealed;
-        toggleRevealBtn.textContent = allRevealed ? 'Hide All' : 'Reveal All';
-        document.querySelectorAll('.pwd-text').forEach(el => {
-            if (allRevealed) {
-                el.classList.remove('blurred');
-            } else {
-                el.classList.add('blurred');
-            }
-        });
+  if (lengthSlider && lengthVal) {
+    lengthSlider.addEventListener('input', (e) => {
+      lengthVal.textContent = e.target.value;
     });
+  }
 
-    copyAllBtn.addEventListener('click', async () => {
-        if (!currentPasswords.length) return;
-        const text = currentPasswords.map(p => p.pwd).join('\n');
-        const success = await copyToClipboard(text);
-        if (success) {
-            copyAllBtn.textContent = 'Copied All!';
-            setTimeout(() => copyAllBtn.textContent = 'Copy All', 2000);
-        }
+  function getOptions() {
+    return {
+      length: parseInt(lengthSlider ? lengthSlider.value : 16, 10),
+      uppercase: chkUpper ? chkUpper.checked : true,
+      lowercase: chkLower ? chkLower.checked : true,
+      numbers: chkNumbers ? chkNumbers.checked : true,
+      symbols: chkSymbols ? chkSymbols.checked : true,
+      excludeAmbiguous: chkAmbiguous ? chkAmbiguous.checked : false
+    };
+  }
+
+  function generate() {
+    const qty = parseInt(quantitySlider ? quantitySlider.value : 20, 10);
+    const opts = getOptions();
+
+    if (!opts.uppercase && !opts.lowercase && !opts.numbers && !opts.symbols) {
+      if (chkLower) chkLower.checked = true;
+      opts.lowercase = true;
+    }
+
+    generatedList = [];
+    if (tableBody) tableBody.innerHTML = '';
+
+    for (let i = 1; i <= qty; i++) {
+      const pwd = generatePassword(opts);
+      const entropy = calculateEntropy(pwd);
+      generatedList.push({ id: i, password: pwd, entropy: `${entropy} bits` });
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${i}</td>
+        <td class="text-mono ${isMasked ? 'masked' : ''}" style="font-size: 14px; word-break: break-all;">${isMasked ? '••••••••••••' : pwd}</td>
+        <td><span class="badge badge--success">${entropy} bits</span></td>
+        <td><button type="button" class="btn btn--sm btn--secondary">Copy</button></td>
+      `;
+      tr.querySelector('button').addEventListener('click', () => {
+        copyToClipboard(pwd, 'Password');
+      });
+      if (tableBody) tableBody.appendChild(tr);
+    }
+  }
+
+  if (generateBtn) {
+    generateBtn.addEventListener('click', generate);
+  }
+
+  if (toggleMaskBtn) {
+    toggleMaskBtn.addEventListener('click', () => {
+      isMasked = !isMasked;
+      generate();
     });
+  }
 
+  if (copyAllBtn) {
+    copyAllBtn.addEventListener('click', () => {
+      if (generatedList.length > 0) {
+        copyToClipboard(generatedList.map(g => g.password).join('\n'), 'All Passwords');
+      }
+    });
+  }
+
+  if (exportTxtBtn) {
     exportTxtBtn.addEventListener('click', () => {
-        if (!currentPasswords.length) return;
-        const text = currentPasswords.map(p => p.pwd).join('\n');
-        exportAsTXT(text, 'passwords.txt');
+      if (generatedList.length > 0) {
+        exportAsTXT(generatedList.map(g => g.password), 'passwords.txt');
+      }
     });
+  }
 
+  if (exportCsvBtn) {
     exportCsvBtn.addEventListener('click', () => {
-        if (!currentPasswords.length) return;
-        const data = [["#", "Password", "Strength"]];
-        currentPasswords.forEach((p, i) => {
-            // escape quotes in password just in case
-            const safePwd = p.pwd.replace(/"/g, '""');
-            data.push([i + 1, `"${safePwd}"`, p.strength]);
-        });
-        exportAsCSV(data, 'passwords.csv');
+      if (generatedList.length > 0) {
+        const headers = ['Index', 'Password', 'Entropy'];
+        const rows = generatedList.map(g => [g.id, g.password, g.entropy]);
+        exportAsCSV(headers, rows, 'passwords.csv');
+      }
     });
+  }
+
+  generate();
 });

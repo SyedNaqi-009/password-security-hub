@@ -1,118 +1,116 @@
-// Simulated import for modularity
-const calculateEntropy = (password) => {
-    let r = 0;
-    if (/[a-z]/.test(password)) r += 26;
-    if (/[A-Z]/.test(password)) r += 26;
-    if (/[0-9]/.test(password)) r += 10;
-    if (/[^a-zA-Z0-9]/.test(password)) r += 33;
-    
-    if (password.length > 0 && r === 0) r = 1;
-    const l = password.length;
-    const entropy = l === 0 ? 0 : l * Math.log2(r);
-    return { entropy, l, r };
-};
-
-const calculatePolicyEntropy = (l, r) => {
-    return { entropy: l * Math.log2(r), l, r };
-};
+/**
+ * Password Security Hub — Password Entropy Calculator Tool
+ */
+import { calculateEntropy, calculatePolicyEntropy } from '../utils/crypto.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-    
-    const analyzeInput = document.getElementById('analyze-password');
-    const toggleAnalyzeVisibility = document.getElementById('toggle-analyze-visibility');
-    
-    const charsetSizeInput = document.getElementById('charset-size');
-    const presetBtns = document.querySelectorAll('.preset-btn');
-    const passwordLengthInput = document.getElementById('password-length');
-    const lengthVal = document.getElementById('length-val');
-    
-    const entropyValue = document.getElementById('entropy-value');
-    const entropyMeter = document.getElementById('entropy-meter');
-    const strengthCategory = document.getElementById('strength-category');
-    const calculationSteps = document.getElementById('calculation-steps');
-    const copyBtn = document.getElementById('copy-entropy');
-    const detectedR = document.getElementById('detected-r');
+  const modePills = document.querySelectorAll('#entropy-mode-pills .pill-btn');
+  const analyzeSection = document.getElementById('analyze-mode-section');
+  const policySection = document.getElementById('policy-mode-section');
+  
+  const pwdInput = document.getElementById('entropy-password-input');
+  const togglePwdBtn = document.getElementById('entropy-toggle-pwd');
+  
+  const lengthSlider = document.getElementById('policy-length-slider');
+  const lengthVal = document.getElementById('policy-length-val');
+  const poolInput = document.getElementById('policy-pool-input');
+  const presetPoolBtns = document.querySelectorAll('.preset-pool-btn');
+  
+  const bitsOutput = document.getElementById('entropy-bits-output');
+  const badgeOutput = document.getElementById('entropy-strength-badge');
+  const explanationOutput = document.getElementById('entropy-explanation');
 
-    let currentMode = 'analyze-mode';
+  let currentMode = 'analyze';
 
-    const updateUI = (entropy, l, r) => {
-        const bits = Math.max(0, Math.round(entropy * 100) / 100);
-        entropyValue.textContent = bits;
-        calculationSteps.textContent = `E = ${l} * log2(${r || 0}) = ${bits} bits`;
-        
-        let strength = 'Very Weak';
-        let color = 'var(--danger)';
-
-        if (bits === 0) { strength = 'None'; color = 'var(--bg-tertiary)'; }
-        else if (bits < 28) { strength = 'Very Weak'; color = 'var(--danger)'; }
-        else if (bits < 36) { strength = 'Weak'; color = 'var(--warning)'; }
-        else if (bits < 60) { strength = 'Fair'; color = 'var(--warning)'; }
-        else if (bits < 128) { strength = 'Strong'; color = 'var(--success)'; }
-        else { strength = 'Very Strong'; color = 'var(--success)'; }
-
-        strengthCategory.textContent = strength;
-        entropyMeter.style.width = `${Math.min(100, (bits / 128) * 100)}%`;
-        entropyMeter.style.backgroundColor = color;
-    };
-
-    const handleAnalyze = () => {
-        const pwd = analyzeInput.value;
-        const res = calculateEntropy(pwd);
-        detectedR.textContent = res.r;
-        updateUI(res.entropy, res.l, res.r);
-    };
-
-    const handlePolicy = () => {
-        const r = parseInt(charsetSizeInput.value) || 2;
-        const l = parseInt(passwordLengthInput.value) || 1;
-        const res = calculatePolicyEntropy(l, r);
-        updateUI(res.entropy, res.l, res.r);
-    };
-
-    const update = () => {
-        if (currentMode === 'analyze-mode') handleAnalyze();
-        else handlePolicy();
-    };
-
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabContents.forEach(c => c.style.display = 'none');
-            
-            btn.classList.add('active');
-            currentMode = btn.dataset.target;
-            document.getElementById(currentMode).style.display = 'block';
-            update();
-        });
+  modePills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      modePills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      currentMode = pill.getAttribute('data-mode');
+      
+      if (currentMode === 'analyze') {
+        if (analyzeSection) analyzeSection.classList.remove('hidden');
+        if (policySection) policySection.classList.add('hidden');
+      } else {
+        if (analyzeSection) analyzeSection.classList.add('hidden');
+        if (policySection) policySection.classList.remove('hidden');
+      }
+      calculate();
     });
+  });
 
-    toggleAnalyzeVisibility.addEventListener('click', () => {
-        const type = analyzeInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        analyzeInput.setAttribute('type', type);
-        toggleAnalyzeVisibility.textContent = type === 'password' ? 'Show' : 'Hide';
+  presetPoolBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (poolInput) poolInput.value = btn.getAttribute('data-pool');
+      calculate();
     });
+  });
 
-    analyzeInput.addEventListener('input', update);
-    charsetSizeInput.addEventListener('input', update);
-    
-    passwordLengthInput.addEventListener('input', (e) => {
-        lengthVal.textContent = e.target.value;
-        update();
+  function getRating(bits) {
+    if (bits < 28) return { label: 'Very Weak', cls: 'badge--danger' };
+    if (bits < 36) return { label: 'Weak', cls: 'badge--danger' };
+    if (bits < 60) return { label: 'Fair', cls: 'badge--warning' };
+    if (bits < 128) return { label: 'Strong', cls: 'badge--success' };
+    return { label: 'Very Strong', cls: 'badge--success' };
+  }
+
+  function calculate() {
+    let bits = 0;
+    let poolSize = 0;
+    let len = 0;
+
+    if (currentMode === 'analyze') {
+      const pwd = pwdInput ? pwdInput.value : '';
+      bits = calculateEntropy(pwd);
+      len = pwd.length;
+      if (/[a-z]/.test(pwd)) poolSize += 26;
+      if (/[A-Z]/.test(pwd)) poolSize += 26;
+      if (/[0-9]/.test(pwd)) poolSize += 10;
+      if (/[^a-zA-Z0-9]/.test(pwd)) poolSize += 33;
+    } else {
+      len = parseInt(lengthSlider ? lengthSlider.value : 16, 10);
+      poolSize = parseInt(poolInput ? poolInput.value : 95, 10);
+      bits = calculatePolicyEntropy(poolSize, len);
+    }
+
+    if (bitsOutput) bitsOutput.textContent = `${bits} bits`;
+
+    const rating = getRating(bits);
+    if (badgeOutput) {
+      badgeOutput.textContent = rating.label;
+      badgeOutput.className = `badge ${rating.cls}`;
+    }
+
+    if (explanationOutput) {
+      if (len === 0) {
+        explanationOutput.textContent = 'Enter a password or define parameters to calculate bits.';
+      } else {
+        explanationOutput.innerHTML = `Formula: <code>${len} × log₂(pool size ${poolSize})</code> = <strong>2<sup>${Math.round(bits)}</sup></strong> total combinations.`;
+      }
+    }
+  }
+
+  if (pwdInput) {
+    pwdInput.addEventListener('input', calculate);
+  }
+
+  if (togglePwdBtn && pwdInput) {
+    togglePwdBtn.addEventListener('click', () => {
+      const isPwd = pwdInput.type === 'password';
+      pwdInput.type = isPwd ? 'text' : 'password';
     });
+  }
 
-    presetBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            charsetSizeInput.value = btn.dataset.r;
-            update();
-        });
+  if (lengthSlider) {
+    lengthSlider.addEventListener('input', (e) => {
+      if (lengthVal) lengthVal.textContent = e.target.value;
+      calculate();
     });
+  }
 
-    copyBtn.addEventListener('click', () => {
-        const text = `Entropy: ${entropyValue.textContent} bits\nStrength: ${strengthCategory.textContent}\nCalculation: ${calculationSteps.textContent}`;
-        navigator.clipboard.writeText(text);
-    });
+  if (poolInput) {
+    poolInput.addEventListener('input', calculate);
+  }
 
-    update();
+  calculate();
 });

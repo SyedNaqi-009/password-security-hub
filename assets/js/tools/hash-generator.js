@@ -1,180 +1,154 @@
-// tools/hash-generator.js
-
-// Using global copyToClipboard from a shared utils script if available, 
-// otherwise we can implement a simple copy function inline.
-async function copyToClipboard(text) {
-    try {
-        await navigator.clipboard.writeText(text);
-        return true;
-    } catch (err) {
-        console.error('Failed to copy text: ', err);
-        return false;
-    }
-}
+/**
+ * Password Security Hub — Hash Generator Tool
+ */
+import { copyToClipboard } from '../utils/clipboard.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const textInput = document.getElementById('text-input');
-    const fileDropZone = document.getElementById('file-drop-zone');
-    const fileInput = document.getElementById('file-input');
-    const encodingSelect = document.getElementById('encoding-select');
-    const caseToggle = document.getElementById('case-toggle');
-    const hashOutputs = document.querySelectorAll('.hash-output');
+  const textInput = document.getElementById('hash-text-input');
+  const dropZone = document.getElementById('file-drop-zone');
+  const fileInput = document.getElementById('file-input');
+  const fileNameDisplay = document.getElementById('file-name-display');
+  const caseToggleBtn = document.getElementById('case-toggle-btn');
+  const clearBtn = document.getElementById('clear-hash-btn');
+  
+  const md5El = document.getElementById('hash-md5');
+  const sha1El = document.getElementById('hash-sha1');
+  const sha256El = document.getElementById('hash-sha256');
+  const sha384El = document.getElementById('hash-sha384');
+  const sha512El = document.getElementById('hash-sha512');
+  
+  const copyBtns = document.querySelectorAll('.copy-hash-btn');
 
-    // Debounce helper
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
+  let isUppercase = false;
+  let currentHashes = { md5: '', sha1: '', sha256: '', sha384: '', sha512: '' };
+  let debounceTimer;
+
+  async function computeHashForBuffer(buffer) {
+    const algos = ['SHA-1', 'SHA-256', 'SHA-384', 'SHA-512'];
+    const results = {};
+
+    for (const algo of algos) {
+      try {
+        const hashBuf = await crypto.subtle.digest(algo, buffer);
+        const hashHex = Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2, '0')).join('');
+        results[algo.toLowerCase().replace('-', '')] = hashHex;
+      } catch (err) {
+        results[algo.toLowerCase().replace('-', '')] = 'Error';
+      }
     }
 
-    async function computeHashes(dataBuffer) {
-        const algos = ['SHA-1', 'SHA-256', 'SHA-384', 'SHA-512'];
-        const results = {};
-        
-        // WebCrypto for SHA
-        for (const algo of algos) {
-            try {
-                const hashBuffer = await crypto.subtle.digest(algo, dataBuffer);
-                const hashArray = Array.from(new Uint8Array(hashBuffer));
-                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-                results[algo.toLowerCase().replace('-', '')] = hashHex;
-            } catch (e) {
-                console.error(`Error hashing with ${algo}`, e);
-            }
+    // MD5 computation
+    try {
+      if (typeof window.md5 === 'function') {
+        const uint8 = new Uint8Array(buffer);
+        let binary = '';
+        for (let i = 0; i < uint8.length; i++) {
+          binary += String.fromCharCode(uint8[i]);
         }
-        
-        // MD5 from global md5 lib loaded via CDN
-        if (window.md5) {
-            const uint8 = new Uint8Array(dataBuffer);
-            // Process in chunks or as a binary string (md5 library handles strings well)
-            // For large files this string conversion might be slow, but ok for <=10MB
-            let binaryString = '';
-            for (let i = 0; i < uint8.length; i++) {
-                binaryString += String.fromCharCode(uint8[i]);
-            }
-            results['md5'] = window.md5(binaryString);
-        }
-        
-        return results;
+        results['md5'] = window.md5(binary);
+      } else {
+        results['md5'] = 'MD5 library not loaded';
+      }
+    } catch (e) {
+      results['md5'] = 'Error';
     }
 
-    function displayResults(results) {
-        const toUpper = caseToggle.value === 'uppercase';
-        hashOutputs.forEach(output => {
-            const algo = output.dataset.algo;
-            if (results[algo]) {
-                const input = output.querySelector('.hash-result');
-                input.value = toUpper ? results[algo].toUpperCase() : results[algo];
-            }
-        });
+    currentHashes = results;
+    renderHashes();
+  }
+
+  function renderHashes() {
+    const format = (h) => isUppercase ? h.toUpperCase() : h.toLowerCase();
+    if (md5El) md5El.textContent = currentHashes.md5 ? format(currentHashes.md5) : '—';
+    if (sha1El) sha1El.textContent = currentHashes.sha1 ? format(currentHashes.sha1) : '—';
+    if (sha256El) sha256El.textContent = currentHashes.sha256 ? format(currentHashes.sha256) : '—';
+    if (sha384El) sha384El.textContent = currentHashes.sha384 ? format(currentHashes.sha384) : '—';
+    if (sha512El) sha512El.textContent = currentHashes.sha512 ? format(currentHashes.sha512) : '—';
+  }
+
+  function hashText() {
+    const txt = textInput ? textInput.value : '';
+    if (!txt) {
+      currentHashes = { md5: '', sha1: '', sha256: '', sha384: '', sha512: '' };
+      renderHashes();
+      return;
     }
+    const encoder = new TextEncoder();
+    const buffer = encoder.encode(txt);
+    computeHashForBuffer(buffer);
+  }
 
-    const handleTextInput = debounce(async () => {
-        const text = textInput.value;
-        if (!text) {
-            hashOutputs.forEach(out => out.querySelector('.hash-result').value = '');
-            return;
-        }
-        
-        const encoder = new TextEncoder(); // UTF-8 by default
-        let encoded;
-        
-        if (encodingSelect.value === 'ascii') {
-            const arr = new Uint8Array(text.length);
-            for(let i=0; i<text.length; i++) {
-                let code = text.charCodeAt(i);
-                arr[i] = code > 127 ? 63 : code; // Map non-ASCII to '?'
-            }
-            encoded = arr;
-        } else {
-            encoded = encoder.encode(text);
-        }
-        
-        const results = await computeHashes(encoded.buffer);
-        displayResults(results);
-    }, 200);
+  if (textInput) {
+    textInput.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(hashText, 150);
+    });
+  }
 
-    // Event Listeners
-    textInput.addEventListener('input', handleTextInput);
-    encodingSelect.addEventListener('change', handleTextInput);
-    caseToggle.addEventListener('change', () => {
-        if(textInput.value || fileDropZone.dataset.hasFile === "true") {
-            // Reprocess the displayed output case without recalculating if possible
-            // For simplicity, just re-trigger
-            if (textInput.value) {
-                handleTextInput();
-            } else if (fileInput.files.length) {
-                handleFile(fileInput.files[0]);
-            }
-        }
+  // File Drop
+  if (dropZone && fileInput) {
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('drag-over');
     });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        processFile(e.dataTransfer.files[0]);
+      }
+    });
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files && fileInput.files[0]) {
+        processFile(fileInput.files[0]);
+      }
+    });
+  }
 
-    // File Handling
-    fileDropZone.addEventListener('click', () => fileInput.click());
-    
-    fileDropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        fileDropZone.classList.add('dragover');
-    });
-    
-    fileDropZone.addEventListener('dragleave', () => {
-        fileDropZone.classList.remove('dragover');
-    });
-    
-    fileDropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        fileDropZone.classList.remove('dragover');
-        if (e.dataTransfer.files.length) {
-            fileInput.files = e.dataTransfer.files;
-            handleFile(e.dataTransfer.files[0]);
-        }
-    });
-    
-    fileInput.addEventListener('change', (e) => {
-        if (e.target.files.length) handleFile(e.target.files[0]);
-    });
-
-    function handleFile(file) {
-        if (file.size > 10 * 1024 * 1024) {
-            alert('File size exceeds 10MB limit.');
-            fileInput.value = "";
-            return;
-        }
-        
-        textInput.value = ''; // Clear text input when using file
-        fileDropZone.dataset.hasFile = "true";
-        fileDropZone.querySelector('p').textContent = `Selected: ${file.name} (${(file.size/1024).toFixed(2)} KB)`;
-        
-        const reader = new FileReader();
-        reader.onload = async (e) => {
-            const results = await computeHashes(e.target.result);
-            displayResults(results);
-        };
-        reader.readAsArrayBuffer(file);
+  function processFile(file) {
+    if (file.size > 10 * 1024 * 1024) {
+      alert('File size exceeds 10 MB maximum limit for browser hashing.');
+      return;
     }
+    if (fileNameDisplay) {
+      fileNameDisplay.textContent = `Selected: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+      fileNameDisplay.classList.remove('hidden');
+    }
+    if (textInput) textInput.value = '';
 
-    // Copy Buttons
-    document.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.addEventListener('click', async (e) => {
-            const input = e.target.parentElement.querySelector('.hash-result');
-            if (input.value) {
-                const success = await copyToClipboard(input.value);
-                if (success) {
-                    const originalText = e.target.textContent;
-                    e.target.textContent = 'Copied!';
-                    e.target.classList.add('success');
-                    setTimeout(() => {
-                        e.target.textContent = originalText;
-                        e.target.classList.remove('success');
-                    }, 2000);
-                }
-            }
-        });
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      computeHashForBuffer(e.target.result);
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  if (caseToggleBtn) {
+    caseToggleBtn.addEventListener('click', () => {
+      isUppercase = !isUppercase;
+      renderHashes();
     });
+  }
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      if (textInput) textInput.value = '';
+      if (fileNameDisplay) fileNameDisplay.classList.add('hidden');
+      if (fileInput) fileInput.value = '';
+      currentHashes = { md5: '', sha1: '', sha256: '', sha384: '', sha512: '' };
+      renderHashes();
+    });
+  }
+
+  copyBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      const targetEl = document.getElementById(targetId);
+      if (targetEl && targetEl.textContent && targetEl.textContent !== '—') {
+        copyToClipboard(targetEl.textContent, 'Hash');
+      }
+    });
+  });
 });
