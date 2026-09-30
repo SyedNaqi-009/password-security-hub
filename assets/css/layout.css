@@ -57,10 +57,14 @@ html.dark .site-header {
 }
 
 .site-logo svg {
-  width: 20px;
-  height: 20px;
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
+  max-width: 20px !important;
+  max-height: 20px !important;
   color: var(--accent);
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
 }
 
 /* Desktop Navigation */
@@ -126,10 +130,15 @@ html.dark .site-header {
 }
 
 .nav-dropdown__trigger svg {
-  width: 14px;
-  height: 14px;
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+  max-width: 14px !important;
+  max-height: 14px !important;
   transition: transform var(--transition-fast);
   color: var(--text-muted);
+  flex-shrink: 0 !important;
 }
 
 .nav-dropdown__menu {
@@ -160,25 +169,36 @@ html.dark .site-header {
 .nav-dropdown__item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 10px;
-  font-size: 13px;
+  gap: 10px;
+  padding: 8px 12px;
+  font-size: 13.5px;
   font-weight: 500;
   color: var(--text-secondary);
   border-radius: var(--radius-sm);
   text-decoration: none;
   transition: all var(--transition-fast);
+  line-height: 1.3;
 }
 
 .nav-dropdown__item svg {
-  width: 15px;
-  height: 15px;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
   color: var(--text-muted);
+  flex-shrink: 0 !important;
+  display: inline-block;
+}
+
+.nav-dropdown__item span {
+  white-space: nowrap;
 }
 
 .nav-dropdown__item:hover {
   background-color: var(--bg-tertiary);
-  color: var(--text-primary);
+  color: var(--accent);
   text-decoration: none;
 }
 
@@ -213,8 +233,13 @@ html.dark .site-header {
 }
 
 .theme-toggle svg {
-  width: 16px;
-  height: 16px;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  flex-shrink: 0 !important;
 }
 
 .theme-toggle .icon-moon { display: block; }
@@ -369,9 +394,14 @@ html.dark .theme-toggle .icon-sun {
 }
 
 .mobile-nav__link svg {
-  width: 15px;
-  height: 15px;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
   color: var(--text-muted);
+  flex-shrink: 0 !important;
 }
 
 @media (min-width: 1024px) {
@@ -476,8 +506,13 @@ main, #main-content {
 }
 
 .trust-item__icon svg {
-  width: 16px;
-  height: 16px;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  flex-shrink: 0 !important;
 }
 
 .trust-item__content {
@@ -542,6 +577,8 @@ main, #main-content {
 .tool-grid-card__icon {
   width: 36px;
   height: 36px;
+  min-width: 36px;
+  min-height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -549,11 +586,17 @@ main, #main-content {
   border: 1px solid var(--border);
   color: var(--text-primary);
   border-radius: var(--radius-sm);
+  flex-shrink: 0;
 }
 
 .tool-grid-card__icon svg {
-  width: 18px;
-  height: 18px;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  max-width: 18px !important;
+  max-height: 18px !important;
+  flex-shrink: 0 !important;
 }
 
 .tool-grid-card__title {
@@ -580,9 +623,14 @@ main, #main-content {
 }
 
 .tool-grid-card__arrow svg {
-  width: 14px;
-  height: 14px;
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+  max-width: 14px !important;
+  max-height: 14px !important;
   transition: transform var(--transition-fast);
+  flex-shrink: 0 !important;
 }
 
 .tool-grid-card:hover .tool-grid-card__arrow svg {
@@ -691,10 +739,26 @@ main, #main-content {
   gap: 6px;
 }
 
-.footer-brand__name svg {
-  width: 18px;
-  height: 18px;
+.footer-brand__name svg,
+.footer-brand .site-logo svg {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  max-width: 18px !important;
+  max-height: 18px !important;
   color: var(--accent);
+  flex-shrink: 0 !important;
+}
+
+.footer-badge svg {
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+  max-width: 14px !important;
+  max-height: 14px !important;
+  flex-shrink: 0 !important;
 }
 
 .footer-brand__desc {

@@ -50,12 +50,18 @@ body {
 img,
 picture,
 video,
-canvas,
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 svg {
   display: inline-block;
   vertical-align: middle;
-  max-width: 100%;
-  height: auto;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
 }
 
 input,

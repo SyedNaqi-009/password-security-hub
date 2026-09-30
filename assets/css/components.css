@@ -23,9 +23,14 @@
 }
 
 .btn svg, .button svg {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  flex-shrink: 0 !important;
+  display: inline-block;
 }
 
 .btn:focus-visible, .button:focus-visible {
@@ -81,8 +86,13 @@
 }
 
 .btn--sm svg, .btn-sm svg {
-  width: 14px;
-  height: 14px;
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+  max-width: 14px !important;
+  max-height: 14px !important;
+  flex-shrink: 0 !important;
 }
 
 .btn--lg, .btn-lg {
@@ -109,8 +119,13 @@
 }
 
 .btn--icon svg, .btn-icon svg {
-  width: 18px;
-  height: 18px;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  max-width: 18px !important;
+  max-height: 18px !important;
+  flex-shrink: 0 !important;
 }
 
 .btn--full, .btn-full {
