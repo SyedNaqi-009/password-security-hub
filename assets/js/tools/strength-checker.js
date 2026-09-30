@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           if (warning) {
             const li = document.createElement('li');
             li.className = 'checklist__item checklist__item--fail';
-            li.textContent = `⚠️ Warning: ${warning}`;
+            li.textContent = `Warning: ${warning}`;
             patternsList.appendChild(li);
           }
           patterns.forEach(p => {

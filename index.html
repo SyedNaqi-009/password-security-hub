@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Password & Security Tools — 100% Private | Password Security Hub</title>
-  <meta name="description" content="Generate strong passwords, check password strength, create passphrases, calculate entropy, and generate hashes. All tools run 100% locally in your browser.">
+  <title>Password Security Hub — Client-Side Security &amp; Cryptography Tools</title>
+  <meta name="description" content="Free, privacy-first, browser-based password and security utilities. Generate strong passwords, test entropy, verify NIST policies, and calculate cryptographic hashes locally.">
   <link rel="canonical" href="https://passwordsecurityhub.com/">
 
-  <!-- Open Graph / Facebook -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://passwordsecurityhub.com/">
-  <meta property="og:title" content="Free Password & Security Tools — 100% Private">
-  <meta property="og:description" content="Generate strong passwords, check password strength, create passphrases, calculate entropy, and generate hashes. All tools run 100% locally in your browser.">
+  <meta property="og:title" content="Password Security Hub — Client-Side Security Tools">
+  <meta property="og:description" content="Generate strong passwords, test entropy, verify policies, and compute hashes with 100% client-side privacy.">
   <meta property="og:image" content="https://passwordsecurityhub.com/assets/images/og-image.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://passwordsecurityhub.com/">
-  <meta property="twitter:title" content="Free Password & Security Tools — 100% Private">
-  <meta property="twitter:description" content="Generate strong passwords, check password strength, create passphrases, calculate entropy, and generate hashes. All tools run 100% locally in your browser.">
+  <meta property="twitter:title" content="Password Security Hub — Client-Side Security Tools">
+  <meta property="twitter:description" content="Generate strong passwords, test entropy, verify policies, and compute hashes with 100% client-side privacy.">
   <meta property="twitter:image" content="https://passwordsecurityhub.com/assets/images/og-image.png">
 
-  <!-- Fonts & Icons -->
+  <!-- Icons & Fonts -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="manifest" href="/manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="/assets/css/layout.css">
   <link rel="stylesheet" href="/assets/css/themes.css">
 
-  <!-- JSON-LD Structured Data -->
+  <!-- JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -43,38 +43,25 @@
         "@type": "WebSite",
         "name": "Password Security Hub",
         "url": "https://passwordsecurityhub.com/",
-        "description": "Free, privacy-first, browser-based password and security suite.",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://passwordsecurityhub.com/pages/password-generator.html",
-          "query-input": "required name=search_term_string"
-        }
+        "description": "Client-side password and security suite."
       },
       {
         "@type": "FAQPage",
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "Is Password Security Hub really 100% private?",
+            "name": "Are calculations completely client-side?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Every computation runs 100% client-side in your browser using the Web Crypto API. No passwords, hashes, or inputs ever leave your device."
+              "text": "Yes. All generation, hashing, and policy checks run strictly within your local browser runtime via the Web Crypto API."
             }
           },
           {
             "@type": "Question",
-            "name": "Does Password Security Hub work offline?",
+            "name": "Does this tool work without an active internet connection?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Password Security Hub is a Progressive Web App (PWA) with complete offline caching so you can generate and check passwords without an internet connection."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How long should a strong password be?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Modern cybersecurity guidelines recommend at least 16 characters with a mixture of uppercase letters, lowercase letters, numbers, and symbols."
+              "text": "Yes. The site installs a Service Worker providing full offline functionality once cached."
             }
           }
         ]
@@ -97,25 +84,55 @@
         <span>Password Security Hub</span>
       </a>
 
-      <!-- Desktop Nav -->
+      <!-- Desktop Navigation -->
       <nav class="desktop-nav" aria-label="Main Navigation">
-        <a href="/index.html" class="nav-link">Home</a>
+        <a href="/index.html" class="nav-link active">Home</a>
         <div class="nav-dropdown">
           <button type="button" class="nav-dropdown__trigger" aria-haspopup="true" aria-expanded="false">
             <span>Tools</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="nav-dropdown__menu">
-            <a href="/pages/password-generator.html" class="nav-dropdown__item">🔑 Password Generator</a>
-            <a href="/pages/password-strength-checker.html" class="nav-dropdown__item">🛡️ Strength Checker</a>
-            <a href="/pages/passphrase-generator.html" class="nav-dropdown__item">🎲 Passphrase Generator</a>
-            <a href="/pages/pin-generator.html" class="nav-dropdown__item">🔢 PIN Generator</a>
-            <a href="/pages/username-generator.html" class="nav-dropdown__item">👤 Username Generator</a>
-            <a href="/pages/password-entropy-calculator.html" class="nav-dropdown__item">📊 Entropy Calculator</a>
-            <a href="/pages/password-policy-checker.html" class="nav-dropdown__item">📋 Policy Checker</a>
-            <a href="/pages/hash-generator.html" class="nav-dropdown__item">⚡ Hash Generator</a>
-            <a href="/pages/bulk-password-generator.html" class="nav-dropdown__item">📦 Bulk Generator</a>
-            <a href="/pages/security-code-generator.html" class="nav-dropdown__item">🔐 Security Codes</a>
+            <a href="/pages/password-generator.html" class="nav-dropdown__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>
+              <span>Password Generator</span>
+            </a>
+            <a href="/pages/password-strength-checker.html" class="nav-dropdown__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Strength Checker</span>
+            </a>
+            <a href="/pages/passphrase-generator.html" class="nav-dropdown__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M8 8h.01"/><path d="M12 12h.01"/><path d="M16 16h.01"/></svg>
+              <span>Passphrase Generator</span>
+            </a>
+            <a href="/pages/pin-generator.html" class="nav-dropdown__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M10 8h4"/><path d="M12 8v8"/></svg>
+              <span>PIN Generator</span>
+            </a>
+            <a href="/pages/username-generator.html" class="nav-dropdown__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+              <span>Username Generator</span>
+            </a>
+            <a href="/pages/password-entropy-calculator.html" class="nav-dropdown__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <span>Entropy Calculator</span>
+            </a>
+            <a href="/pages/password-policy-checker.html" class="nav-dropdown__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              <span>Policy Checker</span>
+            </a>
+            <a href="/pages/hash-generator.html" class="nav-dropdown__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h16"/><path d="M4 15h16"/><path d="M10 3 8 21"/><path d="M16 3l-2 18"/></svg>
+              <span>Hash Generator</span>
+            </a>
+            <a href="/pages/bulk-password-generator.html" class="nav-dropdown__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v16"/></svg>
+              <span>Bulk Generator</span>
+            </a>
+            <a href="/pages/security-code-generator.html" class="nav-dropdown__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg>
+              <span>Security Codes</span>
+            </a>
           </div>
         </div>
         <a href="/blog/index.html" class="nav-link">Blog</a>
@@ -124,7 +141,7 @@
         <a href="/pages/contact.html" class="nav-link">Contact</a>
       </nav>
 
-      <!-- Actions -->
+      <!-- Header Actions -->
       <div class="header-actions">
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
@@ -139,35 +156,35 @@
     </div>
   </header>
 
-  <!-- Mobile Navigation Drawer -->
+  <!-- Mobile Drawer -->
   <div id="mobile-nav-backdrop" class="mobile-nav__backdrop"></div>
   <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile Navigation">
     <div class="mobile-nav-header">
-      <span class="mobile-nav-title">Menu</span>
+      <span class="mobile-nav-title">Navigation</span>
       <button class="close-mobile-nav" id="close-mobile-nav" aria-label="Close menu" type="button">✕</button>
     </div>
     <div class="mobile-nav__section">
-      <a href="/index.html" class="mobile-nav__link">🏠 Home</a>
-      <a href="/blog/index.html" class="mobile-nav__link">📰 Security Blog</a>
+      <a href="/index.html" class="mobile-nav__link">Home</a>
+      <a href="/blog/index.html" class="mobile-nav__link">Security Blog</a>
     </div>
     <div class="mobile-nav__section">
       <div class="mobile-nav__title">Security Tools</div>
-      <a href="/pages/password-generator.html" class="mobile-nav__link">🔑 Password Generator</a>
-      <a href="/pages/password-strength-checker.html" class="mobile-nav__link">🛡️ Strength Checker</a>
-      <a href="/pages/passphrase-generator.html" class="mobile-nav__link">🎲 Passphrase Generator</a>
-      <a href="/pages/pin-generator.html" class="mobile-nav__link">🔢 PIN Generator</a>
-      <a href="/pages/username-generator.html" class="mobile-nav__link">👤 Username Generator</a>
-      <a href="/pages/password-entropy-calculator.html" class="mobile-nav__link">📊 Entropy Calculator</a>
-      <a href="/pages/password-policy-checker.html" class="mobile-nav__link">📋 Policy Checker</a>
-      <a href="/pages/hash-generator.html" class="mobile-nav__link">⚡ Hash Generator</a>
-      <a href="/pages/bulk-password-generator.html" class="mobile-nav__link">📦 Bulk Generator</a>
-      <a href="/pages/security-code-generator.html" class="mobile-nav__link">🔐 Security Codes</a>
+      <a href="/pages/password-generator.html" class="mobile-nav__link">Password Generator</a>
+      <a href="/pages/password-strength-checker.html" class="mobile-nav__link">Strength Checker</a>
+      <a href="/pages/passphrase-generator.html" class="mobile-nav__link">Passphrase Generator</a>
+      <a href="/pages/pin-generator.html" class="mobile-nav__link">PIN Generator</a>
+      <a href="/pages/username-generator.html" class="mobile-nav__link">Username Generator</a>
+      <a href="/pages/password-entropy-calculator.html" class="mobile-nav__link">Entropy Calculator</a>
+      <a href="/pages/password-policy-checker.html" class="mobile-nav__link">Policy Checker</a>
+      <a href="/pages/hash-generator.html" class="mobile-nav__link">Hash Generator</a>
+      <a href="/pages/bulk-password-generator.html" class="mobile-nav__link">Bulk Generator</a>
+      <a href="/pages/security-code-generator.html" class="mobile-nav__link">Security Codes</a>
     </div>
     <div class="mobile-nav__section">
-      <div class="mobile-nav__title">Company</div>
+      <div class="mobile-nav__title">Information</div>
       <a href="/pages/about.html" class="mobile-nav__link">About Us</a>
       <a href="/pages/faq.html" class="mobile-nav__link">FAQ</a>
-      <a href="/pages/contact.html" class="mobile-nav__link">Contact Support</a>
+      <a href="/pages/contact.html" class="mobile-nav__link">Contact</a>
       <a href="/pages/privacy-policy.html" class="mobile-nav__link">Privacy Policy</a>
       <a href="/pages/terms-of-service.html" class="mobile-nav__link">Terms of Service</a>
     </div>
@@ -179,123 +196,166 @@
       
       <!-- Hero Section -->
       <section class="hero">
-        <span class="badge badge--success mb-md">🔒 100% Client-Side Privacy</span>
-        <h1 class="hero__title">Free Password &amp; Security Tools</h1>
+        <span class="badge badge--info mb-sm">Web Crypto Standard</span>
+        <h1 class="hero__title">Client-Side Password &amp; Security Tools</h1>
         <p class="hero__subtitle">
-          Generate, audit, and analyze cryptographically strong credentials locally in your browser. Your data never leaves your device.
+          Generate, audit, and analyze cryptographically secure credentials directly in your browser. No data transmission, no tracking, zero telemetry.
         </p>
-        <div class="flex justify-center gap-md" style="flex-wrap: wrap;">
-          <a href="/pages/password-generator.html" class="btn btn--primary btn--lg">Generate a Strong Password →</a>
-          <a href="/pages/password-strength-checker.html" class="btn btn--secondary btn--lg">Check Password Strength</a>
+        <div class="flex justify-center gap-sm" style="flex-wrap: wrap;">
+          <a href="/pages/password-generator.html" class="btn btn--primary btn--lg">Generate Password</a>
+          <a href="/pages/password-strength-checker.html" class="btn btn--secondary btn--lg">Check Strength</a>
         </div>
       </section>
 
       <!-- Trust Bar -->
       <div class="trust-bar">
         <div class="trust-item">
-          <div class="trust-item__icon">🔒</div>
-          <div class="trust-item__text">100% Client-Side</div>
+          <div class="trust-item__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="trust-item__content">
+            <span class="trust-item__title">Client-Side Execution</span>
+            <span class="trust-item__desc">Computed locally in memory</span>
+          </div>
         </div>
+
         <div class="trust-item">
-          <div class="trust-item__icon">🚫</div>
-          <div class="trust-item__text">No Data Stored</div>
+          <div class="trust-item__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+          </div>
+          <div class="trust-item__content">
+            <span class="trust-item__title">Zero Data Retention</span>
+            <span class="trust-item__desc">No server logs or cookies</span>
+          </div>
         </div>
+
         <div class="trust-item">
-          <div class="trust-item__icon">⚡</div>
-          <div class="trust-item__text">Works Offline (PWA)</div>
+          <div class="trust-item__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div class="trust-item__content">
+            <span class="trust-item__title">Offline Compatible</span>
+            <span class="trust-item__desc">Full PWA service worker</span>
+          </div>
         </div>
+
         <div class="trust-item">
-          <div class="trust-item__icon">🌙</div>
-          <div class="trust-item__text">Dark &amp; Light Themes</div>
+          <div class="trust-item__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/></svg>
+          </div>
+          <div class="trust-item__content">
+            <span class="trust-item__title">CSPRNG Powered</span>
+            <span class="trust-item__desc">Kernel entropy sources</span>
+          </div>
         </div>
       </div>
 
       <!-- Tools Grid -->
       <section class="section">
         <div class="text-center mb-xl">
-          <h2 class="h1">Comprehensive Security Toolkit</h2>
-          <p>Ten free, high-performance tools built for everyday users, developers, and security professionals.</p>
+          <h2>Security Utilities Suite</h2>
+          <p>Ten lightweight, specialized tools for developers, systems administrators, and privacy-conscious users.</p>
         </div>
 
         <div class="tools-grid">
           <!-- Tool 1 -->
           <a href="/pages/password-generator.html" class="tool-grid-card">
-            <div class="tool-grid-card__icon">🔑</div>
+            <div class="tool-grid-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>
+            </div>
             <div class="tool-grid-card__title">Password Generator</div>
-            <div class="tool-grid-card__desc">Generate cryptographically secure passwords with custom lengths, charsets, and rules.</div>
-            <span class="tool-grid-card__arrow">Launch Tool →</span>
+            <div class="tool-grid-card__desc">Configurable lengths, character sets, and ambiguous character exclusions with live entropy metrics.</div>
+            <span class="tool-grid-card__arrow">Open Tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
           </a>
 
           <!-- Tool 2 -->
           <a href="/pages/password-strength-checker.html" class="tool-grid-card">
-            <div class="tool-grid-card__icon">🛡️</div>
+            <div class="tool-grid-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
             <div class="tool-grid-card__title">Strength Checker</div>
-            <div class="tool-grid-card__desc">Real-time password analysis with zxcvbn, brute-force crack times, and actionable tips.</div>
-            <span class="tool-grid-card__arrow">Launch Tool →</span>
+            <div class="tool-grid-card__desc">Multi-variable password analysis utilizing Dropbox's zxcvbn model for pattern and dictionary discovery.</div>
+            <span class="tool-grid-card__arrow">Open Tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
           </a>
 
           <!-- Tool 3 -->
           <a href="/pages/passphrase-generator.html" class="tool-grid-card">
-            <div class="tool-grid-card__icon">🎲</div>
+            <div class="tool-grid-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M8 8h.01"/><path d="M12 12h.01"/><path d="M16 16h.01"/></svg>
+            </div>
             <div class="tool-grid-card__title">Passphrase Generator</div>
-            <div class="tool-grid-card__desc">Create memorable Diceware passphrases using the official 7,776-word EFF wordlist.</div>
-            <span class="tool-grid-card__arrow">Launch Tool →</span>
+            <div class="tool-grid-card__desc">Generates human-memorable credentials via the curated 7,776-word EFF Diceware wordlist.</div>
+            <span class="tool-grid-card__arrow">Open Tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
           </a>
 
           <!-- Tool 4 -->
           <a href="/pages/pin-generator.html" class="tool-grid-card">
-            <div class="tool-grid-card__icon">🔢</div>
-            <div class="tool-grid-card__title">Random PIN Generator</div>
-            <div class="tool-grid-card__desc">Generate secure numeric PINs for banking, devices, and 2FA with anti-pattern filters.</div>
-            <span class="tool-grid-card__arrow">Launch Tool →</span>
+            <div class="tool-grid-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M10 8h4"/><path d="M12 8v8"/></svg>
+            </div>
+            <div class="tool-grid-card__title">PIN Generator</div>
+            <div class="tool-grid-card__desc">Random numeric sequence generator with anti-sequential and repetition avoidance filters.</div>
+            <span class="tool-grid-card__arrow">Open Tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
           </a>
 
           <!-- Tool 5 -->
           <a href="/pages/username-generator.html" class="tool-grid-card">
-            <div class="tool-grid-card__icon">👤</div>
+            <div class="tool-grid-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+            </div>
             <div class="tool-grid-card__title">Username Generator</div>
-            <div class="tool-grid-card__desc">Generate creative usernames for gaming, professional branding, and social platforms.</div>
-            <span class="tool-grid-card__arrow">Launch Tool →</span>
+            <div class="tool-grid-card__desc">Categorized alias generation across professional, gaming, and generic naming conventions.</div>
+            <span class="tool-grid-card__arrow">Open Tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
           </a>
 
           <!-- Tool 6 -->
           <a href="/pages/password-entropy-calculator.html" class="tool-grid-card">
-            <div class="tool-grid-card__icon">📊</div>
+            <div class="tool-grid-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+            </div>
             <div class="tool-grid-card__title">Entropy Calculator</div>
-            <div class="tool-grid-card__desc">Calculate password information entropy (bits) and test enterprise password policies.</div>
-            <span class="tool-grid-card__arrow">Launch Tool →</span>
+            <div class="tool-grid-card__desc">Calculates mathematical Shannon entropy in bits to evaluate brute-force resilience.</div>
+            <span class="tool-grid-card__arrow">Open Tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
           </a>
 
           <!-- Tool 7 -->
           <a href="/pages/password-policy-checker.html" class="tool-grid-card">
-            <div class="tool-grid-card__icon">📋</div>
+            <div class="tool-grid-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
             <div class="tool-grid-card__title">Policy Checker</div>
-            <div class="tool-grid-card__desc">Test passwords against NIST SP 800-63B, PCI DSS, HIPAA, and custom enterprise rules.</div>
-            <span class="tool-grid-card__arrow">Launch Tool →</span>
+            <div class="tool-grid-card__desc">Evaluates passwords against NIST SP 800-63B, PCI DSS, and HIPAA regulatory frameworks.</div>
+            <span class="tool-grid-card__arrow">Open Tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
           </a>
 
           <!-- Tool 8 -->
           <a href="/pages/hash-generator.html" class="tool-grid-card">
-            <div class="tool-grid-card__icon">⚡</div>
-            <div class="tool-grid-card__title">Online Hash Generator</div>
-            <div class="tool-grid-card__desc">Generate MD5, SHA-1, SHA-256, SHA-384, and SHA-512 hashes from text or dropped files.</div>
-            <span class="tool-grid-card__arrow">Launch Tool →</span>
+            <div class="tool-grid-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h16"/><path d="M4 15h16"/><path d="M10 3 8 21"/><path d="M16 3l-2 18"/></svg>
+            </div>
+            <div class="tool-grid-card__title">Hash Generator</div>
+            <div class="tool-grid-card__desc">Computes MD5, SHA-1, SHA-256, SHA-384, and SHA-512 hashes for text and dropped files.</div>
+            <span class="tool-grid-card__arrow">Open Tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
           </a>
 
           <!-- Tool 9 -->
           <a href="/pages/bulk-password-generator.html" class="tool-grid-card">
-            <div class="tool-grid-card__icon">📦</div>
-            <div class="tool-grid-card__title">Bulk Password Generator</div>
-            <div class="tool-grid-card__desc">Provision up to 500 strong passwords at once with CSV and TXT export for IT teams.</div>
-            <span class="tool-grid-card__arrow">Launch Tool →</span>
+            <div class="tool-grid-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v16"/></svg>
+            </div>
+            <div class="tool-grid-card__title">Bulk Generator</div>
+            <div class="tool-grid-card__desc">Batch provision up to 500 credentials with instant CSV and TXT formatting exports.</div>
+            <span class="tool-grid-card__arrow">Open Tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
           </a>
 
           <!-- Tool 10 -->
           <a href="/pages/security-code-generator.html" class="tool-grid-card">
-            <div class="tool-grid-card__icon">🔐</div>
-            <div class="tool-grid-card__title">Security Code Generator</div>
-            <div class="tool-grid-card__desc">Generate OTP codes, alphanumeric tokens, hex keys, UUID v4, and base64 secrets.</div>
-            <span class="tool-grid-card__arrow">Launch Tool →</span>
+            <div class="tool-grid-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <div class="tool-grid-card__title">Security Codes</div>
+            <div class="tool-grid-card__desc">Creates numerical OTP tokens, hex keys, UUID v4 strings, and base64 credentials.</div>
+            <span class="tool-grid-card__arrow">Open Tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
           </a>
         </div>
       </section>
@@ -303,24 +363,24 @@
       <!-- How It Works -->
       <section class="section">
         <div class="text-center mb-lg">
-          <h2>How Password Security Hub Works</h2>
-          <p>Designed with zero server communication for maximum privacy and safety.</p>
+          <h2>Architecture &amp; Execution Model</h2>
+          <p>Designed strictly for local computation and verifiable security.</p>
         </div>
         <div class="steps">
           <div class="step">
-            <div class="step__number">1</div>
-            <div class="step__title">Choose Your Tool</div>
-            <div class="step__desc">Select from password generation, strength analysis, hashing, or policy testing.</div>
+            <div class="step__number">01</div>
+            <div class="step__title">Select Utility</div>
+            <div class="step__desc">Choose the appropriate tool for password creation, hashing, or policy auditing.</div>
           </div>
           <div class="step">
-            <div class="step__number">2</div>
-            <div class="step__title">Configure Options</div>
-            <div class="step__desc">Customize lengths, character sets, word counts, or policy rules to match your needs.</div>
+            <div class="step__number">02</div>
+            <div class="step__title">Local Processing</div>
+            <div class="step__desc">Parameters execute against browser-native Web Crypto APIs without server communication.</div>
           </div>
           <div class="step">
-            <div class="step__number">3</div>
-            <div class="step__title">Copy &amp; Use Safely</div>
-            <div class="step__desc">Copy credentials instantly to your clipboard. Nothing is logged or sent over the internet.</div>
+            <div class="step__number">03</div>
+            <div class="step__title">Clipboard Transfer</div>
+            <div class="step__desc">Copy credentials directly to your local password manager or application environment.</div>
           </div>
         </div>
       </section>
@@ -329,57 +389,37 @@
       <section class="section faq-section">
         <div class="text-center mb-lg">
           <h2>Frequently Asked Questions</h2>
-          <p>Everything you need to know about our privacy architecture and tools.</p>
+          <p>Common questions about client-side cryptography and operational privacy.</p>
         </div>
 
         <div class="accordion">
           <div class="accordion__item">
             <button class="accordion__trigger" aria-expanded="false" type="button">
-              <span>Is this password generator safe to use?</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              <span>Is password generation truly private?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
             </button>
             <div class="accordion__content">
-              Yes. Password Security Hub runs 100% in your browser using the native Web Crypto API (`crypto.getRandomValues()`). No passwords are ever sent to any server, recorded in logs, or stored in cookies.
+              Yes. All cryptographic operations run inside your browser session using <code>crypto.getRandomValues()</code>. No password data is sent over the network, saved in remote databases, or logged in analytics.
             </div>
           </div>
 
           <div class="accordion__item">
             <button class="accordion__trigger" aria-expanded="false" type="button">
-              <span>How long should my password be?</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              <span>What is the minimum recommended password length?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
             </button>
             <div class="accordion__content">
-              We recommend at least 16 characters for critical accounts (email, banking, password manager). 16 characters with mixed uppercase, lowercase, numbers, and symbols provides over 100 bits of entropy.
+              Modern security baselines recommend at least 16 characters for critical accounts. A 16-character alphanumeric and symbol password delivers over 100 bits of theoretical entropy.
             </div>
           </div>
 
           <div class="accordion__item">
             <button class="accordion__trigger" aria-expanded="false" type="button">
-              <span>Can I use these tools completely offline?</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              <span>Can this suite run without an active internet connection?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
             </button>
             <div class="accordion__content">
-              Yes! Password Security Hub includes a Service Worker that caches all wordlists, stylesheets, and JavaScript. Once loaded, you can turn off your Wi-Fi or airplane mode and use every tool offline.
-            </div>
-          </div>
-
-          <div class="accordion__item">
-            <button class="accordion__trigger" aria-expanded="false" type="button">
-              <span>What is password entropy?</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-            </button>
-            <div class="accordion__content">
-              Password entropy measures the unpredictability of a password in bits. Higher entropy means an attacker needs exponentially more guesses to crack the password via brute-force attacks.
-            </div>
-          </div>
-
-          <div class="accordion__item">
-            <button class="accordion__trigger" aria-expanded="false" type="button">
-              <span>What is the Diceware method for passphrases?</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-            </button>
-            <div class="accordion__content">
-              The Diceware method picks words at random from a curated dictionary (like the EFF large wordlist). A 4-to-6 word passphrase is very easy to memorize and type, yet exceptionally difficult for computers to crack.
+              Yes. Once loaded, the site's Service Worker caches the interface, stylesheets, and wordlists for complete offline reliability.
             </div>
           </div>
         </div>
@@ -394,15 +434,12 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="footer-brand__name">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             Password Security Hub
           </div>
           <p class="footer-brand__desc">
-            Free, privacy-first security utilities. All computation runs 100% locally on your device.
+            Client-side cryptographic utilities. Designed for developers, administrators, and security professionals.
           </p>
-          <div class="footer-brand__badge">
-            🔒 Zero Server Storage Guaranteed
-          </div>
         </div>
 
         <div>
@@ -430,9 +467,9 @@
         <div>
           <div class="footer-col__title">Information</div>
           <div class="footer-col__links">
+            <a href="/blog/index.html" class="footer-col__link">Security Blog</a>
             <a href="/pages/about.html" class="footer-col__link">About Us</a>
             <a href="/pages/faq.html" class="footer-col__link">FAQ</a>
-            <a href="/pages/contact.html" class="footer-col__link">Contact Support</a>
             <a href="/pages/privacy-policy.html" class="footer-col__link">Privacy Policy</a>
             <a href="/pages/terms-of-service.html" class="footer-col__link">Terms of Service</a>
           </div>
@@ -440,17 +477,16 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2026 Password Security Hub. Built for open security and maximum privacy.</p>
+        <p>&copy; 2026 Password Security Hub. Client-side cryptographic processing.</p>
         <div class="flex gap-md">
-          <a href="/pages/privacy-policy.html">Privacy Policy</a>
+          <a href="/pages/privacy-policy.html">Privacy</a>
           <a href="/pages/terms-of-service.html">Terms</a>
-          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/pages/contact.html">Contact</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="/assets/js/app.js" defer></script>
 </body>
 </html>
