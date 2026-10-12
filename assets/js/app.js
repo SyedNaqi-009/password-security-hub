@@ -1,5 +1,6 @@
 /**
  * Password Security Hub — Global App JavaScript
+ * Cryptographic Workbench & Navigation Controller
  */
 (function() {
   'use strict';
@@ -99,6 +100,75 @@
     });
   }
 
+  // ===== Hero Interactive Quick-Key Sandbox =====
+  function initHeroQuickKey() {
+    const outputEl = document.getElementById('hero-quick-output');
+    const regenBtn = document.getElementById('hero-regen-btn');
+    const copyBtn = document.getElementById('hero-copy-btn');
+    if (!outputEl) return;
+
+    const charset = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*';
+
+    function generateQuickKey() {
+      if (!window.crypto || !window.crypto.getRandomValues) {
+        outputEl.textContent = 'qK7$vM9#pL2@wR5&xT8*';
+        return;
+      }
+      const array = new Uint32Array(20);
+      window.crypto.getRandomValues(array);
+      let key = '';
+      for (let i = 0; i < 20; i++) {
+        key += charset[array[i] % charset.length];
+      }
+      outputEl.textContent = key;
+    }
+
+    if (regenBtn) {
+      regenBtn.addEventListener('click', generateQuickKey);
+    }
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const text = outputEl.textContent;
+        if (!text || text.includes('Initializing')) return;
+        navigator.clipboard.writeText(text).then(() => {
+          const origHTML = copyBtn.innerHTML;
+          copyBtn.innerHTML = '✓ Copied!';
+          setTimeout(() => {
+            copyBtn.innerHTML = origHTML;
+          }, 1500);
+        }).catch(() => {
+          // fallback
+        });
+      });
+    }
+
+    generateQuickKey();
+  }
+
+  // ===== Interactive Tool Filtering =====
+  function initToolFilters() {
+    const filterTabs = document.querySelectorAll('#tool-filter-tabs .pill-btn');
+    const cards = document.querySelectorAll('.tools-grid .tool-grid-card');
+    if (!filterTabs.length || !cards.length) return;
+
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        filterTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const category = tab.getAttribute('data-filter');
+        cards.forEach(card => {
+          if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
   // ===== Service Worker Registration =====
   function initServiceWorker() {
     if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
@@ -116,6 +186,8 @@
     initMobileNav();
     initDropdowns();
     initAccordions();
+    initHeroQuickKey();
+    initToolFilters();
     initServiceWorker();
   }
 
