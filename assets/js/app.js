@@ -149,22 +149,42 @@
   // ===== Interactive Tool Filtering =====
   function initToolFilters() {
     const filterTabs = document.querySelectorAll('#tool-filter-tabs .pill-btn');
+    const clusterBlocks = document.querySelectorAll('.cluster-group .cluster-block');
     const cards = document.querySelectorAll('.tools-grid .tool-grid-card');
-    if (!filterTabs.length || !cards.length) return;
+    if (!filterTabs.length) return;
 
     filterTabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        filterTabs.forEach(t => t.classList.remove('active'));
+        filterTabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
         tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
 
         const category = tab.getAttribute('data-filter');
-        cards.forEach(card => {
-          if (category === 'all' || card.getAttribute('data-category') === category) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
+
+        // Filter Redesigned Modular Clusters
+        if (clusterBlocks.length) {
+          clusterBlocks.forEach(block => {
+            if (category === 'all' || block.getAttribute('data-category') === category) {
+              block.style.display = 'block';
+            } else {
+              block.style.display = 'none';
+            }
+          });
+        }
+
+        // Filter Legacy / Fallback Tool Grid Cards
+        if (cards.length) {
+          cards.forEach(card => {
+            if (category === 'all' || card.getAttribute('data-category') === category) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        }
       });
     });
   }

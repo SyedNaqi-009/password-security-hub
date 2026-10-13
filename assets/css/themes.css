@@ -1,75 +1,76 @@
 /* ==========================================================================
-   Password Security Hub — Cryptographic Workbench Theme System
-   Custom Color Token Architecture: Quantum Void Obsidian & Cryo-Cyan
+   Password Security Hub — Crimson Fortress / Blood Red Security Vault
+   Custom Color Token Architecture: Obsidian Black & Blood Crimson Fortress
    ========================================================================== */
 
 :root {
-  /* --- Light Theme (Technical Lab Archetype) --- */
-  --bg-primary: #F8FAFC;
+  /* --- Light Theme (Warm Stone & Crimson Bastion) --- */
+  --bg-primary: #FAFAF9;
   --bg-secondary: #FFFFFF;
-  --bg-tertiary: #F1F5F9;
+  --bg-tertiary: #F5F0EB;
   --bg-elevated: #FFFFFF;
-  --bg-glass: rgba(255, 255, 255, 0.85);
+  --bg-glass: rgba(250, 250, 249, 0.88);
   
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --text-muted: #64748B;
-  --text-inverted: #F8FAFC;
+  --text-primary: #1C1210;
+  --text-secondary: #5C4A42;
+  --text-muted: #8B7A72;
+  --text-inverted: #FAFAF9;
   
-  /* Brand Accent: Technical Cobalt Cyan */
-  --accent: #0284C7;
-  --accent-hover: #0369A1;
-  --accent-light: rgba(2, 132, 199, 0.08);
-  --accent-border: rgba(2, 132, 199, 0.25);
-  --accent-glow: 0 0 20px rgba(2, 132, 199, 0.18);
+  /* Brand Accent: Crimson Red Citadel */
+  --accent: #B91C1C;
+  --accent-hover: #991B1B;
+  --accent-light: rgba(185, 28, 28, 0.07);
+  --accent-border: rgba(185, 28, 28, 0.22);
+  --accent-glow: 0 0 20px rgba(185, 28, 28, 0.15);
   
   /* Cryptographic Telemetry & Status */
-  --success: #059669;
-  --success-light: rgba(5, 150, 105, 0.08);
-  --success-border: rgba(5, 150, 105, 0.25);
-  --warning: #D97706;
-  --warning-light: rgba(217, 119, 6, 0.08);
-  --warning-border: rgba(217, 119, 6, 0.25);
-  --danger: #E11D48;
-  --danger-light: rgba(225, 29, 72, 0.08);
-  --danger-border: rgba(225, 29, 72, 0.25);
+  --success: #15803D;
+  --success-light: rgba(21, 128, 61, 0.08);
+  --success-border: rgba(21, 128, 61, 0.25);
+  --warning: #B45309;
+  --warning-light: rgba(180, 83, 9, 0.08);
+  --warning-border: rgba(180, 83, 9, 0.25);
+  --danger: #DC2626;
+  --danger-light: rgba(220, 38, 38, 0.08);
+  --danger-border: rgba(220, 38, 38, 0.25);
   
   /* Hairline Borders & Matrix Grid */
-  --border: #CBD5E1;
-  --border-subtle: #E2E8F0;
-  --border-focus: #0284C7;
-  --grid-line: rgba(148, 163, 184, 0.08);
+  --border: #D6CEC7;
+  --border-subtle: #E8E2DB;
+  --border-focus: #B91C1C;
+  --grid-line: rgba(92, 74, 66, 0.06);
   
-  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 4px -1px rgba(15, 23, 42, 0.04);
-  --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.1), 0 4px 8px -2px rgba(15, 23, 42, 0.05);
-  --shadow-xl: 0 24px 38px -6px rgba(15, 23, 42, 0.12);
+  /* Warm Earth Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(28, 18, 16, 0.05);
+  --shadow-md: 0 4px 12px -2px rgba(28, 18, 16, 0.08), 0 2px 4px -1px rgba(28, 18, 16, 0.04);
+  --shadow-lg: 0 12px 24px -4px rgba(28, 18, 16, 0.1), 0 4px 8px -2px rgba(28, 18, 16, 0.05);
+  --shadow-xl: 0 24px 38px -6px rgba(28, 18, 16, 0.12);
 }
 
-/* --- Dark Theme (Quantum Void & Cryo-Cyan Security Enclave) --- */
+/* --- Dark Theme (Obsidian Red Enclave & Vivid Crimson Vault) --- */
 html.dark {
-  --bg-primary: #070A11;
-  --bg-secondary: #0D121F;
-  --bg-tertiary: #131A2B;
-  --bg-elevated: #161F33;
-  --bg-glass: rgba(13, 18, 31, 0.85);
+  --bg-primary: #0C0807;
+  --bg-secondary: #171110;
+  --bg-tertiary: #221A18;
+  --bg-elevated: #291F1D;
+  --bg-glass: rgba(23, 17, 16, 0.88);
   
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --text-inverted: #070A11;
+  --text-primary: #F5EDED;
+  --text-secondary: #A89892;
+  --text-muted: #7A6C66;
+  --text-inverted: #0C0807;
   
-  /* Brand Accent: Cryo-Cyan / Laser Precision */
-  --accent: #00F2FE;
-  --accent-hover: #38BDF8;
-  --accent-light: rgba(0, 242, 254, 0.1);
-  --accent-border: rgba(0, 242, 254, 0.3);
-  --accent-glow: 0 0 25px rgba(0, 242, 254, 0.25);
+  /* Brand Accent: Vivid Red / Kinetic Alert */
+  --accent: #EF4444;
+  --accent-hover: #F87171;
+  --accent-light: rgba(239, 68, 68, 0.12);
+  --accent-border: rgba(239, 68, 68, 0.3);
+  --accent-glow: 0 0 25px rgba(239, 68, 68, 0.25);
   
   /* Cryptographic Telemetry & Status */
-  --success: #10B981;
-  --success-light: rgba(16, 185, 129, 0.12);
-  --success-border: rgba(16, 185, 129, 0.3);
+  --success: #22C55E;
+  --success-light: rgba(34, 197, 94, 0.12);
+  --success-border: rgba(34, 197, 94, 0.3);
   --warning: #F59E0B;
   --warning-light: rgba(245, 158, 11, 0.12);
   --warning-border: rgba(245, 158, 11, 0.3);
@@ -78,40 +79,41 @@ html.dark {
   --danger-border: rgba(244, 63, 94, 0.3);
   
   /* Hairline Borders & Matrix Grid */
-  --border: rgba(56, 189, 248, 0.15);
+  --border: rgba(239, 68, 68, 0.15);
   --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-focus: #00F2FE;
-  --grid-line: rgba(56, 189, 248, 0.05);
+  --border-focus: #EF4444;
+  --grid-line: rgba(239, 68, 68, 0.04);
   
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 4px 14px -1px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(56, 189, 248, 0.1);
-  --shadow-lg: 0 14px 28px -4px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(56, 189, 248, 0.15);
-  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 30px rgba(0, 242, 254, 0.08);
+  /* Deep Obsidian Shadows with Crimson Aura */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 4px 14px -1px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(239, 68, 68, 0.12);
+  --shadow-lg: 0 14px 28px -4px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(239, 68, 68, 0.18);
+  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 35px rgba(239, 68, 68, 0.12);
 }
 
 /* System preference fallback */
 @media (prefers-color-scheme: dark) {
   html:not(.light) {
-    --bg-primary: #070A11;
-    --bg-secondary: #0D121F;
-    --bg-tertiary: #131A2B;
-    --bg-elevated: #161F33;
-    --bg-glass: rgba(13, 18, 31, 0.85);
+    --bg-primary: #0C0807;
+    --bg-secondary: #171110;
+    --bg-tertiary: #221A18;
+    --bg-elevated: #291F1D;
+    --bg-glass: rgba(23, 17, 16, 0.88);
     
-    --text-primary: #F8FAFC;
-    --text-secondary: #94A3B8;
-    --text-muted: #64748B;
-    --text-inverted: #070A11;
+    --text-primary: #F5EDED;
+    --text-secondary: #A89892;
+    --text-muted: #7A6C66;
+    --text-inverted: #0C0807;
     
-    --accent: #00F2FE;
-    --accent-hover: #38BDF8;
-    --accent-light: rgba(0, 242, 254, 0.1);
-    --accent-border: rgba(0, 242, 254, 0.3);
-    --accent-glow: 0 0 25px rgba(0, 242, 254, 0.25);
+    --accent: #EF4444;
+    --accent-hover: #F87171;
+    --accent-light: rgba(239, 68, 68, 0.12);
+    --accent-border: rgba(239, 68, 68, 0.3);
+    --accent-glow: 0 0 25px rgba(239, 68, 68, 0.25);
     
-    --success: #10B981;
-    --success-light: rgba(16, 185, 129, 0.12);
-    --success-border: rgba(16, 185, 129, 0.3);
+    --success: #22C55E;
+    --success-light: rgba(34, 197, 94, 0.12);
+    --success-border: rgba(34, 197, 94, 0.3);
     --warning: #F59E0B;
     --warning-light: rgba(245, 158, 11, 0.12);
     --warning-border: rgba(245, 158, 11, 0.3);
@@ -119,15 +121,15 @@ html.dark {
     --danger-light: rgba(244, 63, 94, 0.12);
     --danger-border: rgba(244, 63, 94, 0.3);
     
-    --border: rgba(56, 189, 248, 0.15);
+    --border: rgba(239, 68, 68, 0.15);
     --border-subtle: rgba(255, 255, 255, 0.06);
-    --border-focus: #00F2FE;
-    --grid-line: rgba(56, 189, 248, 0.05);
+    --border-focus: #EF4444;
+    --grid-line: rgba(239, 68, 68, 0.04);
     
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
-    --shadow-md: 0 4px 14px -1px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(56, 189, 248, 0.1);
-    --shadow-lg: 0 14px 28px -4px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(56, 189, 248, 0.15);
-    --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 30px rgba(0, 242, 254, 0.08);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.6);
+    --shadow-md: 0 4px 14px -1px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(239, 68, 68, 0.12);
+    --shadow-lg: 0 14px 28px -4px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(239, 68, 68, 0.18);
+    --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 35px rgba(239, 68, 68, 0.12);
   }
 }
 
